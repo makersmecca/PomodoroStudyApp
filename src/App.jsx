@@ -1,5 +1,10 @@
+import Timer from "./Components/Timer";
 function App() {
-  return <>Hi</>;
+  return (
+    <>
+      <Timer />
+    </>
+  );
 }
 
 export default App;
