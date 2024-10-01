@@ -11,13 +11,13 @@ const Timer = () => {
   };
 
   const resetTimerStatus = () => {
-    setResetTimer(true);
+    setResetTimer(() => !resetTimer);
   };
 
   useEffect(() => {
+    startTimer ? setStartTimer(false) : null;
     setSeconds(0);
     setMinutes(0);
-    setStartTimer(false);
     setResetTimer(false);
   }, [resetTimer]);
 
@@ -35,11 +35,14 @@ const Timer = () => {
   });
 
   return (
-    <>
-      {minutes}:{seconds}
-      <button onClick={timerStatus}>{startTimer ? "Pause" : "Start"}</button>
+    <div>
+      <div>
+        {minutes < 10 ? `0${minutes}` : minutes}:
+        {seconds < 10 ? `0${seconds}` : seconds}
+      </div>
+      <button onClick={timerStatus}>{startTimer ? "Pause" : "Start"}</button>{" "}
       <button onClick={resetTimerStatus}>Reset</button>
-    </>
+    </div>
   );
 };
 export default Timer;
