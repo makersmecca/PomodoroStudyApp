@@ -1,8 +1,10 @@
-import Timer from "./Components/Timer";
+import CustomTimer from "./Components/CustomTimer";
+import CountdownTimer from "./Components/CountdownTimer";
 function App() {
   return (
     <>
-      <Timer />
+      <CustomTimer />
+      <CountdownTimer />
     </>
   );
 }

@@ -51,7 +51,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 
-const Timer = () => {
+const CustomTimer = () => {
   const [timerState, setTimerState] = useState({
     isRunning: false,
     totalSeconds: 0,
@@ -103,4 +103,4 @@ const Timer = () => {
   );
 };
 
-export default Timer;
+export default CustomTimer;
