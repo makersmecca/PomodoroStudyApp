@@ -2,24 +2,25 @@ import React, { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const Breathe = ({ duration }) => {
-  const handleBreathingComplete = useCallback(() => {
-    console.log("Breathing exercise completed");
-    // Add any logic for when the breathing exercise is complete
-  }, []);
-
+const Breathe = () => {
   const [defaultDuration, setDefaultDuration] = useState(1 * 60); // 25 minutes in seconds
   const [timeLeft, setTimeLeft] = useState(defaultDuration);
   const [isRunning, setIsRunning] = useState(false);
+  const [breatheState, setBreatheState] = useState(true);
 
   useEffect(() => {
     let timer;
     if (isRunning && timeLeft > 0) {
       timer = setInterval(() => {
-        setTimeLeft((prevTime) => prevTime - 1);
+        setTimeLeft((prevTime) => {
+          const newTime = prevTime - 1;
+          newTime % 5 === 0 ? setBreatheState(!breatheState) : null;
+          return newTime;
+        });
       }, 1000);
     } else if (timeLeft === 0) {
       setIsRunning(false);
+      setBreatheState(true);
     }
 
     return () => clearInterval(timer);
@@ -74,20 +75,20 @@ const Breathe = ({ duration }) => {
         <h3>{formatTime(timeLeft)}</h3>
       </div>
       <div>
+        {isRunning ? (breatheState ? "Breathe In" : "Breathe Out") : ""}
+      </div>
+      <div>
         {!isRunning ? (
           <button onClick={handleStart}>Start</button>
         ) : (
           <button onClick={handlePause}>Pause</button>
         )}
         {isRunning || timeLeft != defaultDuration ? (
-          <button onClick={handleCancel}>Cancel</button>
+          <button onClick={handleCancel}>Done</button>
         ) : (
           ""
         )}
       </div>
-      <p>Duration: {duration} seconds</p>
-      {/* Add your breathing exercise content here */}
-      <button onClick={handleBreathingComplete}>Complete</button>
       <button>
         <Link to="/">Home</Link>
       </button>
