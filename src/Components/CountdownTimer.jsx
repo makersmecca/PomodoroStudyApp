@@ -91,6 +91,12 @@ const CountdownTimer = () => {
       <div>
         <Link to="/todo">ToDo</Link>
       </div>
+      <div>
+        <Link to="/stats">Stats</Link>
+      </div>
+      <div>
+        <Link to="/settings">Settings</Link>
+      </div>
     </div>
   );
 };
