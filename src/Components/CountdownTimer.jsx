@@ -49,7 +49,7 @@ const CountdownTimer = () => {
   };
 
   const handleDecrease = () => {
-    const newDuration = Math.max(defaultDuration - 5 * 60, 0); // Minimum 1 minute
+    const newDuration = Math.max(defaultDuration - 5 * 60, 0);
     setDefaultDuration(newDuration);
     if (!isRunning) {
       setTimeLeft(newDuration);
