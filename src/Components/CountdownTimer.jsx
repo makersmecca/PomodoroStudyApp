@@ -79,8 +79,18 @@ const CountdownTimer = () => {
           ""
         )}
       </div>
-      <Link to="/customtimer">Custom Timer</Link>
-      <Link to="/rest">Rest</Link>
+      <div>
+        <Link to="/customtimer">Custom Timer</Link>
+      </div>
+      <div>
+        <Link to="/rest">Rest</Link>
+      </div>
+      <div>
+        <Link to="/breathe">Breathe</Link>
+      </div>
+      <div>
+        <Link to="/todo">ToDo</Link>
+      </div>
     </div>
   );
 };
