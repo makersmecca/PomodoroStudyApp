@@ -73,9 +73,14 @@ const CountdownTimer = () => {
         ) : (
           <button onClick={handlePause}>Pause</button>
         )}
-        <button onClick={handleCancel}>Cancel</button>
+        {isRunning || timeLeft != defaultDuration ? (
+          <button onClick={handleCancel}>Cancel</button>
+        ) : (
+          ""
+        )}
       </div>
       <Link to="/customtimer">Custom Timer</Link>
+      <Link to="/rest">Rest</Link>
     </div>
   );
 };
