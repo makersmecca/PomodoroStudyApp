@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const CountdownTimer = () => {
   const [defaultDuration, setDefaultDuration] = useState(25 * 60); // 25 minutes in seconds
@@ -74,6 +75,7 @@ const CountdownTimer = () => {
         )}
         <button onClick={handleCancel}>Cancel</button>
       </div>
+      <Link to="/customtimer">Custom Timer</Link>
     </div>
   );
 };
