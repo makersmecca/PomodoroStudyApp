@@ -5,6 +5,7 @@ import Breathe from "./Components/Breathe";
 import Todo from "./Components/ToDo";
 import Stats from "./Components/Stats";
 import Settings from "./Components/Settings";
+import Authenticate from "./Components/Authenticate";
 
 import { Route, Routes } from "react-router-dom";
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <Route path="/todo" element={<Todo />} />
       <Route path="/stats" element={<Stats />} />
       <Route path="/settings" element={<Settings />} />
+      <Route path="/authenticate" element={<Authenticate />} />
     </Routes>
   );
 }
