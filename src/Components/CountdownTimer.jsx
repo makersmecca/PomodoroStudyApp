@@ -9,13 +9,6 @@ const CountdownTimer = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
 
-  // getAuth().onAuthStateChanged((user) => {
-  //   if (user) {
-  //     setAuth(user);
-  //   } else {
-  //     setAuth(null);
-  //   }
-  // });
   getAuth();
   onAuthStateChanged(auth, (user) => {
     if (user) {
