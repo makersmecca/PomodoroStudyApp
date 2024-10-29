@@ -1,10 +1,43 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { auth } from "../auth/firebaseAuth";
+import { onAuthStateChanged, getAuth } from "firebase/auth";
 
 const CountdownTimer = () => {
   const [defaultDuration, setDefaultDuration] = useState(25 * 60); // 25 minutes in seconds
   const [timeLeft, setTimeLeft] = useState(defaultDuration);
   const [isRunning, setIsRunning] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  // getAuth().onAuthStateChanged((user) => {
+  //   if (user) {
+  //     setAuth(user);
+  //   } else {
+  //     setAuth(null);
+  //   }
+  // });
+  getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log("User is signed in:", user.email);
+      setCurrentUser(user.email);
+    } else {
+      console.log("User is signed out");
+      setCurrentUser(null);
+    }
+  });
+
+  const handleSignOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        console.log("User signed out successfully");
+        setCurrentUser(null);
+      })
+      .catch((error) => {
+        console.error("Error signing out:", error);
+      });
+  };
 
   useEffect(() => {
     let timer;
@@ -56,9 +89,19 @@ const CountdownTimer = () => {
       setTimeLeft(newDuration);
     }
   };
-
   return (
     <div>
+      <h3>Countdown Timer</h3>
+      <div>
+        {currentUser != null ? (
+          <div>
+            {currentUser}
+            <button onClick={handleSignOut}>Sign Out</button>
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
       <div>
         <button onClick={handleDecrease}>-5 min</button>
         <span>{formatTime(defaultDuration)} </span>
