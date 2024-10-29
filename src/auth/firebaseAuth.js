@@ -15,4 +15,5 @@ Object.entries(firebaseConfig).forEach((value) => {
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+auth.useDeviceLanguage();
 export default app;
