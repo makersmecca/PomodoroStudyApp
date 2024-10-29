@@ -98,7 +98,10 @@ const CountdownTimer = () => {
         <Link to="/settings">Settings</Link>
       </div>
       <div>
-        <Link to="/authenticate">Register</Link>
+        <Link to="/SignUp">SignUp</Link>
+      </div>
+      <div>
+        <Link to="/LogIn">LogIn</Link>
       </div>
     </div>
   );
