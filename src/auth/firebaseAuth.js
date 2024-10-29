@@ -2,15 +2,17 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB5WQLLG43nzfF0OlXhDLGoT_7_6PuoYIY",
-  authDomain: "pomodoro-83eb9.firebaseapp.com",
-  projectId: "pomodoro-83eb9",
-  storageBucket: "pomodoro-83eb9.appspot.com",
-  messagingSenderId: "704281354541",
-  appId: "1:704281354541:web:477b38bbea5422d1d4b3a4",
+  apiKey: `${import.meta.env.VITE_FIREBASE_API_KEY}`,
+  authDomain: `${import.meta.env.VITE_FIREBASE_AUTH_DOMAIN}`,
+  projectId: `${import.meta.env.VITE_FIREBASE_PROJECT_ID}`,
+  storageBucket: `${import.meta.env.VITE_FIREBASE_STORAGE_BUCKET}`,
+  messagingSenderId: `${import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID}`,
+  appId: `${import.meta.env.VITE_FIREBASE_APP_ID}`,
 };
+Object.entries(firebaseConfig).forEach((value) => {
+  console.log(value);
+});
 
 const app = initializeApp(firebaseConfig);
-
 export const auth = getAuth(app);
 export default app;
