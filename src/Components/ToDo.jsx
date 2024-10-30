@@ -74,7 +74,6 @@ const ToDo = () => {
       //updating local state, list items
       const updateTodos = [...todos, { task: inputValue, completed: false }];
       setTodos(updateTodos);
-      setInputValue("");
 
       //convert todos array to firestore format
       const firestoreData = updateTodos.reduce((acc, todo) => {
@@ -86,6 +85,7 @@ const ToDo = () => {
       try {
         await setDoc(doc(db, "todos", userId), firestoreData);
         console.log("added data");
+        setInputValue("");
       } catch (err) {
         console.log(err);
       }
@@ -100,10 +100,15 @@ const ToDo = () => {
     <>
       <h3>Your Tasks</h3>
       <p>{userStatus ? userId : <Link to="/LogIn">Log in to continue</Link>}</p>
-      <input type="text" placeholder="Enter task" onChange={handleInput} />
+      <input
+        type="text"
+        placeholder="Enter task"
+        onChange={handleInput}
+        value={inputValue}
+      />
       <button onClick={handleAddTask}>add task</button>
       <div>
-        {userStatus ? (
+        {todos.length > 0 ? (
           <ul>
             {todos.map((todo, index) => (
               <li key={index}>
