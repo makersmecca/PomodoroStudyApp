@@ -14,7 +14,8 @@ import { auth } from "../auth/firebaseAuth";
 const ToDo = () => {
   getAuth();
   let userid = "";
-  const [userStatus, setUserStatus] = useState(false);
+  const [userStatus, setUserStatus] = useState(false); //set user sign in status
+  const [todos, setTodos] = useState([]); //set todo list from db
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -29,7 +30,6 @@ const ToDo = () => {
       }
     });
   }, []);
-  const [todos, setTodos] = useState([]);
 
   //push data to db
   const pushData = async () => {
@@ -49,12 +49,13 @@ const ToDo = () => {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      const data = docSnap.data();
+      const data = docSnap.data(); //storing fetched data
       const todoArray = Object.entries(data).map(([task, completed]) => ({
+        //used Object.entries to get both keys and values
         task,
         completed,
       }));
-      setTodos(todoArray);
+      setTodos(todoArray); //setting object fetched from db to state variable todoArray
       // console.log(docSnap.data());
       console.log("data from db", todoArray);
     } else {
@@ -86,16 +87,10 @@ const ToDo = () => {
             ))}
           </ul>
         ) : (
-          ""
+          "Loading..."
         )}
       </div>
-      {/* <ul>
-        {userStatus
-          ? dbData.map((item) => {
-              <li key={item.index}>{item}</li>;
-            })
-          : "Loading..."}
-      </ul> */}
+
       <button type="button" onClick={pushData}>
         add data
       </button>
