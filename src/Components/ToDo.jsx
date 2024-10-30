@@ -13,7 +13,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../auth/firebaseAuth";
 const ToDo = () => {
   getAuth();
-  let userid = "";
+  const [userId, setUserId] = useState("");
   const [userStatus, setUserStatus] = useState(false); //set user sign in status
   const [todos, setTodos] = useState([]); //set todo list from db
 
@@ -22,20 +22,19 @@ const ToDo = () => {
       if (user) {
         setUserStatus(true);
         console.log("User is signed in:", user.email);
-        userid = user.email;
+        setUserId(user.email);
         fetchData();
       } else {
         console.log("User is signed out");
-        userid = "";
+        setUserStatus(false);
+        setUserId("");
       }
     });
   }, []);
 
   //push data to db
   const pushData = async () => {
-    console.log(userid);
-
-    await setDoc(doc(collection(db, "todos"), userid), {
+    await setDoc(doc(collection(db, "todos"), userId), {
       listitem: false,
       listitem2: true,
     });
@@ -44,12 +43,14 @@ const ToDo = () => {
 
   //fetch data from DB
   async function fetchData() {
-    if (userid.length == 0) return;
-    const docRef = doc(db, "todos", userid);
+    if (userId.length === 0) return;
+
+    const docRef = doc(db, "todos", userId);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
       const data = docSnap.data(); //storing fetched data
+      console.log(data);
       const todoArray = Object.entries(data).map(([task, completed]) => ({
         //used Object.entries to get both keys and values
         task,
@@ -69,13 +70,7 @@ const ToDo = () => {
   return (
     <>
       <h3>Your Tasks</h3>
-      <p>
-        {userid.length > 0 ? (
-          <Link to="/LogIn">Log in to continue</Link>
-        ) : (
-          userid
-        )}
-      </p>
+      <p>{userStatus ? userId : <Link to="/LogIn">Log in to continue</Link>}</p>
 
       <div>
         {userStatus ? (
