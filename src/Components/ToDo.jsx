@@ -16,6 +16,7 @@ const ToDo = () => {
   const [userId, setUserId] = useState("");
   const [userStatus, setUserStatus] = useState(false); //set user sign in status
   const [todos, setTodos] = useState([]); //set todo list from db
+  const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -64,6 +65,14 @@ const ToDo = () => {
     }
   }
 
+  const handleInput = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleAddTask = () => {
+    setTodos([...todos, { task: inputValue, completed: false }]);
+    setInputValue("");
+  };
   console.log(todos);
   // console.log(dbData);
 
@@ -71,7 +80,8 @@ const ToDo = () => {
     <>
       <h3>Your Tasks</h3>
       <p>{userStatus ? userId : <Link to="/LogIn">Log in to continue</Link>}</p>
-
+      <input type="text" placeholder="Enter task" onChange={handleInput} />
+      <button onClick={handleAddTask}>add task</button>
       <div>
         {userStatus ? (
           <ul>
@@ -85,7 +95,6 @@ const ToDo = () => {
           "Loading..."
         )}
       </div>
-
       <button type="button" onClick={pushData}>
         add data
       </button>
