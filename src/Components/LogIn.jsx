@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import { auth } from "../auth/firebaseAuth";
+const provider = new GoogleAuthProvider();
 
 const LogIn = () => {
   const Navigate = useNavigate();
@@ -43,6 +48,22 @@ const LogIn = () => {
         console.log(err.message);
       });
   };
+
+  const handleGoogleSignIn = () => {
+    console.log("signing up with google");
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        const user = result.user;
+        console.log(user);
+        console.log(token);
+        Navigate("/");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
   return (
     <>
       <form>
@@ -67,7 +88,9 @@ const LogIn = () => {
           Log In
         </button>
       </form>
-
+      <button type="button" onClick={handleGoogleSignIn}>
+        Continue with Google
+      </button>
       <button>
         <Link to="/">Home</Link>
       </button>
