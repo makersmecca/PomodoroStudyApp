@@ -31,19 +31,19 @@ const ToDo = () => {
         setUserId("");
       }
     });
-  }, []);
+  }, [userStatus]);
 
-  //push data to db
-  const pushData = async () => {
-    await setDoc(doc(collection(db, "todos"), userId), {
-      listitem: false,
-      listitem2: true,
-    });
-    console.log("added data");
-  };
+  //test push data to db
+  // const pushData = async () => {
+  //   await setDoc(doc(collection(db, "todos"), userId), {
+  //     listitem: false,
+  //     listitem2: true,
+  //   });
+  //   console.log("added data");
+  // };
 
   //fetch data from DB
-  async function fetchData() {
+  const fetchData = async () => {
     if (userId.length === 0) return;
 
     const docRef = doc(db, "todos", userId);
@@ -63,15 +63,35 @@ const ToDo = () => {
     } else {
       console.log("nopes");
     }
-  }
+  };
 
   const handleInput = (event) => {
     setInputValue(event.target.value);
   };
 
-  const handleAddTask = () => {
-    setTodos([...todos, { task: inputValue, completed: false }]);
-    setInputValue("");
+  const handleAddTask = async () => {
+    if (inputValue.trim() !== "") {
+      //updating local state, list items
+      const updateTodos = [...todos, { task: inputValue, completed: false }];
+      setTodos(updateTodos);
+      setInputValue("");
+
+      //convert todos array to firestore format
+      const firestoreData = updateTodos.reduce((acc, todo) => {
+        acc[todo.task] = todo.completed;
+        return acc;
+      }, {});
+
+      //pushing to firestore
+      try {
+        await setDoc(doc(db, "todos", userId), firestoreData);
+        console.log("added data");
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    // setTodos([...todos, { task: inputValue, completed: false }]);
+    // setInputValue("");
   };
   console.log(todos);
   // console.log(dbData);
@@ -95,9 +115,9 @@ const ToDo = () => {
           "Loading..."
         )}
       </div>
-      <button type="button" onClick={pushData}>
+      {/* <button type="button" onClick={pushData}>
         add data
-      </button>
+      </button> */}
       <button>
         <Link to="/">Home</Link>
       </button>
