@@ -1,71 +1,40 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import { db } from "../auth/firebaseAuth";
+import { useEffect } from "react";
+import {
+  collection,
+  doc,
+  setDoc,
+  getDoc,
+  onSnapshot,
+} from "firebase/firestore";
+const ToDo = () => {
+  const [todos, setTodos] = useState([]);
 
-const Todo = () => {
-  const [tasks, setTasks] = useState([]);
-  const [newTask, setNewTask] = useState("");
+  useEffect(() => {
+    async function fetchData() {
+      const docRef = doc(db, "todos", "userid2");
+      const docSnap = await getDoc(docRef);
 
-  const handleInputChange = (e) => {
-    setNewTask(e.target.value);
-  };
-
-  const handleAddTask = (e) => {
-    e.preventDefault();
-    if (newTask.trim() !== "") {
-      setTasks([...tasks, { id: Date.now(), text: newTask, completed: false }]);
-      setNewTask("");
+      if (docSnap.exists()) {
+        console.log(docSnap.data());
+      } else {
+        console.log("nopes");
+      }
     }
-  };
-
-  const handleToggleComplete = (taskId) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === taskId ? { ...task, completed: !task.completed } : task
-      )
-    );
-  };
-
-  const handleRemoveTask = (taskId) => {
-    setTasks(tasks.filter((task) => task.id !== taskId));
-  };
+    fetchData();
+  }, []);
+  console.log(todos);
 
   return (
-    <div>
-      <h2>To-Do List</h2>
-      <form onSubmit={handleAddTask}>
-        <input
-          type="text"
-          value={newTask}
-          onChange={handleInputChange}
-          placeholder="Enter a new task"
-        />
-        <button type="submit">Add Task</button>
-      </form>
-      <ul>
-        {tasks.map((task) => (
-          <li key={task.id}>
-            <input
-              type="checkbox"
-              checked={task.completed}
-              onChange={() => handleToggleComplete(task.id)}
-            />
-            <span
-              style={{
-                textDecoration: task.completed ? "line-through" : "none",
-              }}
-            >
-              {task.text}
-            </span>
-            <button onClick={() => handleRemoveTask(task.id)}>Remove</button>
-          </li>
-        ))}
-      </ul>
-
+    <>
+      <h3>Your Tasks</h3>
       <button>
         <Link to="/">Home</Link>
       </button>
-    </div>
+    </>
   );
 };
 
-export default Todo;
+export default ToDo;
