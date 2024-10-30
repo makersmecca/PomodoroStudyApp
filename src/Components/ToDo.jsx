@@ -17,7 +17,7 @@ const ToDo = () => {
   const [userStatus, setUserStatus] = useState(false); //set user sign in status
   const [todos, setTodos] = useState([]); //set todo list from db
   const [inputValue, setInputValue] = useState("");
-
+  const [idLoading, setIsLoading] = useState(true);
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -46,22 +46,29 @@ const ToDo = () => {
   const fetchData = async () => {
     if (userId.length === 0) return;
 
-    const docRef = doc(db, "todos", userId);
-    const docSnap = await getDoc(docRef);
+    setIsLoading(true);
+    try {
+      const docRef = doc(db, "todos", userId);
+      const docSnap = await getDoc(docRef);
 
-    if (docSnap.exists()) {
-      const data = docSnap.data(); //storing fetched data
-      console.log(data);
-      const todoArray = Object.entries(data).map(([task, completed]) => ({
-        //used Object.entries to get both keys and values
-        task,
-        completed,
-      }));
-      setTodos(todoArray); //setting object fetched from db to state variable todoArray
-      // console.log(docSnap.data());
-      console.log("data from db", todoArray);
-    } else {
-      console.log("nopes");
+      if (docSnap.exists()) {
+        const data = docSnap.data(); //storing fetched data
+        // console.log(data);
+        const todoArray = Object.entries(data).map(([task, completed]) => ({
+          //used Object.entries to get both keys and values
+          task,
+          completed,
+        }));
+        setTodos(todoArray); //setting object fetched from db to state variable todoArray
+        // console.log(docSnap.data());
+        console.log("data from db", todoArray);
+      } else {
+        console.log("nopes");
+      }
+    } catch (err) {
+      console.log("Error fetching todos:", err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -71,18 +78,16 @@ const ToDo = () => {
 
   const handleAddTask = async () => {
     if (inputValue.trim() !== "") {
-      //updating local state, list items
-      const updateTodos = [...todos, { task: inputValue, completed: false }];
-      setTodos(updateTodos);
-
-      //convert todos array to firestore format
-      const firestoreData = updateTodos.reduce((acc, todo) => {
-        acc[todo.task] = todo.completed;
-        return acc;
-      }, {});
-
-      //pushing to firestore
       try {
+        const updateTodos = [...todos, { task: inputValue, completed: false }];
+        //updating local state, list items
+        setTodos(updateTodos);
+        //convert todos array to firestore format
+        const firestoreData = updateTodos.reduce((acc, todo) => {
+          acc[todo.task] = todo.completed;
+          return acc;
+        }, {});
+        //pushing to firestore
         await setDoc(doc(db, "todos", userId), firestoreData);
         console.log("added data");
         setInputValue("");
@@ -93,6 +98,42 @@ const ToDo = () => {
     // setTodos([...todos, { task: inputValue, completed: false }]);
     // setInputValue("");
   };
+
+  //deleting task and updating db
+  const handleDeleteTask = async (index) => {
+    const updateTodos = todos.filter((_, i) => i !== index);
+    setTodos(updateTodos);
+
+    const firestoreData = updateTodos.reduce((acc, todo) => {
+      acc[todo.task] = todo.completed;
+      return acc;
+    }, {});
+
+    try {
+      await setDoc(doc(db, "todos", userId), firestoreData);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleToggleComplete = async (index) => {
+    const updatedTodos = todos.map((todo, i) =>
+      i === index ? { ...todo, completed: !todo.completed } : todo
+    );
+    setTodos(updatedTodos);
+
+    const firestoreData = updatedTodos.reduce((acc, todo) => {
+      acc[todo.task] = todo.completed;
+      return acc;
+    }, {});
+
+    try {
+      await setDoc(doc(db, "todos", userId), firestoreData);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   console.log(todos);
   // console.log(dbData);
 
@@ -112,7 +153,22 @@ const ToDo = () => {
           <ul>
             {todos.map((todo, index) => (
               <li key={index}>
-                {todo.task} : {todo.completed ? "Completed" : "Not Completed"}
+                <input
+                  type="checkbox"
+                  checked={todo.completed}
+                  onChange={() => handleToggleComplete(index)}
+                />
+                {/* {todo.task} : {todo.completed ? "Completed" : "Not Completed"} */}
+                <span
+                  style={{
+                    textDecoration: todo.completed ? "line-through" : "none",
+                  }}
+                >
+                  {todo.task}
+                  <button onClick={() => handleDeleteTask(index)}>
+                    Delete
+                  </button>
+                </span>
               </li>
             ))}
           </ul>
