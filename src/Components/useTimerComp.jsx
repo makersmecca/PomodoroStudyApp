@@ -1,6 +1,6 @@
 //a common timer component is to be written here
 import { useState, useEffect } from "react";
-const TimerComp = ({
+const useTimerComp = ({
   initialMinutes = 25,
   incrementMinutes = 5,
   minimumMinutes = 1,
@@ -83,4 +83,4 @@ const TimerComp = ({
   };
 };
 
-export default TimerComp;
+export default useTimerComp;

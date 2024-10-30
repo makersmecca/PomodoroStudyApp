@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../auth/firebaseAuth";
 import { onAuthStateChanged, getAuth } from "firebase/auth";
-import TimerComp from "./TimerComp";
+import useTimerComp from "./useTimerComp";
 
 const CountdownTimer = () => {
   //countdown timer logic
   const [currentUser, setCurrentUser] = useState(null);
-  const timer = TimerComp({
+  const timer = useTimerComp({
     initialMinutes: 25,
     incrementMinutes: 5,
     minimumMinutes: 5,

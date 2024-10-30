@@ -1,11 +1,11 @@
 import { useState } from "react";
-import TimerComp from "./TimerComp";
+import useTimerComp from "./useTimerComp";
 import { Link } from "react-router-dom";
 // import Timer from "./Timer";
 const Breathe = () => {
   const [breatheState, setBreatheState] = useState(true);
 
-  const timer = TimerComp({
+  const timer = useTimerComp({
     initialMinutes: 1,
     incrementMinutes: 1,
     minimumMinutes: 1,
