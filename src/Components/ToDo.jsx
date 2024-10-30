@@ -43,29 +43,52 @@ const ToDo = () => {
   };
 
   //fetch data from DB
-  const [dbData, setDbData] = useState({});
   async function fetchData() {
     if (userid.length == 0) return;
     const docRef = doc(db, "todos", userid);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      setDbData(docSnap.data());
-      console.log(docSnap.data());
+      const data = docSnap.data();
+      const todoArray = Object.entries(data).map(([task, completed]) => ({
+        task,
+        completed,
+      }));
+      setTodos(todoArray);
+      // console.log(docSnap.data());
+      console.log("data from db", todoArray);
     } else {
       console.log("nopes");
     }
   }
 
   console.log(todos);
-  console.log(dbData);
+  // console.log(dbData);
 
   return (
     <>
       <h3>Your Tasks</h3>
       <p>
-        {userid.length > 0 ? <Link to="/LogIn">Log in to continue</Link> : "hi"}
+        {userid.length > 0 ? (
+          <Link to="/LogIn">Log in to continue</Link>
+        ) : (
+          userid
+        )}
       </p>
+
+      <div>
+        {userStatus ? (
+          <ul>
+            {todos.map((todo, index) => (
+              <li key={index}>
+                {todo.task} : {todo.completed ? "Completed" : "Not Completed"}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          ""
+        )}
+      </div>
       {/* <ul>
         {userStatus
           ? dbData.map((item) => {
