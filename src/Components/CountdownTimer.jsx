@@ -3,15 +3,16 @@ import { Link } from "react-router-dom";
 import { auth } from "../auth/firebaseAuth";
 import { onAuthStateChanged, getAuth } from "firebase/auth";
 import useTimerComp from "./useTimerComp";
+import DisplayTimer from "./DisplayTimer";
 
 const CountdownTimer = () => {
   //countdown timer logic
   const [currentUser, setCurrentUser] = useState(null);
-  const timer = useTimerComp({
-    initialMinutes: 25,
-    incrementMinutes: 5,
-    minimumMinutes: 5,
-  });
+  // const timer = useTimerComp({
+  //   initialMinutes: 25,
+  //   incrementMinutes: 5,
+  //   minimumMinutes: 5,
+  // });
 
   //firebase auth state check and sign out
   getAuth();
@@ -53,24 +54,7 @@ const CountdownTimer = () => {
           ""
         )}
       </div>
-      <div>
-        <button onClick={timer.handleDecrease}>-</button>
-        <span>{timer.formatTime(timer.defaultDuration)}</span>
-        <button onClick={timer.handleIncrease}>+</button>
-      </div>
-
-      <div>
-        <h3>{timer.formatTime(timer.timeLeft)}</h3>
-      </div>
-
-      <div>
-        {!timer.isRunning ? (
-          <button onClick={timer.handleStart}>Start</button>
-        ) : (
-          <button onClick={timer.handlePause}>Pause</button>
-        )}
-        <button onClick={timer.handleCancel}>Done</button>
-      </div>
+      <DisplayTimer defaultTime={25} increment={5} decrement={5}></DisplayTimer>
       <div>
         <Link to="/customtimer">Custom Timer</Link>
       </div>
