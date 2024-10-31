@@ -1,0 +1,7 @@
+Color Palette: warm colors:
+    Soft Orange: #FFA559
+    Muted Ochre: #FF8B42
+    Warm Sandy Background: #FFE5D9
+    Light Cream Accent: #FFF7F0
+    Deep Ochre Text or Button Highlight: #D95333
+    Soft Gray for Subtle Elements: #B0AFAF
