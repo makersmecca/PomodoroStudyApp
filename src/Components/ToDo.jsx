@@ -11,13 +11,18 @@ import {
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../auth/firebaseAuth";
+
 const ToDo = () => {
   getAuth();
   const [userId, setUserId] = useState("");
-  const [userStatus, setUserStatus] = useState(false); //set user sign in status
-  const [todos, setTodos] = useState([]); //set todo list from db
+  const [userStatus, setUserStatus] = useState(false);
+  const [todos, setTodos] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [idLoading, setIsLoading] = useState(true);
+  // Add new states for editing
+  const [editingIndex, setEditingIndex] = useState(null);
+  const [editValue, setEditValue] = useState("");
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -33,16 +38,6 @@ const ToDo = () => {
     });
   }, [userStatus]);
 
-  //test push data to db
-  // const pushData = async () => {
-  //   await setDoc(doc(collection(db, "todos"), userId), {
-  //     listitem: false,
-  //     listitem2: true,
-  //   });
-  //   console.log("added data");
-  // };
-
-  //fetch data from DB
   const fetchData = async () => {
     if (userId.length === 0) return;
 
@@ -52,15 +47,12 @@ const ToDo = () => {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        const data = docSnap.data(); //storing fetched data
-        // console.log(data);
+        const data = docSnap.data();
         const todoArray = Object.entries(data).map(([task, completed]) => ({
-          //used Object.entries to get both keys and values
           task,
           completed,
         }));
-        setTodos(todoArray); //setting object fetched from db to state variable todoArray
-        // console.log(docSnap.data());
+        setTodos(todoArray);
         console.log("data from db", todoArray);
       } else {
         console.log("nopes");
@@ -76,23 +68,20 @@ const ToDo = () => {
     setInputValue(event.target.value);
   };
 
-  //function to push data to firestore db
   const updateFirestore = async (updatedTodos, userId) => {
     try {
-      // Convert todos array to firestore format
       const firestoreData = updatedTodos.reduce((acc, todo) => {
         acc[todo.task] = todo.completed;
         return acc;
       }, {});
 
-      // Push to firestore
       await setDoc(doc(db, "todos", userId), firestoreData);
     } catch (err) {
       console.log("Error updating Firestore:", err);
-      throw err; // Rethrow to handle in calling function if needed
+      throw err;
     }
   };
-  //function to add a new todo item
+
   const handleAddTask = async () => {
     if (inputValue.trim() !== "") {
       try {
@@ -104,11 +93,8 @@ const ToDo = () => {
         console.log("Error adding task:", err);
       }
     }
-    // setTodos([...todos, { task: inputValue, completed: false }]);
-    // setInputValue("");
   };
 
-  //function to delete an existing task
   const handleDeleteTask = async (index) => {
     try {
       const updatedTodos = todos.filter((_, i) => i !== index);
@@ -119,7 +105,6 @@ const ToDo = () => {
     }
   };
 
-  //function to mark task as completed
   const handleToggleComplete = async (index) => {
     try {
       const updatedTodos = todos.map((todo, i) =>
@@ -132,52 +117,132 @@ const ToDo = () => {
     }
   };
 
-  console.log(todos);
-  // console.log(dbData);
+  // Add new functions for editing
+  const handleEditStart = (index) => {
+    setEditingIndex(index);
+    setEditValue(todos[index].task);
+  };
+
+  const handleEditChange = (e) => {
+    setEditValue(e.target.value);
+  };
+
+  const handleEditSave = async (index) => {
+    if (editValue.trim() !== "") {
+      try {
+        const updatedTodos = todos.map((todo, i) =>
+          i === index ? { ...todo, task: editValue } : todo
+        );
+        setTodos(updatedTodos);
+        await updateFirestore(updatedTodos, userId);
+        setEditingIndex(null);
+        setEditValue("");
+      } catch (err) {
+        console.log("Error updating task:", err);
+      }
+    }
+  };
+
+  const handleEditCancel = () => {
+    setEditingIndex(null);
+    setEditValue("");
+  };
 
   return (
     <>
       <h3>Your Tasks</h3>
-      <p>{userStatus ? userId : <Link to="/LogIn">Log in to continue</Link>}</p>
-      <input
-        type="text"
-        placeholder="Enter task"
-        onChange={handleInput}
-        value={inputValue}
-      />
-      <button onClick={handleAddTask}>add task</button>
-      <div>
-        {todos.length > 0 ? (
-          <ul>
-            {todos.map((todo, index) => (
-              <li key={index}>
-                <input
-                  type="checkbox"
-                  checked={todo.completed}
-                  onChange={() => handleToggleComplete(index)}
-                />
-                {/* {todo.task} : {todo.completed ? "Completed" : "Not Completed"} */}
-                <span
-                  style={{
-                    textDecoration: todo.completed ? "line-through" : "none",
-                  }}
-                >
-                  {todo.task}
-                  <button onClick={() => handleDeleteTask(index)}>
-                    Delete
-                  </button>
-                </span>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          "Loading..."
-        )}
-      </div>
-      {/* <button type="button" onClick={pushData}>
-        add data
-      </button> */}
-      <button>
+      {!userStatus ? (
+        <Link to="/LogIn">Log in to continue</Link>
+      ) : (
+        <>
+          <p>{userId}</p>
+
+          <input
+            type="text"
+            placeholder="Enter task"
+            onChange={handleInput}
+            value={inputValue}
+            className="border rounded px-2 py-1 mr-2"
+          />
+          <button
+            onClick={handleAddTask}
+            className="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600"
+          >
+            Add task
+          </button>
+
+          <div>
+            {idLoading ? (
+              "Loading Tasks..."
+            ) : todos.length > 0 ? (
+              <ul className="mt-4 space-y-2">
+                {todos.map((todo, index) => (
+                  <li key={index} className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={todo.completed}
+                      onChange={() => handleToggleComplete(index)}
+                      className="h-4 w-4"
+                    />
+
+                    {editingIndex === index ? (
+                      // Edit mode
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="text"
+                          value={editValue}
+                          onChange={handleEditChange}
+                          className="border rounded px-2 py-1"
+                          autoFocus
+                        />
+                        <button
+                          onClick={() => handleEditSave(index)}
+                          className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+                        >
+                          Save
+                        </button>
+                        <button
+                          onClick={handleEditCancel}
+                          className="bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-600"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    ) : (
+                      // View mode
+                      <div className="flex items-center gap-2">
+                        <span
+                          className={`${
+                            todo.completed ? "line-through text-gray-500" : ""
+                          }`}
+                        >
+                          {todo.task}
+
+                          <button
+                            onClick={() => handleEditStart(index)}
+                            className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => handleDeleteTask(index)}
+                            className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+                          >
+                            Delete
+                          </button>
+                        </span>
+                      </div>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              "No Tasks!"
+            )}
+          </div>
+        </>
+      )}
+      <button className="mt-4">
         <Link to="/">Home</Link>
       </button>
     </>
