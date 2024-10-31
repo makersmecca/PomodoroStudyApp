@@ -76,61 +76,59 @@ const ToDo = () => {
     setInputValue(event.target.value);
   };
 
+  //function to push data to firestore db
+  const updateFirestore = async (updatedTodos, userId) => {
+    try {
+      // Convert todos array to firestore format
+      const firestoreData = updatedTodos.reduce((acc, todo) => {
+        acc[todo.task] = todo.completed;
+        return acc;
+      }, {});
+
+      // Push to firestore
+      await setDoc(doc(db, "todos", userId), firestoreData);
+    } catch (err) {
+      console.log("Error updating Firestore:", err);
+      throw err; // Rethrow to handle in calling function if needed
+    }
+  };
+  //function to add a new todo item
   const handleAddTask = async () => {
     if (inputValue.trim() !== "") {
       try {
-        const updateTodos = [...todos, { task: inputValue, completed: false }];
-        //updating local state, list items
-        setTodos(updateTodos);
-        //convert todos array to firestore format
-        const firestoreData = updateTodos.reduce((acc, todo) => {
-          acc[todo.task] = todo.completed;
-          return acc;
-        }, {});
-        //pushing to firestore
-        await setDoc(doc(db, "todos", userId), firestoreData);
-        console.log("added data");
+        const updatedTodos = [...todos, { task: inputValue, completed: false }];
+        setTodos(updatedTodos);
+        await updateFirestore(updatedTodos, userId);
         setInputValue("");
       } catch (err) {
-        console.log(err);
+        console.log("Error adding task:", err);
       }
     }
     // setTodos([...todos, { task: inputValue, completed: false }]);
     // setInputValue("");
   };
 
-  //deleting task and updating db
+  //function to delete an existing task
   const handleDeleteTask = async (index) => {
-    const updateTodos = todos.filter((_, i) => i !== index);
-    setTodos(updateTodos);
-
-    const firestoreData = updateTodos.reduce((acc, todo) => {
-      acc[todo.task] = todo.completed;
-      return acc;
-    }, {});
-
     try {
-      await setDoc(doc(db, "todos", userId), firestoreData);
+      const updatedTodos = todos.filter((_, i) => i !== index);
+      setTodos(updatedTodos);
+      await updateFirestore(updatedTodos, userId);
     } catch (err) {
-      console.log(err);
+      console.log("Error deleting task:", err);
     }
   };
 
+  //function to mark task as completed
   const handleToggleComplete = async (index) => {
-    const updatedTodos = todos.map((todo, i) =>
-      i === index ? { ...todo, completed: !todo.completed } : todo
-    );
-    setTodos(updatedTodos);
-
-    const firestoreData = updatedTodos.reduce((acc, todo) => {
-      acc[todo.task] = todo.completed;
-      return acc;
-    }, {});
-
     try {
-      await setDoc(doc(db, "todos", userId), firestoreData);
+      const updatedTodos = todos.map((todo, i) =>
+        i === index ? { ...todo, completed: !todo.completed } : todo
+      );
+      setTodos(updatedTodos);
+      await updateFirestore(updatedTodos, userId);
     } catch (err) {
-      console.log(err);
+      console.log("Error toggling task:", err);
     }
   };
 
