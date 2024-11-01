@@ -44,19 +44,6 @@ const DisplayTimer = ({
               <span className="text-4xl xs:text-5xl sm:text-6xl font-semibold text-gray-800">
                 {timer.formatTime(timer.timeLeft)}
               </span>
-
-              {/* Breathe text */}
-              {/* {componentName === "Breathe" && timer.isRunning ? (
-                <div className="text-base xs:text-lg sm:text-xl mt-2">
-                  {breatheState ? "Breathe In" : "Breathe Out"}
-                </div>
-              ) : (
-                <div className="text-base xs:text-lg sm:text-xl mt-2">
-                  {" "}
-                  Breathe
-                </div>
-              )} */}
-
               {componentName === "Breathe" ? (
                 <div>
                   {timer.isRunning ? (
@@ -79,14 +66,14 @@ const DisplayTimer = ({
           {/* Control buttons */}
           <button
             onClick={timer.handleDecrease}
-            className="absolute left-[-15%] top-1/2 -translate-y-1/2 w-10 h-10 xs:w-12 xs:h-12 flex items-center justify-center bg-green-500 text-white rounded-full hover:bg-green-600 active:scale-95 transition-all duration-300 text-xl xs:text-2xl shadow-md"
+            className="absolute left-[-15%] top-1/2 -translate-y-1/2 w-10 h-10 xs:w-12 xs:h-12 flex items-center justify-center bg-buttonColor text-white rounded-full hover:bg-mutedOchre active:scale-95 transition-all duration-300 text-xl xs:text-2xl shadow-md"
           >
             -
           </button>
 
           <button
             onClick={timer.handleIncrease}
-            className="absolute right-[-15%] top-1/2 -translate-y-1/2 w-10 h-10 xs:w-12 xs:h-12 flex items-center justify-center bg-green-500 text-white rounded-full hover:bg-green-600 active:scale-95 transition-all duration-300 text-xl xs:text-2xl shadow-md"
+            className="absolute right-[-15%] top-1/2 -translate-y-1/2 w-10 h-10 xs:w-12 xs:h-12 flex items-center justify-center bg-buttonColor text-white rounded-full hover:bg-mutedOchre active:scale-95 transition-all duration-300 text-xl xs:text-2xl shadow-md"
           >
             +
           </button>
@@ -99,7 +86,7 @@ const DisplayTimer = ({
             className={`px-6 py-3 ${
               timer.isRunning
                 ? "bg-orange-400 hover:bg-orange-500"
-                : "bg-green-500 hover:bg-green-600"
+                : "bg-buttonColor hover:bg-mutedOchre"
             } text-white rounded-lg active:scale-95 transition-all duration-300 text-lg shadow-md w-[100px]`}
           >
             {timer.isRunning ? "Pause" : "Start"}
