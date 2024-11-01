@@ -41,44 +41,50 @@ const CountdownTimer = () => {
   };
   return (
     <div>
-      <h3>Pomodoro Timer</h3>
-      <div>
-        {currentUser != null ? (
+      <div className="flex justify-between w-full items-center">
+        <div className="flex items-center gap-4">
+          <h3>Pomodoro Timer</h3>
+          {currentUser != null ? (
+            <div className="flex items-center gap-2">
+              <span>
+                {currentUser}{" "}
+                <button type="button" onClick={handleSignOut}>
+                  Sign Out
+                </button>
+              </span>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
+        <div className="flex gap-4">
           <div>
-            {currentUser}
-            <button type="button" onClick={handleSignOut}>
-              Sign Out
-            </button>
+            <Link to="/customtimer">Custom Timer</Link>
           </div>
-        ) : (
-          ""
-        )}
+          <div>
+            <Link to="/rest">Rest</Link>
+          </div>
+          <div>
+            <Link to="/breathe">Breathe</Link>
+          </div>
+          <div>
+            <Link to="/todo">ToDo</Link>
+          </div>
+          <div>
+            <Link to="/stats">Stats</Link>
+          </div>
+          <div>
+            <Link to="/settings">Settings</Link>
+          </div>
+          <div>
+            <Link to="/SignUp">SignUp</Link>
+          </div>
+          <div>
+            <Link to="/LogIn">LogIn</Link>
+          </div>
+        </div>
       </div>
       <DisplayTimer defaultTime={25} increment={5} decrement={5}></DisplayTimer>
-      <div>
-        <Link to="/customtimer">Custom Timer</Link>
-      </div>
-      <div>
-        <Link to="/rest">Rest</Link>
-      </div>
-      <div>
-        <Link to="/breathe">Breathe</Link>
-      </div>
-      <div>
-        <Link to="/todo">ToDo</Link>
-      </div>
-      <div>
-        <Link to="/stats">Stats</Link>
-      </div>
-      <div>
-        <Link to="/settings">Settings</Link>
-      </div>
-      <div>
-        <Link to="/SignUp">SignUp</Link>
-      </div>
-      <div>
-        <Link to="/LogIn">LogIn</Link>
-      </div>
     </div>
   );
 };
