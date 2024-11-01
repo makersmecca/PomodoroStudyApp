@@ -45,10 +45,10 @@ const DisplayTimer = ({
   return (
     <div className="flex flex-col items-center justify-center p-8">
       <div className="relative w-[300px] flex flex-col items-center space-y-8">
-        {/* SVG Circle Timer Container */}
+        {/* SVG Circle Timer Container with Increment/Decrement Buttons */}
         <div className="relative w-[300px] h-[300px]">
+          {/* SVG Circle Timer */}
           <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
-            {/* Background circle */}
             <circle
               className="transition-all duration-300"
               cx="50"
@@ -58,7 +58,6 @@ const DisplayTimer = ({
               stroke="#e0e0e0"
               strokeWidth="8"
             />
-            {/* Progress circle */}
             <circle
               className="transition-all duration-300 origin-center"
               cx="50"
@@ -72,30 +71,26 @@ const DisplayTimer = ({
               strokeLinecap="round"
             />
           </svg>
-          {/* Timer text - Absolute positioned in center */}
+          {/* Timer text - Positioned at the center */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl text-gray-800">
             {timer.formatTime(timer.timeLeft)}
           </div>
-        </div>
 
-        {/* Time adjustment controls */}
-        <div className="flex items-center justify-center space-x-4 w-full">
+          {/* Decrement Button - Positioned on the Left */}
           <button
             onClick={timer.handleDecrease}
-            className="w-10 h-10 flex items-center justify-center bg-green-500 text-white rounded-md hover:opacity-90 active:scale-95 transition-all duration-300 text-xl"
+            className="absolute left-[-50px] top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-green-500 text-white rounded-md hover:opacity-90 active:scale-95 transition-all duration-300 text-xl"
           >
             -
           </button>
-          <span className="min-w-[70px] text-center text-lg">
-            {timer.formatTime(timer.defaultDuration)}
 
-            <button
-              onClick={timer.handleIncrease}
-              className="w-10 h-10 flex items-center justify-center bg-green-500 text-white rounded-md hover:opacity-90 active:scale-95 transition-all duration-300 text-xl"
-            >
-              +
-            </button>
-          </span>
+          {/* Increment Button - Positioned on the Right */}
+          <button
+            onClick={timer.handleIncrease}
+            className="absolute right-[-50px] top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-green-500 text-white rounded-md hover:opacity-90 active:scale-95 transition-all duration-300 text-xl"
+          >
+            +
+          </button>
         </div>
 
         {/* Breathe state display */}
