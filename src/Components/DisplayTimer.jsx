@@ -30,100 +30,55 @@ const DisplayTimer = ({
           minimumMinutes: decrement,
         });
 
-  const calculateProgress = () => {
-    return (
-      ((timer.defaultDuration - timer.timeLeft) / timer.defaultDuration) * 100
-    );
-  };
-
-  const calculateStrokeDashoffset = () => {
-    const circumference = 2 * Math.PI * 45;
-    const progress = calculateProgress();
-    return circumference - (progress / 100) * circumference;
-  };
-
   return (
-    <div className="flex flex-col items-center justify-center p-8">
-      <div className="relative w-[300px] flex flex-col items-center space-y-8">
-        {/* SVG Circle Timer Container with Increment/Decrement Buttons */}
-        <div className="relative w-[300px] h-[300px]">
-          {/* SVG Circle Timer */}
-          <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
-            <circle
-              className="transition-all duration-300"
-              cx="50"
-              cy="50"
-              r="45"
-              fill="none"
-              stroke="#e0e0e0"
-              strokeWidth="8"
-            />
-            <circle
-              className="transition-all duration-300 origin-center"
-              cx="50"
-              cy="50"
-              r="45"
-              fill="none"
-              stroke="#ff6b6b"
-              strokeWidth="8"
-              strokeDasharray={2 * Math.PI * 45}
-              strokeDashoffset={calculateStrokeDashoffset()}
-              strokeLinecap="round"
-            />
-          </svg>
-          {/* Timer text - Positioned at the center */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl text-gray-800">
-            {timer.formatTime(timer.timeLeft)}
-          </div>
-
-          {/* Decrement Button - Positioned on the Left */}
-          <button
-            onClick={timer.handleDecrease}
-            className="absolute left-[-50px] top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-green-500 text-white rounded-md hover:opacity-90 active:scale-95 transition-all duration-300 text-xl"
-          >
-            -
-          </button>
-
-          {/* Increment Button - Positioned on the Right */}
-          <button
-            onClick={timer.handleIncrease}
-            className="absolute right-[-50px] top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-green-500 text-white rounded-md hover:opacity-90 active:scale-95 transition-all duration-300 text-xl"
-          >
-            +
-          </button>
+    <div className="flex items-center justify-center min-h-screen">
+      {/* Circular timer container */}
+      <div className="relative w-full max-w-[250px] md:max-w-[300px] lg:max-w-[400px] aspect-square flex items-center justify-center bg-gray-200 rounded-full shadow-lg">
+        {/* Timer text */}
+        <div className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-800">
+          {timer.formatTime(timer.timeLeft)}
         </div>
 
-        {/* Breathe state display */}
-        {componentName === "Breathe" && timer.isRunning && (
-          <div className="text-lg text-gray-800">
-            {breatheState ? "Breathe In" : "Breathe Out"}
-          </div>
+        {/* Decrement button on the left */}
+        <button
+          onClick={timer.handleDecrease}
+          className="absolute left-[-10%] top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-green-500 text-white rounded-md hover:opacity-90 active:scale-95 transition-all duration-300 text-lg md:text-xl"
+        >
+          -
+        </button>
+
+        {/* Increment button on the right */}
+        <button
+          onClick={timer.handleIncrease}
+          className="absolute right-[-10%] top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-green-500 text-white rounded-md hover:opacity-90 active:scale-95 transition-all duration-300 text-lg md:text-xl"
+        >
+          +
+        </button>
+      </div>
+
+      {/* Timer controls below the timer */}
+      <div className="absolute bottom-12 flex space-x-4">
+        {!timer.isRunning ? (
+          <button
+            onClick={timer.handleStart}
+            className="px-4 py-2 bg-green-500 text-white rounded-md hover:opacity-90 active:scale-95 transition-all duration-300"
+          >
+            Start
+          </button>
+        ) : (
+          <button
+            onClick={timer.handlePause}
+            className="px-4 py-2 bg-orange-400 text-white rounded-md hover:opacity-90 active:scale-95 transition-all duration-300"
+          >
+            Pause
+          </button>
         )}
-
-        {/* Timer controls */}
-        <div className="flex justify-center space-x-4 w-full">
-          {!timer.isRunning ? (
-            <button
-              onClick={timer.handleStart}
-              className="px-4 py-2 bg-green-500 text-white rounded-md hover:opacity-90 active:scale-95 transition-all duration-300"
-            >
-              Start
-            </button>
-          ) : (
-            <button
-              onClick={timer.handlePause}
-              className="px-4 py-2 bg-orange-400 text-white rounded-md hover:opacity-90 active:scale-95 transition-all duration-300"
-            >
-              Pause
-            </button>
-          )}
-          <button
-            onClick={timer.handleCancel}
-            className="px-4 py-2 bg-red-500 text-white rounded-md hover:opacity-90 active:scale-95 transition-all duration-300"
-          >
-            Done
-          </button>
-        </div>
+        <button
+          onClick={timer.handleCancel}
+          className="px-4 py-2 bg-red-500 text-white rounded-md hover:opacity-90 active:scale-95 transition-all duration-300"
+        >
+          Done
+        </button>
       </div>
     </div>
   );
