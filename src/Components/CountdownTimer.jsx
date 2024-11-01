@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { auth } from "../auth/firebaseAuth";
-import { onAuthStateChanged, getAuth } from "firebase/auth";
+// import { auth } from "../auth/firebaseAuth";
+// import { onAuthStateChanged, getAuth } from "firebase/auth";
 import DisplayTimer from "./DisplayTimer";
+import CurrentUser from "./CurrentUser";
 
 const CountdownTimer = () => {
   //countdown timer logic
-  const [currentUser, setCurrentUser] = useState(null);
+  // const [currentUser, setCurrentUser] = useState(null);
   // const timer = useTimerComp({
   //   initialMinutes: 25,
   //   incrementMinutes: 5,
@@ -14,47 +15,36 @@ const CountdownTimer = () => {
   // });
 
   //firebase auth state check and sign out
-  getAuth();
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("User is signed in:", user.email);
-        setCurrentUser(user.email);
-      } else {
-        console.log("User is signed out");
-        setCurrentUser(null);
-      }
-    });
-  }, []);
+  // getAuth();
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       console.log("User is signed in:", user.email);
+  //       setCurrentUser(user.email);
+  //     } else {
+  //       console.log("User is signed out");
+  //       setCurrentUser(null);
+  //     }
+  //   });
+  // }, []);
 
-  const handleSignOut = () => {
-    auth
-      .signOut()
-      .then(() => {
-        console.log("User signed out successfully");
-        setCurrentUser(null);
-      })
-      .catch((error) => {
-        console.error("Error signing out:", error);
-      });
-  };
+  // const handleSignOut = () => {
+  //   auth
+  //     .signOut()
+  //     .then(() => {
+  //       console.log("User signed out successfully");
+  //       setCurrentUser(null);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error signing out:", error);
+  //     });
+  // };
   return (
     <div>
       <div className="flex justify-between w-full items-center">
         <div className="flex items-center gap-4">
           <h3>Pomodoro Timer</h3>
-          {currentUser != null ? (
-            <div className="flex items-center gap-2">
-              <span>
-                {currentUser}{" "}
-                <button type="button" onClick={handleSignOut}>
-                  Sign Out
-                </button>
-              </span>
-            </div>
-          ) : (
-            ""
-          )}
+          <CurrentUser></CurrentUser>
         </div>
         <div className="flex gap-4">
           <div>

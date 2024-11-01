@@ -2,15 +2,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { db } from "../auth/firebaseAuth";
 import { useEffect } from "react";
-import {
-  collection,
-  doc,
-  setDoc,
-  getDoc,
-  onSnapshot,
-} from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../auth/firebaseAuth";
+import CurrentUser from "./CurrentUser";
 
 const ToDo = () => {
   getAuth();
@@ -155,7 +150,7 @@ const ToDo = () => {
         <Link to="/LogIn">Log in to continue</Link>
       ) : (
         <>
-          <p>{userId}</p>
+          <CurrentUser></CurrentUser>
 
           <input
             type="text"

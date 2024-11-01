@@ -2,6 +2,7 @@ import { useState } from "react";
 import useTimerComp from "./useTimerComp";
 import { Link } from "react-router-dom";
 import DisplayTimer from "./DisplayTimer";
+import CurrentUser from "./CurrentUser";
 // import Timer from "./Timer";
 const Breathe = () => {
   const [breatheState, setBreatheState] = useState(true);
@@ -21,6 +22,7 @@ const Breathe = () => {
 
   return (
     <>
+      <CurrentUser></CurrentUser>
       <DisplayTimer
         defaultTime={1}
         increment={1}

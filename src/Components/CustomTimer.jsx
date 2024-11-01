@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-
+import CurrentUser from "./CurrentUser";
 const CustomTimer = () => {
   const [timerState, setTimerState] = useState({
     isRunning: false,
@@ -44,6 +44,7 @@ const CustomTimer = () => {
 
   return (
     <div>
+      <CurrentUser></CurrentUser>
       <div>{formatTime(timerState.totalSeconds)}</div>
       <button onClick={handleStartPause}>
         {timerState.isRunning ? "Pause" : "Start"}
