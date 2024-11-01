@@ -1,3 +1,4 @@
+import "./App.css";
 import CustomTimer from "./Components/CustomTimer";
 import CountdownTimer from "./Components/CountdownTimer";
 import RestTimer from "./Components/RestTimer";
