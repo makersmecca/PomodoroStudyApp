@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../auth/firebaseAuth";
 import { onAuthStateChanged, getAuth } from "firebase/auth";
-import useTimerComp from "./useTimerComp";
 import DisplayTimer from "./DisplayTimer";
 
 const CountdownTimer = () => {
@@ -84,7 +83,12 @@ const CountdownTimer = () => {
           </div>
         </div>
       </div>
-      <DisplayTimer defaultTime={25} increment={5} decrement={5}></DisplayTimer>
+      <DisplayTimer
+        defaultTime={25}
+        increment={5}
+        decrement={5}
+        componentName="CountdownTimer"
+      ></DisplayTimer>
     </div>
   );
 };

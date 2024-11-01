@@ -27,9 +27,6 @@ const Breathe = () => {
         decrement={1}
         componentName={"Breathe"}
       ></DisplayTimer>
-      <button>
-        <Link to="/">Home</Link>
-      </button>
     </>
   );
 };

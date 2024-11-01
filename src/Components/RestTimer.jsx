@@ -7,7 +7,6 @@ const RestTimer = () => {
     <div>
       <h3>Rest</h3>
       <DisplayTimer defaultTime={5} increment={5} decrement={5}></DisplayTimer>
-      <Link to="/">Home</Link>
     </div>
   );
 };
