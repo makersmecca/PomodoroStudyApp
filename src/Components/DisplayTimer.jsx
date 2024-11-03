@@ -43,7 +43,7 @@ const DisplayTimer = ({
         });
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 mt-40 lg:mt-0">
+    <div className="min-h-screen flex flex-col items-center justify-center pt-0 sm:pt-20 px-4 sm:mt-10 lg:mt-0">
       {/* Main container */}
       <div className="relative w-full max-w-[300px] flex flex-col items-center gap-8">
         <div className="flex gap-4">
@@ -68,7 +68,7 @@ const DisplayTimer = ({
         </div>
 
         {/* Circular timer container */}
-        <div className="relative w-[180px] xs:w-[200px] sm:w-[220px] md:w-[250px] aspect-square ">
+        <div className="relative w-[180px] xs:w-[200px] sm:w-[220px] md:w-[250px] aspect-square">
           {/* Timer circle */}
           <div className="absolute inset-0 bg-pastelYellow border-solid rounded-full shadow-lg flex items-center justify-center border-4 border-pastelOrange">
             {/* Timer text container */}

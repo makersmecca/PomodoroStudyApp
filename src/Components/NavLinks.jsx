@@ -12,7 +12,7 @@ const NavLinks = () => {
   return (
     <>
       {/* Hamburger Icon */}
-      <div className="flex justify-between md:justify-end items-center fixed md:top-20 top-10 right-4 md:right-20 z-20 left-4 md:left-20">
+      <div className="flex justify-between md:justify-end items-center fixed sm:absolute md:top-20 top-10 right-4 md:right-20 z-20 left-4 md:left-20">
         {/* Time display - adjusted for widescreen */}
         <div className="md:order-2 md:mr-20">
           <DisplayDateTime></DisplayDateTime>
