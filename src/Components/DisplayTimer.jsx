@@ -50,27 +50,27 @@ const DisplayTimer = ({
           <Link to="/">
             <NavButtons
               componentName={"Pomodoro"}
-              currrentPage={location === "/"}
+              currentPage={location === "/"}
             ></NavButtons>
           </Link>
           <Link to="/rest">
             <NavButtons
               componentName={"Rest"}
-              currrentPage={location === "/rest"}
+              currentPage={location === "/rest"}
             ></NavButtons>
           </Link>
           <Link to="/breathe">
             <NavButtons
               componentName={"Breathe"}
-              currrentPage={location === "/breathe"}
+              currentPage={location === "/breathe"}
             ></NavButtons>
           </Link>
         </div>
 
         {/* Circular timer container */}
-        <div className="relative w-[180px] xs:w-[200px] sm:w-[220px] md:w-[250px] aspect-square">
+        <div className="relative w-[180px] xs:w-[200px] sm:w-[220px] md:w-[250px] aspect-square ">
           {/* Timer circle */}
-          <div className="absolute inset-0 bg-gray-200 rounded-full shadow-lg flex items-center justify-center">
+          <div className="absolute inset-0 bg-pastelYellow border-solid rounded-full shadow-lg flex items-center justify-center border-4 border-pastelOrange">
             {/* Timer text container */}
             <div className="flex flex-col items-center justify-center">
               <span className="text-4xl xs:text-5xl sm:text-6xl font-semibold text-gray-800">
@@ -98,14 +98,14 @@ const DisplayTimer = ({
           {/* Control buttons */}
           <button
             onClick={timer.handleDecrease}
-            className="absolute left-[-15%] top-1/2 -translate-y-1/2 w-10 h-10 xs:w-12 xs:h-12 flex items-center justify-center bg-buttonColor text-white rounded-full hover:bg-mutedOchre active:scale-95 transition-all duration-300 text-xl xs:text-2xl shadow-md"
+            className="absolute md:left-[-20%] left-[-30%] top-1/2 -translate-y-1/2 w-10 h-10 xs:w-12 xs:h-12 flex items-center justify-center bg-buttonColor text-white rounded-2xl hover:bg-mutedOchre active:scale-95 transition-all duration-300 text-3xl xs:text-2xl pb-1.5 shadow-md"
           >
             -
           </button>
 
           <button
             onClick={timer.handleIncrease}
-            className="absolute right-[-15%] top-1/2 -translate-y-1/2 w-10 h-10 xs:w-12 xs:h-12 flex items-center justify-center bg-buttonColor text-white rounded-full hover:bg-mutedOchre active:scale-95 transition-all duration-300 text-xl xs:text-2xl shadow-md"
+            className="absolute md:right-[-20%] right-[-30%] top-1/2 -translate-y-1/2 w-10 h-10 xs:w-12 xs:h-12 flex items-center justify-center bg-buttonColor text-white rounded-2xl hover:bg-mutedOchre active:scale-95 transition-all duration-300 text-3xl xs:text-2xl pb-1 shadow-md"
           >
             +
           </button>
