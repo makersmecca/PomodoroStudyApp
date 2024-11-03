@@ -18,6 +18,9 @@ export default {
           lightest: "#f9fafc",
         },
       },
+      animation: {
+        spinSlow: "spin 1s ease-in-out",
+      },
     },
   },
   plugins: [],
