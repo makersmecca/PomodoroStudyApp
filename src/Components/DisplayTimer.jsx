@@ -9,6 +9,14 @@ const DisplayTimer = ({
   componentName = "",
 }) => {
   const [breatheState, setBreatheState] = useState(true);
+  const [isRotating, setIsRotating] = useState(false);
+  const handleRotate = () => {
+    timer.handleCancel();
+    setIsRotating(true);
+    setTimeout(() => {
+      setIsRotating(false);
+    }, 1000);
+  };
 
   const timer =
     componentName === "Breathe"
@@ -35,6 +43,18 @@ const DisplayTimer = ({
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
       {/* Main container */}
       <div className="relative w-full max-w-[300px] flex flex-col items-center gap-8">
+        <div>
+          <button>
+            <Link to="/">Pomodoro</Link>
+          </button>
+          <button>
+            <Link to="/rest">Rest</Link>
+          </button>
+          <button>
+            <Link to="/breathe">Breathe</Link>
+          </button>
+        </div>
+
         {/* Circular timer container */}
         <div className="relative w-[180px] xs:w-[200px] sm:w-[220px] md:w-[250px] aspect-square">
           {/* Timer circle */}
@@ -83,24 +103,38 @@ const DisplayTimer = ({
         <div className="flex gap-4 w-full justify-center mt-4">
           <button
             onClick={timer.isRunning ? timer.handlePause : timer.handleStart}
-            className={`px-6 py-3 ${
+            className={`px-4 py-1 ${
               timer.isRunning
                 ? "bg-orange-400 hover:bg-orange-500"
                 : "bg-buttonColor hover:bg-mutedOchre"
-            } text-white rounded-lg active:scale-95 transition-all duration-300 text-lg shadow-md w-[100px]`}
+            } text-white rounded-3xl active:scale-95 transition-all duration-300 text-xl shadow-md w-[90px]`}
           >
             {timer.isRunning ? "Pause" : "Start"}
           </button>
 
-          <button
-            onClick={timer.handleCancel}
-            className="px-6 py-3 bg-red-500 hover:bg-red-600 text-white rounded-lg active:scale-95 transition-all duration-300 text-lg shadow-md w-[100px]"
+          <div
+            onClick={handleRotate}
+            className={`px-4 py-2 mt-1 text-buttonColor rounded-lg active:scale-95 transition-all duration-300 text-lg w-[50px] cursor-pointer`}
           >
-            Done
-          </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              fill="currentColor"
+              className={`bi bi-arrow-clockwise stroke-current cursor-pointer ${
+                isRotating ? "animate-spinSlow" : ""
+              }`}
+              viewBox="0 0 16 16"
+            >
+              <path
+                fillRule="evenodd"
+                d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"
+              />
+              <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" />
+            </svg>
+          </div>
         </div>
       </div>
-      {componentName !== "CountdownTimer" && <Link to="/">Home</Link>}
     </div>
   );
 };
