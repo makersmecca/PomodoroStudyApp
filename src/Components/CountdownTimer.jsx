@@ -53,7 +53,7 @@ const CountdownTimer = () => {
         defaultTime={25}
         increment={5}
         decrement={5}
-        componentName="CountdownTimer"
+        componentName="Pomodoro"
       ></DisplayTimer>
     </div>
   );
