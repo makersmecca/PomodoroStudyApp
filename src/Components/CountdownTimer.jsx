@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 // import { onAuthStateChanged, getAuth } from "firebase/auth";
 import DisplayTimer from "./DisplayTimer";
 import CurrentUser from "./CurrentUser";
+import NavLinks from "./NavLinks";
 
 const CountdownTimer = () => {
   //countdown timer logic
@@ -43,35 +44,10 @@ const CountdownTimer = () => {
     <div>
       <div className="flex justify-between w-full items-center">
         <div className="flex items-center gap-4">
-          <h3>Pomodoro Timer</h3>
           <CurrentUser></CurrentUser>
         </div>
-        <div className="flex gap-4">
-          <div>
-            <Link to="/customtimer">Custom Timer</Link>
-          </div>
-          <div>
-            <Link to="/rest">Rest</Link>
-          </div>
-          <div>
-            <Link to="/breathe">Breathe</Link>
-          </div>
-          <div>
-            <Link to="/todo">ToDo</Link>
-          </div>
-          <div>
-            <Link to="/stats">Stats</Link>
-          </div>
-          <div>
-            <Link to="/settings">Settings</Link>
-          </div>
-          <div>
-            <Link to="/SignUp">SignUp</Link>
-          </div>
-          <div>
-            <Link to="/LogIn">LogIn</Link>
-          </div>
-        </div>
+
+        <NavLinks></NavLinks>
       </div>
       <DisplayTimer
         defaultTime={25}
