@@ -1,8 +1,8 @@
 import { useState } from "react";
 import useTimerComp from "./useTimerComp";
-import { Link } from "react-router-dom";
 import DisplayTimer from "./DisplayTimer";
 import CurrentUser from "./CurrentUser";
+import NavLinks from "./NavLinks";
 // import Timer from "./Timer";
 const Breathe = () => {
   const [breatheState, setBreatheState] = useState(true);
@@ -21,15 +21,21 @@ const Breathe = () => {
   });
 
   return (
-    <>
-      <CurrentUser></CurrentUser>
+    <div>
+      <div className="flex justify-between w-full items-center">
+        <div className="flex items-center gap-4">
+          <CurrentUser></CurrentUser>
+        </div>
+
+        <NavLinks></NavLinks>
+      </div>
       <DisplayTimer
         defaultTime={1}
         increment={1}
         decrement={1}
         componentName={"Breathe"}
       ></DisplayTimer>
-    </>
+    </div>
   );
 };
 
