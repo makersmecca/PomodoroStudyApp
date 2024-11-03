@@ -2,11 +2,11 @@ const NavButtons = ({ componentName = "", currentPage = false }) => {
   const buttonName = componentName;
   return (
     <button
-      className={`py-3 px-2
+      className={`py-3 
       ${
         currentPage
-          ? "bg-backgroundColor hover:bg-red-300 border-2 border-buttonColor text-buttonColor"
-          : "bg-buttonColor hover:bg-mutedOchre text-white"
+          ? "bg-backgroundColor border-2 border-buttonColor text-buttonColor font-semibold"
+          : "bg-buttonColor hover:bg-opacity-85 text-white"
       }  rounded-3xl active:scale-95 transition-all duration-300 text-lg shadow-md w-[100px]`}
     >
       {buttonName}

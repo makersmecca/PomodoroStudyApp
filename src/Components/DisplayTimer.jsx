@@ -43,7 +43,7 @@ const DisplayTimer = ({
         });
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 mt-40 lg:mt-0">
       {/* Main container */}
       <div className="relative w-full max-w-[300px] flex flex-col items-center gap-8">
         <div className="flex gap-4">
@@ -73,9 +73,13 @@ const DisplayTimer = ({
           <div className="absolute inset-0 bg-pastelYellow border-solid rounded-full shadow-lg flex items-center justify-center border-4 border-pastelOrange">
             {/* Timer text container */}
             <div className="flex flex-col items-center justify-center">
-              <span className="text-4xl xs:text-5xl sm:text-6xl font-semibold text-gray-800">
+              <div
+                className={`text-4xl xs:text-5xl sm:text-6xl font-semibold text-gray-800 mb-2 ${
+                  componentName === "Breathe" && "mt-9"
+                }`}
+              >
                 {timer.formatTime(timer.timeLeft)}
-              </span>
+              </div>
               {componentName === "Breathe" ? (
                 <div>
                   {timer.isRunning ? (
@@ -83,7 +87,7 @@ const DisplayTimer = ({
                       {breatheState ? "Breathe In" : "Breathe Out"}
                     </div>
                   ) : (
-                    <div className="text-base xs:text-lg sm:text-xl mt-2">
+                    <div className="text-base xs:text-lg sm:text-xl mt-2 font-semibold">
                       {" "}
                       Breathe{" "}
                     </div>
@@ -98,14 +102,14 @@ const DisplayTimer = ({
           {/* Control buttons */}
           <button
             onClick={timer.handleDecrease}
-            className="absolute md:left-[-20%] left-[-30%] top-1/2 -translate-y-1/2 w-10 h-10 xs:w-12 xs:h-12 flex items-center justify-center bg-buttonColor text-white rounded-2xl hover:bg-mutedOchre active:scale-95 transition-all duration-300 text-3xl xs:text-2xl pb-1.5 shadow-md"
+            className="absolute md:left-[-20%] left-[-30%] top-1/2 -translate-y-1/2 w-10 h-10 xs:w-12 xs:h-12 flex items-center justify-center bg-buttonColor text-white rounded-2xl hover:bg-opacity-80 active:scale-95 transition-all duration-300 text-3xl xs:text-2xl pb-1.5 shadow-md"
           >
             -
           </button>
 
           <button
             onClick={timer.handleIncrease}
-            className="absolute md:right-[-20%] right-[-30%] top-1/2 -translate-y-1/2 w-10 h-10 xs:w-12 xs:h-12 flex items-center justify-center bg-buttonColor text-white rounded-2xl hover:bg-mutedOchre active:scale-95 transition-all duration-300 text-3xl xs:text-2xl pb-1 shadow-md"
+            className="absolute md:right-[-20%] right-[-30%] top-1/2 -translate-y-1/2 w-10 h-10 xs:w-12 xs:h-12 flex items-center justify-center bg-buttonColor text-white rounded-2xl hover:bg-opacity-80 active:scale-95 transition-all duration-300 text-3xl xs:text-2xl pb-1 shadow-md"
           >
             +
           </button>
@@ -117,8 +121,8 @@ const DisplayTimer = ({
             onClick={timer.isRunning ? timer.handlePause : timer.handleStart}
             className={`px-4 py-1 ${
               timer.isRunning
-                ? "bg-orange-400 hover:bg-orange-500"
-                : "bg-buttonColor hover:bg-mutedOchre"
+                ? "bg-orange-400 hover:bg-opacity-85"
+                : "bg-buttonColor hover:bg-opacity-85"
             } text-white rounded-3xl active:scale-95 transition-all duration-300 text-xl shadow-md w-[90px]`}
           >
             {timer.isRunning ? "Pause" : "Start"}

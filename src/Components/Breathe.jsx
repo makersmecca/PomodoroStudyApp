@@ -30,7 +30,7 @@ const Breathe = () => {
         <NavLinks></NavLinks>
       </div>
       <DisplayTimer
-        defaultTime={1}
+        defaultTime={5}
         increment={1}
         decrement={1}
         componentName={"Breathe"}
