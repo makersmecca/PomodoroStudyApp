@@ -10,6 +10,8 @@ export default {
         subtleSoftGrey: "#B0AFAF",
         mutedOchre: "#FF8B42",
         softOrange: "#FFA559",
+        pastelYellow: "#FDDBBB",
+        pastelOrange: "#FFB38E",
         gray: {
           darkest: "#1f2d3d",
           dark: "#3c4858",
