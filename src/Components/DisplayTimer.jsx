@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useTimerComp from "./useTimerComp";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import NavButtons from "./NavButtons";
 
 const DisplayTimer = ({
   defaultTime,
@@ -17,6 +18,8 @@ const DisplayTimer = ({
       setIsRotating(false);
     }, 1000);
   };
+
+  const location = useLocation().pathname;
 
   const timer =
     componentName === "Breathe"
@@ -43,16 +46,25 @@ const DisplayTimer = ({
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
       {/* Main container */}
       <div className="relative w-full max-w-[300px] flex flex-col items-center gap-8">
-        <div>
-          <button>
-            <Link to="/">Pomodoro</Link>
-          </button>
-          <button>
-            <Link to="/rest">Rest</Link>
-          </button>
-          <button>
-            <Link to="/breathe">Breathe</Link>
-          </button>
+        <div className="flex gap-4">
+          <Link to="/">
+            <NavButtons
+              componentName={"Pomodoro"}
+              currrentPage={location === "/"}
+            ></NavButtons>
+          </Link>
+          <Link to="/rest">
+            <NavButtons
+              componentName={"Rest"}
+              currrentPage={location === "/rest"}
+            ></NavButtons>
+          </Link>
+          <Link to="/breathe">
+            <NavButtons
+              componentName={"Breathe"}
+              currrentPage={location === "/breathe"}
+            ></NavButtons>
+          </Link>
         </div>
 
         {/* Circular timer container */}
