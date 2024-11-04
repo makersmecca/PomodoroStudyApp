@@ -7,6 +7,10 @@ const NavLinks = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { currentUser } = useContext(UserContext);
+  // currentUser !== null &&
+  //   Object.entries(currentUser).forEach(([key, value]) => {
+  //     console.log(`${key}: ${value}`);
+  //   });
 
   // Toggle menu open/close
   const toggleMenu = () => {
@@ -69,7 +73,7 @@ const NavLinks = () => {
             />
           </svg>
           <div className="text-lg text-gray-800 hover:text-blue-600">
-            {currentUser ? currentUser : "Hello!"}
+            {currentUser ? `Hello, ${currentUser.displayName}!` : "Hello!"}
           </div>
           <Link
             to="/customtimer"
