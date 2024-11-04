@@ -7,6 +7,7 @@ const NavLinks = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { currentUser } = useContext(UserContext);
+  console.log(currentUser);
   // currentUser !== null &&
   //   Object.entries(currentUser).forEach(([key, value]) => {
   //     console.log(`${key}: ${value}`);
@@ -57,15 +58,8 @@ const NavLinks = () => {
           isOpen ? "translate-x-0 me-2 md:me-4" : "translate-x-full"
         }`}
       >
-        <div className="flex flex-col items-start md:items-center space-y-6 md:px-6 px-8 pb-8 pt-6 md:pt-20">
-          {currentUser ? (
-            <img
-              src={`${currentUser.photoURL}`}
-              height={35}
-              width={35}
-              className="rounded-full shadow-md shadow-gray-700"
-            />
-          ) : (
+        <div className="flex flex-col items-start md:items-center space-y-6 px-6 pb-8 pt-6 md:pt-20">
+          {currentUser === null || currentUser.photoURL === null ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="35"
@@ -80,9 +74,20 @@ const NavLinks = () => {
                 d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
               />
             </svg>
+          ) : (
+            <img
+              src={`${currentUser.photoURL}`}
+              height={35}
+              width={35}
+              className="rounded-full shadow-md shadow-gray-700"
+            />
           )}
           <div className="text-lg text-gray-800 cursor-default">
-            {currentUser ? `Hello, ${currentUser.displayName}!` : "Hello!"}
+            {currentUser ? (
+              <span>Hello, {`${currentUser.displayName}`}</span>
+            ) : (
+              "Hello!"
+            )}
           </div>
           <Link
             to="/customtimer"
