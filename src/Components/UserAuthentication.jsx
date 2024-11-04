@@ -44,18 +44,22 @@ const UserAuthentication = () => {
       formInput.password
     )
       .then((usercredential) => {
-        const user = usercredential.user;
-        console.log(user);
-        Navigate("/Login");
+        // const user = usercredential.user;
+        // console.log(user);
+        Navigate("/LogIn");
       })
       .catch((err) => {
         console.log(err.message);
       });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault(e);
+    location === "/LogIn" ? handleLogIn(e) : handleSignUp(e);
+  };
   const handleLogIn = async (e) => {
     console.log("logging in...");
-    e.preventDefault();
+    e.preventDefault(e);
 
     await signInWithEmailAndPassword(
       auth,
@@ -63,8 +67,8 @@ const UserAuthentication = () => {
       formInput.password
     )
       .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
+        // const user = userCredential.user;
+        // console.log(user);
         Navigate("/");
       })
       .catch((err) => {
@@ -87,15 +91,34 @@ const UserAuthentication = () => {
   };
 
   return (
-    <div class="flex flex-col items-center justify-center px-6  mx-auto h-screen">
-      <div className="flex flex-col items-center gap-6 w-full bg-pastelYellow rounded-lg shadow  md:mt-0 sm:max-w-md px-5 py-10">
-        <div className="font-semibold text-xl">
-          {location === "/LogIn" ? "Welcome Back!" : "Welcome"}
+    <div className="flex flex-col items-center justify-center px-6  mx-auto h-screen">
+      <div className="flex flex-col items-center w-full bg-pastelYellow rounded-3xl shadow md:mt-0 sm:max-w-sm px-5 py-6">
+        <div className="flex w-full items-center justify-between mb-6">
+          <button className="text-buttonColor hover:text-buttonColor/80 transition-colors min-h-7 min-w-7 mt-0.5">
+            <Link to="/">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                fill="currentColor"
+                className="bi bi-arrow-left-circle-fill"
+                viewBox="0 0 16 16"
+              >
+                <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
+              </svg>
+            </Link>
+          </button>
+          <div className="font-semibold text-2xl flex-grow text-center">
+            {location === "/LogIn" ? "Welcome Back!" : "Welcome"}
+          </div>
+          {/* This empty div helps balance the layout */}
+          <div className="w-[52px]"></div>
         </div>
-        <form className="flex flex-col items-start w-full gap-4">
+
+        <form className="flex flex-col items-start w-full gap-4 mt-4">
           <div className="w-full">
-            <label htmlFor="emailId" className="block mb-2 text-md font-medium">
-              Email Id
+            <label htmlFor="emailId" className="block mb-2 text-lg font-medium">
+              Your Email
             </label>
             <input
               onChange={handleInput}
@@ -109,7 +132,7 @@ const UserAuthentication = () => {
           <div className="w-full">
             <label
               htmlFor="password"
-              className="block mb-2 text-md font-medium"
+              className="block mb-2 text-lg font-medium"
             >
               Password
             </label>
@@ -120,11 +143,11 @@ const UserAuthentication = () => {
                 id="pw"
                 type={showPw ? "text" : "password"}
                 name="password"
-                className="rounded-lg p-2 w-5/6"
+                className="rounded-lg p-2 w-11/12"
                 placeholder="shh.. secret"
               />
 
-              <button type="button" onClick={handleShowPW} className="">
+              <button type="button" onClick={handleShowPW} className="ms-1">
                 {showPw ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -153,22 +176,46 @@ const UserAuthentication = () => {
               </button>
             </span>
           </div>
-          <div className="flex self-center">
-            {location === "/LogIn" ? (
-              <button type="submit" onClick={handleLogIn}>
-                LOGIN
-              </button>
-            ) : (
-              <button type="submit" onClick={handleSignUp}>
-                SIGNUP
-              </button>
-            )}
+          <div className="flex self-center w-full">
+            <button
+              type="submit"
+              className="w-full bg-buttonColor text-white rounded-lg p-2 mt-5 font-semibold"
+              onClick={handleSubmit}
+            >
+              {location === "/LogIn" ? "Log In" : "Sign Up"}
+            </button>
           </div>
         </form>
-        <button onClick={handleGoogleSignIn}>Continue With Google</button>
-        <button>
-          <Link to="/">Home</Link>
-        </button>
+        <div className="flex flex-row items-center mt-4">
+          <hr className="w-28 h-px mx-auto mt-1 me-3 bg-buttonColor border-0 rounded" />{" "}
+          or{" "}
+          <hr className="w-28 h-px mx-auto mt-1 ms-3 bg-buttonColor border-0 rounded" />
+        </div>
+        <div className="flex flex-col self-center w-full mt-4">
+          <button
+            className="w-full bg-softOrange text-white font-semibold rounded-lg p-2"
+            onClick={handleGoogleSignIn}
+          >
+            Continue With Google
+          </button>
+        </div>
+        <div className="mt-4">
+          {location === "/LogIn" ? (
+            <span>
+              Don't have an account?{" "}
+              <span className="font-semibold text-buttonColor">
+                <Link to="/SignUp">Sign Up.</Link>
+              </span>
+            </span>
+          ) : (
+            <span>
+              Already have an account?{" "}
+              <span className="font-semibold text-buttonColor">
+                <Link to="/LogIn">Log In.</Link>
+              </span>
+            </span>
+          )}
+        </div>
       </div>
     </div>
   );
