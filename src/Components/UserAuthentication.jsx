@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Link, useNavigate } from "react-router-dom";
+import NavLinks from "./NavLinks";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -91,9 +92,13 @@ const UserAuthentication = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center px-6  mx-auto h-screen">
-      <div className="flex flex-col items-center w-full bg-pastelYellow rounded-3xl shadow md:mt-0 sm:max-w-sm px-5 py-6">
+    <div className="flex flex-col items-center justify-center px-6 mx-auto h-screen">
+      <div className="flex justify-between w-full items-center">
+        <NavLinks></NavLinks>
+      </div>
+      <div className="flex flex-col items-center w-full bg-pastelYellow rounded-3xl shadow mt-12 sm:max-w-sm px-5 py-6">
         <div className="flex w-full items-center justify-between mb-6">
+          {/*Back button to go to homepage*/}
           <button className="text-buttonColor hover:text-buttonColor/80 transition-colors min-h-7 min-w-7 mt-0.5">
             <Link to="/">
               <svg
@@ -108,8 +113,8 @@ const UserAuthentication = () => {
               </svg>
             </Link>
           </button>
-          <div className="font-semibold text-2xl flex-grow text-center">
-            {location === "/LogIn" ? "Welcome Back!" : "Welcome"}
+          <div className="font-semibold text-2xl flex-grow text-center ms-5">
+            {location === "/LogIn" ? "Welcome Back!" : "Welcome!"}
           </div>
           {/* This empty div helps balance the layout */}
           <div className="w-[52px]"></div>
@@ -186,7 +191,7 @@ const UserAuthentication = () => {
             </button>
           </div>
         </form>
-        <div className="flex flex-row items-center mt-4">
+        <div className="flex flex-row items-center font-semibold mt-4">
           <hr className="w-28 h-px mx-auto mt-1 me-3 bg-buttonColor border-0 rounded" />{" "}
           or{" "}
           <hr className="w-28 h-px mx-auto mt-1 ms-3 bg-buttonColor border-0 rounded" />
