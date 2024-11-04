@@ -9,19 +9,22 @@ import Settings from "./Components/Settings";
 import SignUp from "./Components/SignUp";
 import LogIn from "./Components/LogIn";
 import { Route, Routes } from "react-router-dom";
+import { UserProvider } from "./Components/UserContext";
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<CountdownTimer />} />
-      <Route path="/customtimer" element={<CustomTimer />} />
-      <Route path="/rest" element={<RestTimer />} />
-      <Route path="/breathe" element={<Breathe />} />
-      <Route path="/todo" element={<Todo />} />
-      <Route path="/stats" element={<Stats />} />
-      <Route path="/settings" element={<Settings />} />
-      <Route path="/SignUp" element={<SignUp />} />
-      <Route path="/LogIn" element={<LogIn />} />
-    </Routes>
+    <UserProvider>
+      <Routes>
+        <Route path="/" element={<CountdownTimer />} />
+        <Route path="/customtimer" element={<CustomTimer />} />
+        <Route path="/rest" element={<RestTimer />} />
+        <Route path="/breathe" element={<Breathe />} />
+        <Route path="/todo" element={<Todo />} />
+        <Route path="/stats" element={<Stats />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/LogIn" element={<LogIn />} />
+      </Routes>
+    </UserProvider>
   );
 }
 
