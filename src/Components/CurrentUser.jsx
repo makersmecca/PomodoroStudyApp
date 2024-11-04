@@ -1,4 +1,4 @@
-import { onAuthStateChanged, getAuth } from "firebase/auth";
+import { onAuthStateChanged, getAuth, signOut } from "firebase/auth";
 import { auth } from "../auth/firebaseAuth";
 import { useState, useEffect } from "react";
 
@@ -9,7 +9,7 @@ const CurrentUser = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log("User is signed in:", user.email);
-        setCurrentUser(user.email);
+        setCurrentUser(user.email.split("@")[0]);
       } else {
         console.log("User is signed out");
         setCurrentUser(null);
@@ -28,21 +28,32 @@ const CurrentUser = () => {
         console.error("Error signing out:", error);
       });
   };
+  // <>
+  //     {" "}
+  //     <div>
+  //       {currentUser != null ? (
+  //         <div className="flex items-center gap-2">
+  //           <span>
+  //             {currentUser}{" "}
+  //             <button type="button" onClick={handleSignOut}>
+  //               Sign Out
+  //             </button>
+  //           </span>
+  //         </div>
+  //       ) : (
+  //         ""
+  //       )}
+  //     </div>
+  //   </>
   return (
-    <div>
-      {currentUser != null ? (
-        <div className="flex items-center gap-2">
-          <span>
-            {currentUser}{" "}
-            <button type="button" onClick={handleSignOut}>
-              Sign Out
-            </button>
-          </span>
-        </div>
-      ) : (
-        ""
-      )}
-    </div>
+    <>
+      <div
+        onClick={handleSignOut}
+        className="text-lg text-gray-800 hover:text-blue-600"
+      >
+        Log Out
+      </div>
+    </>
   );
 };
 export default CurrentUser;
