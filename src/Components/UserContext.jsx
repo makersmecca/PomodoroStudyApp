@@ -17,12 +17,19 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setCurrentUser({
-          email: user.email,
-          uid: user.uid,
-          displayName: user.displayName.split(" ")[0],
-          photoURL: user.photoURL,
-        });
+        user.displayName === null
+          ? setCurrentUser({
+              email: user.email,
+              uid: user.uid,
+              displayName: user.email.substring(0, 5),
+              photoURL: null,
+            })
+          : setCurrentUser({
+              email: user.email,
+              uid: user.uid,
+              displayName: user.displayName.split(" ")[0],
+              photoURL: user.photoURL,
+            });
       } else {
         setCurrentUser(null);
       }
