@@ -85,7 +85,9 @@ const NavLinks = () => {
               className="rounded-full shadow-md shadow-gray-700"
             />
           )}
-          {location === "/LogIn" || location === "/SignUp" ? (
+          {location === "/LogIn" ||
+          location === "/SignUp" ||
+          location === "/todo" ? (
             <Link
               className="text-lg text-gray-800 hover:text-buttonColor"
               to="/"
