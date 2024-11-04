@@ -3,6 +3,7 @@ import { UserContext } from "./UserContext";
 import { Link } from "react-router-dom";
 import DisplayDateTime from "./DisplayDateTime";
 import CurrentUser from "./CurrentUser";
+import { useLocation } from "react-router-dom";
 const NavLinks = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -18,6 +19,8 @@ const NavLinks = () => {
     setIsOpen(!isOpen);
   };
   // fixed md:top-20 top-10 right-4 md:right-20 z-20
+
+  const location = useLocation().pathname;
   return (
     <>
       {/* Hamburger Icon */}
@@ -82,13 +85,22 @@ const NavLinks = () => {
               className="rounded-full shadow-md shadow-gray-700"
             />
           )}
-          <div className="text-lg text-gray-800 cursor-default">
-            {currentUser ? (
-              <span>Hello, {`${currentUser.displayName}`}</span>
-            ) : (
-              "Hello!"
-            )}
-          </div>
+          {location === "/LogIn" || location === "/SignUp" ? (
+            <Link
+              className="text-lg text-gray-800 hover:text-buttonColor"
+              to="/"
+            >
+              Pomodoro
+            </Link>
+          ) : (
+            <div className="text-lg text-gray-800 cursor-default">
+              {currentUser ? (
+                <span>Hello, {`${currentUser.displayName}`}</span>
+              ) : (
+                "Hello!"
+              )}
+            </div>
+          )}
           <Link
             to="/customtimer"
             onClick={toggleMenu}
