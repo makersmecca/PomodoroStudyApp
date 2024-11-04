@@ -30,10 +30,7 @@ const LogIn = () => {
   const handleLogIn = async (e) => {
     console.log("logging in...");
     e.preventDefault();
-    // if (auth.user) {
-    //   console.log(auth);
-    //   await signOut(auth);
-    // }
+
     await signInWithEmailAndPassword(
       auth,
       formInput.emailId,
