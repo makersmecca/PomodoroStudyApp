@@ -6,13 +6,23 @@ import { auth } from "../auth/firebaseAuth";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState({
+    email: null,
+    uid: null,
+    displayName: null,
+    photoURL: null,
+  });
 
   getAuth();
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setCurrentUser(user.email.split("@")[0]);
+        setCurrentUser({
+          email: user.email,
+          uid: user.uid,
+          displayName: user.displayName.split(" ")[0],
+          photoURL: user.photoURL,
+        });
       } else {
         setCurrentUser(null);
       }
