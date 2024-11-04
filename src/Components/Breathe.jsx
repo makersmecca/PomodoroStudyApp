@@ -23,9 +23,9 @@ const Breathe = () => {
   return (
     <div>
       <div className="flex justify-between w-full items-center">
-        <div className="flex items-center gap-4">
+        {/* <div className="flex items-center gap-4">
           <CurrentUser></CurrentUser>
-        </div>
+        </div> */}
 
         <NavLinks></NavLinks>
       </div>
