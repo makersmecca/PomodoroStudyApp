@@ -20,9 +20,9 @@ const NavLinks = () => {
   return (
     <>
       {/* Hamburger Icon */}
-      <div className="flex justify-between md:justify-end items-center fixed sm:absolute md:top-20 top-10 right-4 md:right-20 z-20 left-4 md:left-20">
+      <div className="flex justify-between items-center fixed sm:absolute md:top-20 top-10 right-5 md:right-20 z-20 left-4 md:left-20">
         {/* Time display - adjusted for widescreen */}
-        <div className="md:order-2 md:mr-20">
+        <div className="md:order-first">
           <DisplayDateTime></DisplayDateTime>
         </div>
 
@@ -57,55 +57,67 @@ const NavLinks = () => {
           isOpen ? "translate-x-0 me-2 md:me-4" : "translate-x-full"
         }`}
       >
-        <div className="flex flex-col items-start md:items-center space-y-6 md:px-6 px-8 pb-8 pt-7 md:pt-20">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="30"
-            height="30"
-            fill="currentColor"
-            className="bi bi-person-circle"
-            viewBox="0 0 16 16"
-          >
-            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-            <path
-              fillRule="evenodd"
-              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
+        <div className="flex flex-col items-start md:items-center space-y-6 md:px-6 px-8 pb-8 pt-6 md:pt-20">
+          {currentUser ? (
+            <img
+              src={`${currentUser.photoURL}`}
+              height={35}
+              width={35}
+              className="rounded-full shadow-md shadow-gray-700"
             />
-          </svg>
-          <div className="text-lg text-gray-800 hover:text-blue-600">
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="35"
+              height="35"
+              fill="currentColor"
+              className="bi bi-person-circle"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+              <path
+                fillRule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
+              />
+            </svg>
+          )}
+          <div className="text-lg text-gray-800 cursor-default">
             {currentUser ? `Hello, ${currentUser.displayName}!` : "Hello!"}
           </div>
           <Link
             to="/customtimer"
             onClick={toggleMenu}
-            className="text-lg text-gray-800 hover:text-blue-600"
+            className="text-lg text-gray-800 hover:text-buttonColor"
           >
             Custom Timer
           </Link>
           <Link
             to="/todo"
             onClick={toggleMenu}
-            className="text-lg text-gray-800 hover:text-blue-600"
+            className="text-lg text-gray-800 hover:text-buttonColor"
           >
             Your Tasks
           </Link>
-          <Link
-            to="/SignUp"
-            onClick={toggleMenu}
-            className="text-lg text-gray-800 hover:text-blue-600"
-          >
-            SignUp
-          </Link>
+
           {currentUser ? (
             <CurrentUser />
           ) : (
-            <Link
-              to="/LogIn"
-              onClick={toggleMenu}
-              className="text-lg text-gray-800 hover:text-blue-600"
-            >
-              Log In
-            </Link>
+            <>
+              <Link
+                to="/SignUp"
+                onClick={toggleMenu}
+                className="text-lg text-gray-800 hover:text-buttonColor"
+              >
+                SignUp
+              </Link>
+              <Link
+                to="/LogIn"
+                onClick={toggleMenu}
+                className="text-lg text-gray-800 hover:text-buttonColor"
+              >
+                Log In
+              </Link>
+            </>
           )}
         </div>
       </div>
