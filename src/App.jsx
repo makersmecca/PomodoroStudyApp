@@ -6,8 +6,7 @@ import Breathe from "./Components/Breathe";
 import Todo from "./Components/ToDo";
 import Stats from "./Components/Stats";
 import Settings from "./Components/Settings";
-import SignUp from "./Components/SignUp";
-import LogIn from "./Components/LogIn";
+import UserAuthentication from "./Components/UserAuthentication";
 import { Route, Routes } from "react-router-dom";
 import { UserProvider } from "./Components/UserContext";
 function App() {
@@ -21,8 +20,8 @@ function App() {
         <Route path="/todo" element={<Todo />} />
         <Route path="/stats" element={<Stats />} />
         <Route path="/settings" element={<Settings />} />
-        <Route path="/SignUp" element={<SignUp />} />
-        <Route path="/LogIn" element={<LogIn />} />
+        <Route path="/SignUp" element={<UserAuthentication />} />
+        <Route path="/LogIn" element={<UserAuthentication />} />
       </Routes>
     </UserProvider>
   );
