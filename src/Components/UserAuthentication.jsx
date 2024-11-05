@@ -14,6 +14,7 @@ const provider = new GoogleAuthProvider();
 
 const UserAuthentication = () => {
   const Navigate = useNavigate();
+
   const [formInput, setFormInput] = useState({
     emailId: "",
     password: "",
@@ -53,7 +54,7 @@ const UserAuthentication = () => {
         Navigate("/LogIn");
       })
       .catch((err) => {
-        console.log(err.message);
+        // console.log(err.message);
       });
   };
 
@@ -107,7 +108,7 @@ const UserAuthentication = () => {
         Navigate("/");
       })
       .catch((err) => {
-        console.log(err.message);
+        // console.log(err.message);
       });
   };
 
