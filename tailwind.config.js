@@ -24,6 +24,13 @@ export default {
       },
       animation: {
         spinSlow: "spin 1s ease-in-out",
+        breatheGlow: "breatheGlow 10s ease-in-out infinite",
+      },
+      keyframes: {
+        breatheGlow: {
+          "0%, 100%": { boxShadow: "0 0 5px 0 rgba(201, 104, 104, 0.3)" },
+          "50%": { boxShadow: "0 0 20px 10px rgba(201, 104, 104, 0.7)" },
+        },
       },
     },
   },
