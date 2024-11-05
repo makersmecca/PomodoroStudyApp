@@ -9,6 +9,7 @@ import Settings from "./Components/Settings";
 import UserAuthentication from "./Components/UserAuthentication";
 import { Route, Routes } from "react-router-dom";
 import { UserProvider } from "./Components/UserContext";
+import ForgotPassword from "./Components/ForgotPassword";
 function App() {
   return (
     <UserProvider>
@@ -22,6 +23,7 @@ function App() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/SignUp" element={<UserAuthentication />} />
         <Route path="/LogIn" element={<UserAuthentication />} />
+        <Route path="/ForgotPassword" element={<ForgotPassword />} />
       </Routes>
     </UserProvider>
   );
