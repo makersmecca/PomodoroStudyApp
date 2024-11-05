@@ -32,7 +32,7 @@ const UserAuthentication = () => {
     e.preventDefault();
     setFormInput({
       ...formInput,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value || "",
     });
   };
 

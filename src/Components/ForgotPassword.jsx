@@ -8,7 +8,7 @@ const ForgotPassword = () => {
   const [errorMsg, setErrorMsg] = useState("");
 
   const handleInput = (event) => {
-    setEmail(event.target.value);
+    setEmail(event.target.value || "");
     setErrorMsg("");
   };
 
