@@ -25,7 +25,7 @@ const NavLinks = () => {
     <div className="">
       {/* Hamburger Icon */}
       <div className="flex justify-between items-center fixed sm:absolute md:top-20 top-10 right-5 md:right-20 z-20 left-4 md:left-20">
-        {/* Time display - adjusted for widescreen */}
+        {/* Time display */}
         <div className="md:order-first">
           <DisplayDateTime></DisplayDateTime>
         </div>
