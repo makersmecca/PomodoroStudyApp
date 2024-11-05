@@ -14,6 +14,9 @@ export default {
         pastelOrange: "#FFB38E",
         pastelWhite: "#f8edeb",
         pastelRed: "#ffadad",
+        realRed: "#e15050",
+        pastelPink: "#ff9b9a",
+        pastelBlue: "#9eb3c2",
         gray: {
           darkest: "#1f2d3d",
           dark: "#3c4858",
