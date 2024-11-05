@@ -1,6 +1,5 @@
-import { onAuthStateChanged, getAuth, signOut } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import { auth } from "../auth/firebaseAuth";
-import { useState, useEffect } from "react";
 
 const CurrentUser = () => {
   getAuth();
