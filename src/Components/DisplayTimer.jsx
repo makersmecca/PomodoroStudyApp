@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import useTimerComp from "./useTimerComp";
 import { Link, useLocation } from "react-router-dom";
 import NavButtons from "./NavButtons";
@@ -49,6 +49,18 @@ const DisplayTimer = ({
       document.documentElement.requestFullscreen();
     }
   };
+  // ${
+  //   breatheState
+  //     ? "bg-green-100 shadow-green-500"
+  //     : "bg-blue-100 shadow-blue-500"
+  // }
+
+  const glowClasses = useMemo(() => {
+    if (componentName === "Breathe" && timer.isRunning) {
+      return "animate-breatheGlow shadow-buttonColor/80"; // Using the glow color with 10% opacity for background
+    }
+    return "";
+  }, [componentName, timer.isRunning]);
 
   return (
     <>
@@ -79,7 +91,9 @@ const DisplayTimer = ({
           {/* Circular timer container */}
           <div className="relative w-[180px] xs:w-[200px] sm:w-[220px] md:w-[250px] aspect-square">
             {/* Timer circle */}
-            <div className="absolute inset-0 bg-pastelWhite border-solid rounded-full shadow-lg flex items-center justify-center border-4 border-buttonColor border-opacity-50">
+            <div
+              className={`absolute inset-0 bg-pastelWhite border-solid rounded-full shadow-lg flex items-center justify-center border-4 border-buttonColor border-opacity-50 transition-all duration-500 ${glowClasses}`}
+            >
               {/* Timer text container */}
               <div className="flex flex-col items-center justify-center">
                 <div
