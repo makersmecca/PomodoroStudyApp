@@ -104,13 +104,13 @@ const NavLinks = () => {
               )}
             </div>
           )}
-          <Link
+          {/* <Link
             to="/customtimer"
             onClick={toggleMenu}
             className="text-lg text-gray-800 hover:text-buttonColor"
           >
             Custom Timer
-          </Link>
+          </Link> */}
           <Link
             to="/todo"
             onClick={toggleMenu}
