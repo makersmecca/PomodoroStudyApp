@@ -8,7 +8,7 @@ const NavLinks = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { currentUser } = useContext(UserContext);
-  console.log(currentUser);
+  // console.log(currentUser);
   // currentUser !== null &&
   //   Object.entries(currentUser).forEach(([key, value]) => {
   //     console.log(`${key}: ${value}`);
