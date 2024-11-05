@@ -13,6 +13,7 @@ const DisplayTimer = ({
   const [isRotating, setIsRotating] = useState(false);
   const handleRotate = () => {
     timer.handleCancel();
+    setBreatheState(true);
     setIsRotating(true);
     setTimeout(() => {
       setIsRotating(false);
