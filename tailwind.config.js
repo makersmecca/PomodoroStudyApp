@@ -4,14 +4,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        backgroundColor: "#FFE5D9",
-        buttonColor: "#D95333",
+        backgroundColor: "#FFF4EA",
+        buttonColor: "#c96868",
         accentColorLightCream: "#FFF7F0",
         subtleSoftGrey: "#B0AFAF",
         mutedOchre: "#FF8B42",
         softOrange: "#FFA559",
         pastelYellow: "#FDDBBB",
         pastelOrange: "#FFB38E",
+        pastelWhite: "#f8edeb",
+        pastelRed: "#ffadad",
         gray: {
           darkest: "#1f2d3d",
           dark: "#3c4858",
