@@ -22,9 +22,9 @@ const NavLinks = () => {
 
   const location = useLocation().pathname;
   return (
-    <>
+    <div className="">
       {/* Hamburger Icon */}
-      <div className="flex justify-between items-center fixed sm:absolute md:top-20 top-10 right-5 md:right-20 z-20 left-4 md:left-20">
+      <div className="flex justify-between items-center fixed sm:absolute md:top-20 top-10 right-5 md:right-20 z-20 left-4 md:left-20 bg-backgroundColor">
         {/* Time display - adjusted for widescreen */}
         <div className="md:order-first">
           <DisplayDateTime></DisplayDateTime>
@@ -140,7 +140,7 @@ const NavLinks = () => {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
