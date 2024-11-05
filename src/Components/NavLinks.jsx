@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import DisplayDateTime from "./DisplayDateTime";
 import CurrentUser from "./CurrentUser";
 import { useLocation } from "react-router-dom";
+
 const NavLinks = () => {
   const [isOpen, setIsOpen] = useState(false);
 
