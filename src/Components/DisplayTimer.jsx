@@ -79,12 +79,12 @@ const DisplayTimer = ({
           {/* Circular timer container */}
           <div className="relative w-[180px] xs:w-[200px] sm:w-[220px] md:w-[250px] aspect-square">
             {/* Timer circle */}
-            <div className="absolute inset-0 bg-pastelYellow border-solid rounded-full shadow-lg flex items-center justify-center border-4 border-pastelOrange">
+            <div className="absolute inset-0 bg-pastelWhite border-solid rounded-full shadow-lg flex items-center justify-center border-4 border-buttonColor border-opacity-50">
               {/* Timer text container */}
               <div className="flex flex-col items-center justify-center">
                 <div
-                  className={`text-4xl xs:text-5xl sm:text-6xl font-semibold text-gray-800 mb-2 ${
-                    componentName === "Breathe" && "mt-9"
+                  className={`text-4xl xs:text-5xl sm:text-6xl font-semibold text-slate-600 mb-2 ${
+                    componentName === "Breathe" && "mt-8 sm:mt-9"
                   }`}
                 >
                   {timer.formatTime(timer.timeLeft)}
@@ -111,16 +111,34 @@ const DisplayTimer = ({
             {/* Control buttons */}
             <button
               onClick={timer.handleDecrease}
-              className="absolute md:left-[-20%] left-[-30%] top-1/2 -translate-y-1/2 w-10 h-10 xs:w-12 xs:h-12 flex items-center justify-center bg-buttonColor text-white rounded-2xl hover:bg-opacity-80 active:scale-95 transition-all duration-300 text-3xl xs:text-2xl pb-1.5 shadow-md"
+              className="absolute md:left-[-20%] left-[-30%] top-1/2 -translate-y-1/2 flex items-center justify-center active:scale-95 transition-all duration-300 text-3xl xs:text-2xl pb-1"
             >
-              -
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="40"
+                height="40"
+                fill="currentColor"
+                className="bi bi-dash-circle-fill shadow-md rounded-full hover:opacity-90"
+                viewBox="0 0 16 16"
+              >
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1z" />
+              </svg>
             </button>
 
             <button
               onClick={timer.handleIncrease}
-              className="absolute md:right-[-20%] right-[-30%] top-1/2 -translate-y-1/2 w-10 h-10 xs:w-12 xs:h-12 flex items-center justify-center bg-buttonColor text-white rounded-2xl hover:bg-opacity-80 active:scale-95 transition-all duration-300 text-3xl xs:text-2xl pb-1 shadow-md"
+              className="absolute md:right-[-20%] right-[-30%] top-1/2 -translate-y-1/2 flex items-center justify-center active:scale-95 transition-all duration-300 text-3xl xs:text-2xl pb-1"
             >
-              +
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="40"
+                height="40"
+                fill="currentColor"
+                className="bi bi-plus-circle-fill shadow-md rounded-full hover:opacity-90"
+                viewBox="0 0 16 16"
+              >
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+              </svg>
             </button>
           </div>
 
@@ -130,9 +148,13 @@ const DisplayTimer = ({
               onClick={timer.isRunning ? timer.handlePause : timer.handleStart}
               className={`px-4 py-1 ${
                 timer.isRunning
-                  ? "bg-orange-400 hover:bg-opacity-85"
+                  ? "bg-pastelRed hover:bg-opacity-85"
                   : "bg-buttonColor hover:bg-opacity-85"
-              } text-white rounded-3xl active:scale-95 transition-all duration-300 text-xl shadow-md w-[90px]`}
+              } ${
+                timer.isRunning
+                  ? "text-slate-600 font-semibold"
+                  : "text-white font-normal"
+              } rounded-3xl active:scale-95 transition-all duration-300 text-xl shadow-md w-[90px]`}
             >
               {timer.isRunning ? "Pause" : "Start"}
             </button>
