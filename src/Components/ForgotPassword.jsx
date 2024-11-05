@@ -9,6 +9,7 @@ const ForgotPassword = () => {
 
   const handleInput = (event) => {
     setEmail(event.target.value);
+    setErrorMsg("");
   };
 
   const handleSubmit = async (e) => {
@@ -76,6 +77,7 @@ const ForgotPassword = () => {
                 name="emailId"
                 className="rounded-lg block w-full p-2"
                 placeholder="focusing@pomodoro.study"
+                value={email}
                 required
               />
             </div>
