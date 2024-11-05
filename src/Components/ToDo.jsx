@@ -150,7 +150,9 @@ const ToDo = () => {
       </div>
 
       {!userStatus ? (
-        <Link to="/LogIn">Log in to continue</Link>
+        <Link to="/LogIn" className="text-lg font-semibold ">
+          Log in to continue
+        </Link>
       ) : (
         <>
           <div className="flex flex-row justify-center items-center">
@@ -170,7 +172,7 @@ const ToDo = () => {
           </div>
           <div>
             {idLoading ? (
-              "Loading Tasks..."
+              "Loading Your Tasks..."
             ) : todos.length > 0 ? (
               <ul className="mt-4 space-y-2">
                 {todos.map((todo, index) => (

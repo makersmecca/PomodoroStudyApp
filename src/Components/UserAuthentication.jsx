@@ -19,12 +19,15 @@ const UserAuthentication = () => {
     password: "",
   });
 
+  const [ErrorMsg, setErrorMsg] = useState("");
+
   const location = useLocation().pathname;
-  console.log(location);
+  // console.log(location);
 
   const [showPw, setShowPw] = useState(false);
 
   const handleInput = (e) => {
+    setErrorMsg("");
     e.preventDefault();
     setFormInput({
       ...formInput,
@@ -74,6 +77,23 @@ const UserAuthentication = () => {
       })
       .catch((err) => {
         console.log(err.message);
+        switch (err.message) {
+          case "Firebase: Error (auth/invalid-email).":
+            setErrorMsg("Invalid Email");
+            break;
+          case "Firebase: Error (auth/missing-password).":
+            setErrorMsg("Invalid Password");
+            break;
+          case "Firebase: Error (auth/invalid-credential).":
+            setErrorMsg("Wrong Password");
+            break;
+          case "Firebase: Error (auth/user-not-found).":
+            setErrorMsg("User not found");
+            break;
+          default:
+            setErrorMsg("Something went wrong");
+            break;
+        }
       });
   };
   //google sign in popup authentication
@@ -120,7 +140,7 @@ const UserAuthentication = () => {
           <div className="w-[52px]"></div>
         </div>
 
-        <form className="flex flex-col items-start w-full gap-4 mt-4">
+        <form className="flex flex-col items-start w-full gap-3 mt-4">
           <div className="w-full">
             <label htmlFor="emailId" className="block mb-2 text-lg font-medium">
               Your Email
@@ -132,6 +152,7 @@ const UserAuthentication = () => {
               name="emailId"
               className="rounded-lg block w-full p-2"
               placeholder="focusing@pomodoro.study"
+              required
             />
           </div>
           <div className="w-full">
@@ -150,6 +171,7 @@ const UserAuthentication = () => {
                 name="password"
                 className="rounded-lg p-2 w-11/12"
                 placeholder="shh.. secret"
+                required
               />
 
               <button type="button" onClick={handleShowPW} className="ms-1">
@@ -181,10 +203,14 @@ const UserAuthentication = () => {
               </button>
             </span>
           </div>
+
+          <Link to="/ForgotPassword">Forgot password?</Link>
+
+          <span className={ErrorMsg === "" ? "my-3" : "my-0"}>{ErrorMsg}</span>
           <div className="flex self-center w-full">
             <button
               type="submit"
-              className="w-full bg-buttonColor text-white rounded-lg p-2 mt-5 font-semibold"
+              className="w-full bg-buttonColor text-white rounded-lg p-2 font-semibold"
               onClick={handleSubmit}
             >
               {location === "/LogIn" ? "Log In" : "Sign Up"}
@@ -198,9 +224,19 @@ const UserAuthentication = () => {
         </div>
         <div className="flex flex-col self-center w-full mt-4">
           <button
-            className="w-full bg-softOrange text-white font-semibold rounded-lg p-2"
+            className="w-full bg-softOrange text-white font-semibold rounded-lg p-2 flex justify-center items-center"
             onClick={handleGoogleSignIn}
           >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              className="bi bi-google me-2 mt-0.5"
+              viewBox="0 0 16 16"
+            >
+              <path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z" />
+            </svg>
             Continue With Google
           </button>
         </div>
