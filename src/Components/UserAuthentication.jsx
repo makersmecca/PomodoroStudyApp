@@ -66,6 +66,11 @@ const UserAuthentication = () => {
     console.log("logging in...");
     e.preventDefault(e);
 
+    if (formInput.emailId === "" || formInput.password === "") {
+      setErrorMsg("Please Enter Credentials");
+      return;
+    }
+
     await signInWithEmailAndPassword(
       auth,
       formInput.emailId,
@@ -153,6 +158,7 @@ const UserAuthentication = () => {
               name="emailId"
               className="rounded-lg block w-full p-2"
               placeholder="focusing@pomodoro.study"
+              value={formInput.emailId}
               required
             />
           </div>
@@ -172,6 +178,7 @@ const UserAuthentication = () => {
                 name="password"
                 className="rounded-lg p-2 w-11/12"
                 placeholder="shh.. secret"
+                value={formInput.password}
                 required
               />
 
@@ -204,10 +211,16 @@ const UserAuthentication = () => {
               </button>
             </span>
           </div>
-
-          <Link to="/ForgotPassword">Forgot password?</Link>
-
-          <span className={ErrorMsg === "" ? "my-3" : "my-0"}>{ErrorMsg}</span>
+          {location === "/LogIn" && (
+            <Link to="/ForgotPassword">Forgot password?</Link>
+          )}
+          <span
+            className={`${
+              ErrorMsg === "" ? "my-2.5" : "my-0"
+            } text-sm text-red-400`}
+          >
+            {ErrorMsg}
+          </span>
           <div className="flex self-center w-full">
             <button
               type="submit"
