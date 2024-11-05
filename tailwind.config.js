@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        backgroundColor: "#FFF4EA",
+        backgroundColor: "#fff4ea",
         buttonColor: "#c96868",
         accentColorLightCream: "#FFF7F0",
         subtleSoftGrey: "#B0AFAF",
