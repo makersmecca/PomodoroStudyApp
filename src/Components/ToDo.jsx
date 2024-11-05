@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { db } from "../auth/firebaseAuth";
-import { useEffect } from "react";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../auth/firebaseAuth";
 import NavLinks from "./NavLinks";
+import { UserContext } from "./UserContext";
 
 const ToDo = () => {
   getAuth();
@@ -18,27 +18,39 @@ const ToDo = () => {
   const [editingIndex, setEditingIndex] = useState(null);
   const [editValue, setEditValue] = useState("");
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUserStatus(true);
-        console.log("User is signed in:", user.email);
-        setUserId(user.email);
-        fetchData();
-      } else {
-        console.log("User is signed out");
-        setUserStatus(false);
-        setUserId("");
-      }
-    });
-  }, [userStatus]);
+  const { currentUser } = useContext(UserContext);
 
-  const fetchData = async () => {
-    if (userId.length === 0) return;
+  useEffect(() => {
+    if (currentUser) {
+      // console.log("User is signed in:", currentUser.email);
+      fetchData(currentUser.email);
+    } else {
+      // console.log("User is signed out");
+      setTodos([]);
+    }
+  }, [currentUser]);
+
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       setUserStatus(true);
+  //       console.log("User is signed in:", user.email);
+  //       setUserId(user.email);
+  //       fetchData();
+  //     } else {
+  //       console.log("User is signed out");
+  //       setUserStatus(false);
+  //       setUserId("");
+  //     }
+  //   });
+  // }, [userStatus]);
+
+  const fetchData = async (email) => {
+    if (!email) return;
 
     setIsLoading(true);
     try {
-      const docRef = doc(db, "todos", userId);
+      const docRef = doc(db, "todos", email);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
@@ -48,12 +60,13 @@ const ToDo = () => {
           completed,
         }));
         setTodos(todoArray);
-        console.log("data from db", todoArray);
+        // console.log("data from db", todoArray);
       } else {
-        console.log("nopes");
+        // console.log("No todos found");
       }
     } catch (err) {
-      console.log("Error fetching todos:", err);
+      // console.log("Error fetching todos:", err);
+      alert("Hmm.. Couldn't fetch your tasks. Check your internet connection.");
     } finally {
       setIsLoading(false);
     }
@@ -63,21 +76,27 @@ const ToDo = () => {
     setInputValue(event.target.value);
   };
 
-  const updateFirestore = async (updatedTodos, userId) => {
+  const updateFirestore = async (updatedTodos) => {
+    if (!currentUser) return;
+
     try {
       const firestoreData = updatedTodos.reduce((acc, todo) => {
         acc[todo.task] = todo.completed;
         return acc;
       }, {});
 
-      await setDoc(doc(db, "todos", userId), firestoreData);
+      await setDoc(doc(db, "todos", currentUser.email), firestoreData);
     } catch (err) {
-      console.log("Error updating Firestore:", err);
+      // console.log("Error updating Firestore:", err);
+      alert(
+        "Hmm.. Couldn't complete your request. Check your internet connection."
+      );
       throw err;
     }
   };
 
-  const handleAddTask = async () => {
+  const handleAddTask = async (e) => {
+    e.preventDefault();
     if (inputValue.trim() !== "") {
       try {
         const updatedTodos = [...todos, { task: inputValue, completed: false }];
@@ -85,7 +104,10 @@ const ToDo = () => {
         await updateFirestore(updatedTodos, userId);
         setInputValue("");
       } catch (err) {
-        console.log("Error adding task:", err);
+        // console.log("Error adding task:", err);
+        alert(
+          "Hmm.. Couldn't complete your request. Check your internet connection."
+        );
       }
     }
   };
@@ -96,7 +118,10 @@ const ToDo = () => {
       setTodos(updatedTodos);
       await updateFirestore(updatedTodos, userId);
     } catch (err) {
-      console.log("Error deleting task:", err);
+      // console.log("Error deleting task:", err);
+      alert(
+        "Hmm.. Couldn't complete your request. Check your internet connection."
+      );
     }
   };
 
@@ -109,6 +134,9 @@ const ToDo = () => {
       await updateFirestore(updatedTodos, userId);
     } catch (err) {
       console.log("Error toggling task:", err);
+      alert(
+        "Hmm.. Couldn't complete your request. Check your internet connection."
+      );
     }
   };
 
@@ -134,6 +162,9 @@ const ToDo = () => {
         setEditValue("");
       } catch (err) {
         console.log("Error updating task:", err);
+        alert(
+          "Hmm.. Couldn't complete your request. Check your internet connection."
+        );
       }
     }
   };
@@ -149,7 +180,7 @@ const ToDo = () => {
         <NavLinks />
       </div>
 
-      {!userStatus ? (
+      {!currentUser ? (
         <div className="flex-grow flex items-center justify-center">
           <Link to="/LogIn" className="text-lg font-semibold">
             Log in to continue
@@ -159,7 +190,7 @@ const ToDo = () => {
         <div className="flex-grow flex flex-col items-center">
           {" "}
           {/*pt-20 for 80px top padding */}
-          <div className="w-full max-w-md flex flex-row justify-center items-center p-4 fixed top-28 md:top-40">
+          <form className="w-full max-w-md flex flex-row justify-center items-center p-4 fixed top-28 md:top-40">
             {" "}
             {/* Fixed position */}
             <input
@@ -172,6 +203,7 @@ const ToDo = () => {
             <button
               onClick={handleAddTask}
               className="bg-buttonColor text-white rounded-lg p-2"
+              type="submit"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -184,8 +216,8 @@ const ToDo = () => {
                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
               </svg>
             </button>
-          </div>
-          <div className="w-4/5 max-w-md mt-52 rounded-lg shadow-md overflow-hidden">
+          </form>
+          <div className="w-80 sm:w-10/12 max-w-md mt-52 rounded-lg shadow-md overflow-hidden">
             {" "}
             {/* Added mt-24 to account for fixed input */}
             <h2 className="text-xl font-semibold p-4 bg-buttonColor text-white">
@@ -223,9 +255,9 @@ const ToDo = () => {
                   {todos.map((todo, index) => (
                     <li
                       key={index}
-                      className="flex items-center justify-between gap-2 mb-2 p-2 bg-gray-50 rounded-lg shadow-sm"
+                      className="flex items-center justify-between gap-2 mb-2"
                     >
-                      <div className="flex items-center gap-2 flex-grow">
+                      <div className="flex items-center gap-2 p-2 flex-grow bg-gray-50 rounded-lg shadow-sm">
                         <input
                           type="checkbox"
                           checked={todo.completed}
@@ -234,12 +266,12 @@ const ToDo = () => {
                         />
                         {editingIndex === index ? (
                           // Edit mode
-                          <div className="flex items-center gap-2 flex-grow">
+                          <div className="flex items-centerflex-grow">
                             <input
                               type="text"
                               value={editValue}
                               onChange={handleEditChange}
-                              className="border rounded px-2 py-1 flex-grow"
+                              className="border rounded flex-grow"
                               autoFocus
                             />
                           </div>
@@ -259,24 +291,23 @@ const ToDo = () => {
                           <>
                             <button
                               onClick={() => handleEditSave(index)}
-                              className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 text-sm"
+                              className="bg-buttonColor px-1.5 py-0.5 text-white rounded hover:bg-pastelPink"
                             >
                               {/* Save Edit */}
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                width="20"
-                                height="20"
+                                width="25"
+                                height="25"
                                 fill="currentColor"
-                                className="bi bi-floppy"
+                                className="bi bi-check-lg"
                                 viewBox="0 0 16 16"
                               >
-                                <path d="M11 2H9v3h2z" />
-                                <path d="M1.5 0h11.586a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13A1.5 1.5 0 0 1 1.5 0M1 1.5v13a.5.5 0 0 0 .5.5H2v-4.5A1.5 1.5 0 0 1 3.5 9h9a1.5 1.5 0 0 1 1.5 1.5V15h.5a.5.5 0 0 0 .5-.5V2.914a.5.5 0 0 0-.146-.353l-1.415-1.415A.5.5 0 0 0 13.086 1H13v4.5A1.5 1.5 0 0 1 11.5 7h-7A1.5 1.5 0 0 1 3 5.5V1H1.5a.5.5 0 0 0-.5.5m3 4a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V1H4zM3 15h10v-4.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5z" />
+                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z" />
                               </svg>
                             </button>
                             <button
                               onClick={handleEditCancel}
-                              className="bg-red-500 text-white px-2 py-1 rounded hover:bg-gray-600 text-sm"
+                              className="bg-realRed text-white px-2 py-1 rounded hover:bg-gray-600 text-sm"
                             >
                               {/* Cancel Edit */}
                               <svg
@@ -284,11 +315,10 @@ const ToDo = () => {
                                 width="20"
                                 height="20"
                                 fill="currentColor"
-                                className="bi bi-x-square"
+                                className="bi bi-x-lg"
                                 viewBox="0 0 16 16"
                               >
-                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
-                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
                               </svg>
                             </button>
                           </>
@@ -296,7 +326,7 @@ const ToDo = () => {
                           <>
                             <button
                               onClick={() => handleEditStart(index)}
-                              className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600 text-sm"
+                              className="bg-buttonColor text-white px-2 py-1 rounded hover:bg-opacity-90 text-sm"
                             >
                               {/* Edit Task */}
                               <svg
@@ -316,7 +346,7 @@ const ToDo = () => {
                             </button>
                             <button
                               onClick={() => handleDeleteTask(index)}
-                              className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 text-sm"
+                              className="bg-realRed text-white px-2 py-1 rounded hover:bg-opacity-80 text-sm"
                             >
                               {/* Delete Task */}
                               <svg
