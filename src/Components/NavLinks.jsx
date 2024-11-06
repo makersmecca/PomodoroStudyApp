@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import { UserContext } from "./UserContext";
 import { Link } from "react-router-dom";
 import DisplayDateTime from "./DisplayDateTime";
@@ -7,21 +7,37 @@ import { useLocation } from "react-router-dom";
 
 const NavLinks = () => {
   const [isOpen, setIsOpen] = useState(false);
-
   const { currentUser } = useContext(UserContext);
-  // console.log(currentUser);
-  // currentUser !== null &&
-  //   Object.entries(currentUser).forEach(([key, value]) => {
-  //     console.log(`${key}: ${value}`);
-  //   });
 
-  // Toggle menu open/close
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
+  const menuRef = useRef(null);
+  const buttonRef = useRef(null);
+
+  const location = useLocation().pathname; //url
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target) &&
+        !buttonRef.current.contains(event.target) &&
+        isOpen
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
+  // Toggle menu
+  const toggleMenu = (e) => {
+    e.stopPropagation();
+    setIsOpen((prevIsOpen) => !prevIsOpen);
   };
-  // fixed md:top-20 top-10 right-4 md:right-20 z-20
 
-  const location = useLocation().pathname;
   return (
     <div className="">
       {/* Hamburger Icon */}
@@ -34,6 +50,7 @@ const NavLinks = () => {
         {/* Hamburger button */}
         <div className="md:order-3 flex">
           <button
+            ref={buttonRef}
             onClick={toggleMenu}
             className="w-8 h-8 flex flex-col items-center justify-center focus:outline-none space-y-1"
           >
@@ -58,6 +75,7 @@ const NavLinks = () => {
 
       {/* Slide-out Menu */}
       <div
+        ref={menuRef}
         className={`fixed md:top-14 top-4 right-0 w-40  bg-gray-200 shadow-lg transform transition-transform duration-300 ease-in-out z-10 rounded-3xl ${
           isOpen ? "translate-x-0 me-2 md:me-4" : "translate-x-full"
         }`}
