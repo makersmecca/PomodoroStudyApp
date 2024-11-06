@@ -211,8 +211,10 @@ const UserAuthentication = () => {
               </button>
             </span>
           </div>
-          {location === "/LogIn" && (
+          {location === "/LogIn" ? (
             <Link to="/ForgotPassword">Forgot password?</Link>
+          ) : (
+            <div className="my-3"></div>
           )}
           <span
             className={`${
