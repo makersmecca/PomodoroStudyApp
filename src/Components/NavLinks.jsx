@@ -86,31 +86,28 @@ const NavLinks = () => {
               className="rounded-full shadow-md shadow-gray-700"
             />
           )}
-          {location === "/LogIn" ||
-          location === "/SignUp" ||
-          location === "/todo" ? (
+
+          <div className="text-lg text-gray-800 cursor-default">
+            {currentUser ? (
+              <span>Hello, {`${currentUser.displayName}`}</span>
+            ) : (
+              "Hello!"
+            )}
+          </div>
+          {location === "/" ||
+          location === "/rest" ||
+          location === "/breathe" ? (
+            <></>
+          ) : (
             <Link
-              className="text-lg text-gray-800 hover:text-buttonColor"
               to="/"
+              onClick={toggleMenu}
+              className="text-lg text-gray-800 hover:text-buttonColor"
             >
               Pomodoro
             </Link>
-          ) : (
-            <div className="text-lg text-gray-800 cursor-default">
-              {currentUser ? (
-                <span>Hello, {`${currentUser.displayName}`}</span>
-              ) : (
-                "Hello!"
-              )}
-            </div>
           )}
-          {/* <Link
-            to="/customtimer"
-            onClick={toggleMenu}
-            className="text-lg text-gray-800 hover:text-buttonColor"
-          >
-            Custom Timer
-          </Link> */}
+
           <Link
             to="/todo"
             onClick={toggleMenu}
@@ -119,24 +116,40 @@ const NavLinks = () => {
             Your Tasks
           </Link>
 
+          {location !== "/customtimer" && (
+            <Link
+              to="/customtimer"
+              onClick={toggleMenu}
+              className="text-lg text-gray-800 hover:text-buttonColor"
+            >
+              Custom Timer
+            </Link>
+          )}
+
           {currentUser ? (
             <CurrentUser />
           ) : (
             <>
-              <Link
-                to="/SignUp"
-                onClick={toggleMenu}
-                className="text-lg text-gray-800 hover:text-buttonColor"
-              >
-                SignUp
-              </Link>
-              <Link
-                to="/LogIn"
-                onClick={toggleMenu}
-                className="text-lg text-gray-800 hover:text-buttonColor"
-              >
-                Log In
-              </Link>
+              {location === "/LogIn" || location === "SignUp" ? (
+                <></>
+              ) : (
+                <>
+                  <Link
+                    to="/SignUp"
+                    onClick={toggleMenu}
+                    className="text-lg text-gray-800 hover:text-buttonColor"
+                  >
+                    SignUp
+                  </Link>
+                  <Link
+                    to="/LogIn"
+                    onClick={toggleMenu}
+                    className="text-lg text-gray-800 hover:text-buttonColor"
+                  >
+                    Log In
+                  </Link>
+                </>
+              )}
             </>
           )}
         </div>
