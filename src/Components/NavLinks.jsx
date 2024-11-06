@@ -76,7 +76,7 @@ const NavLinks = () => {
       {/* Slide-out Menu */}
       <div
         ref={menuRef}
-        className={`fixed md:top-14 top-4 right-0 w-40  bg-gray-200 shadow-lg transform transition-transform duration-300 ease-in-out z-10 rounded-3xl ${
+        className={`fixed md:top-14 top-4 right-0 w-auto md:w-40  bg-gray-200 shadow-lg transform transition-transform duration-300 ease-in-out z-10 rounded-3xl ${
           isOpen ? "translate-x-0 me-2 md:me-4" : "translate-x-full"
         }`}
       >
