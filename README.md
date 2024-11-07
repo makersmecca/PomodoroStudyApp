@@ -3,6 +3,8 @@
 
 ![CodeQL](https://github.com/github/docs/actions/workflows/codeql.yml/badge.svg?event=push)
 
+![NodeJS CLI](https://github.com/github/docs/actions/workflows/node.js.yml/badge.svg?event=push)
+
 Enable users to track study sessions using a Pomodoro timer, set custom work and break periods, and integrate YT Music for focused study seesions.
 
 ## FEATURES [Planned]:
