@@ -25,5 +25,3 @@ dist-ssr
 .env
 colorpalette.css
 
-# Local Netlify folder
-.netlify
