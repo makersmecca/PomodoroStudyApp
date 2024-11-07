@@ -1,17 +1,29 @@
 import { getAuth, signOut } from "firebase/auth";
-import { auth } from "../auth/firebaseAuth";
+// import { auth } from "../auth/firebaseAuth";
+import { getAuthInstance } from "../auth/firebaseAuth";
+import { useEffect } from "react";
 
 const CurrentUser = () => {
-  getAuth();
+  let auth = null;
+  useEffect(() => {
+    const setupFirebase = async () => {
+      auth = await getAuthInstance();
+      getAuth();
+    };
+    setupFirebase();
+  }, []);
+
   const handleSignOut = () => {
-    auth
-      .signOut()
-      .then(() => {
-        console.log("User signed out successfully");
-      })
-      .catch((error) => {
-        console.error("Error signing out:", error);
-      });
+    if (auth) {
+      auth
+        .signOut()
+        .then(() => {
+          console.log("User signed out successfully");
+        })
+        .catch((error) => {
+          console.error("Error signing out:", error);
+        });
+    }
   };
   return (
     <>

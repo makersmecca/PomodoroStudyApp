@@ -1,14 +1,24 @@
 import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { db } from "../auth/firebaseAuth";
+// import { db } from "../auth/firebaseAuth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { auth } from "../auth/firebaseAuth";
+// import { auth } from "../auth/firebaseAuth";
 import NavLinks from "./NavLinks";
 import { UserContext } from "./UserContext";
 
+import { getDbInstance } from "../auth/firebaseAuth";
+
 const ToDo = () => {
-  getAuth();
+  let db = null;
+  useEffect(() => {
+    const setupFirebase = async () => {
+      db = await getDbInstance();
+      getAuth();
+    };
+    setupFirebase();
+  }, []);
+
   const [userId, setUserId] = useState("");
   const [userStatus, setUserStatus] = useState(false);
   const [todos, setTodos] = useState([]);

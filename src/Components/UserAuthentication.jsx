@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Link, useNavigate } from "react-router-dom";
 import NavLinks from "./NavLinks";
@@ -8,11 +8,20 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import { auth } from "../auth/firebaseAuth";
+// import { auth } from "../auth/firebaseAuth";
+
+import { getAuthInstance } from "../auth/firebaseAuth";
 
 const provider = new GoogleAuthProvider();
 
 const UserAuthentication = () => {
+  let auth = null;
+  useEffect(() => {
+    const setupFirebase = async () => {
+      auth = await getAuthInstance();
+    };
+    setupFirebase();
+  }, []);
   const Navigate = useNavigate();
 
   const [formInput, setFormInput] = useState({
@@ -43,19 +52,21 @@ const UserAuthentication = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     console.log("signing up");
-    await createUserWithEmailAndPassword(
-      auth,
-      formInput.emailId,
-      formInput.password
-    )
-      .then((usercredential) => {
-        // const user = usercredential.user;
-        // console.log(user);
-        Navigate("/LogIn");
-      })
-      .catch((err) => {
-        // console.log(err.message);
-      });
+    if (auth) {
+      await createUserWithEmailAndPassword(
+        auth,
+        formInput.emailId,
+        formInput.password
+      )
+        .then((usercredential) => {
+          // const user = usercredential.user;
+          // console.log(user);
+          Navigate("/LogIn");
+        })
+        .catch((err) => {
+          // console.log(err.message);
+        });
+    }
   };
 
   const handleSubmit = (e) => {
@@ -70,51 +81,54 @@ const UserAuthentication = () => {
       setErrorMsg("Please Enter Credentials");
       return;
     }
-
-    await signInWithEmailAndPassword(
-      auth,
-      formInput.emailId,
-      formInput.password
-    )
-      .then((userCredential) => {
-        // const user = userCredential.user;
-        // console.log(user);
-        Navigate("/");
-      })
-      .catch((err) => {
-        console.log(err.message);
-        switch (err.message) {
-          case "Firebase: Error (auth/invalid-email).":
-            setErrorMsg("Invalid Email");
-            break;
-          case "Firebase: Error (auth/missing-password).":
-            setErrorMsg("Invalid Password");
-            break;
-          case "Firebase: Error (auth/invalid-credential).":
-            setErrorMsg("Wrong Password");
-            break;
-          case "Firebase: Error (auth/user-not-found).":
-            setErrorMsg("User not found");
-            break;
-          default:
-            setErrorMsg("Something went wrong");
-            break;
-        }
-      });
+    if (auth) {
+      await signInWithEmailAndPassword(
+        auth,
+        formInput.emailId,
+        formInput.password
+      )
+        .then((userCredential) => {
+          // const user = userCredential.user;
+          // console.log(user);
+          Navigate("/");
+        })
+        .catch((err) => {
+          console.log(err.message);
+          switch (err.message) {
+            case "Firebase: Error (auth/invalid-email).":
+              setErrorMsg("Invalid Email");
+              break;
+            case "Firebase: Error (auth/missing-password).":
+              setErrorMsg("Invalid Password");
+              break;
+            case "Firebase: Error (auth/invalid-credential).":
+              setErrorMsg("Wrong Password");
+              break;
+            case "Firebase: Error (auth/user-not-found).":
+              setErrorMsg("User not found");
+              break;
+            default:
+              setErrorMsg("Something went wrong");
+              break;
+          }
+        });
+    }
   };
   //google sign in popup authentication
   const handleGoogleSignIn = () => {
     // console.log("continuing with google");
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // const credential = GoogleAuthProvider.credentialFromResult(result);
-        // const token = credential.accessToken;
-        // const user = result.user;
-        Navigate("/");
-      })
-      .catch((err) => {
-        // console.log(err.message);
-      });
+    if (auth) {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          // const credential = GoogleAuthProvider.credentialFromResult(result);
+          // const token = credential.accessToken;
+          // const user = result.user;
+          Navigate("/");
+        })
+        .catch((err) => {
+          // console.log(err.message);
+        });
+    }
   };
 
   return (
