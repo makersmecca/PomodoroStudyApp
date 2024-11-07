@@ -8,6 +8,7 @@ const DisplayTimer = ({
   increment,
   decrement,
   componentName = "",
+  toggleTimerState = null,
 }) => {
   const [breatheState, setBreatheState] = useState(true);
   const [isRotating, setIsRotating] = useState(false);
@@ -58,6 +59,7 @@ const DisplayTimer = ({
   }, [componentName, timer.isRunning]);
 
   useEffect(() => {
+    toggleTimerState(timer.isRunning);
     timer.isRunning && location === "/"
       ? (document.body.style.backgroundColor = "#3c3d37")
       : (document.body.style.backgroundColor = "#fff4ea");
@@ -172,40 +174,47 @@ const DisplayTimer = ({
           </div>
 
           {/* Timer controls */}
-          <div className="flex gap-4 w-full justify-center mt-4">
+          <div className="flex gap-4 w-full justify-center items-center h-12 md:h-14">
+            {/*Start Pause Button */}
             <button
               onClick={timer.isRunning ? timer.handlePause : timer.handleStart}
               className={`px-4 py-1 ${
                 timer.isRunning
-                  ? "bg-pastelRed scale-100 py-4 hover:bg-opacity-85 text-slate-600 font-semibold"
-                  : "bg-buttonColor hover:bg-opacity-85 text-white font-normal"
-              } rounded-3xl active:scale-95 transition-all duration-300 text-xl shadow-md w-[90px]`}
+                  ? "bg-pastelRed hover:bg-opacity-85 text-slate-600 font-semibold h-14 translate-x-1/4"
+                  : "bg-buttonColor hover:bg-opacity-85 text-white font-normal h-12"
+              } rounded-3xl active:scale-95 transition-all ease-in-out duration-300 text-xl shadow-md w-[90px]`}
             >
               {timer.isRunning ? "Pause" : "Start"}
             </button>
-            {!timer.isRunning && (
-              <div
-                onClick={handleRotate}
-                className={`px-4 py-2 mt-1 text-buttonColor rounded-lg active:scale-95 transition-all ease-in-out duration-300 text-lg w-[50px] cursor-pointer`}
+
+            {/*Reset Button */}
+            <div
+              onClick={handleRotate}
+              className={`${
+                timer.isRunning
+                  ? "scale-0 cursor-none"
+                  : "text-buttonColor rounded-lg active:scale-95 transition-all ease-in-out duration-300 text-lg w-[50px] cursor-pointer"
+              } `}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="30"
+                height="30"
+                fill="currentColor"
+                className={`${
+                  timer.isRunning
+                    ? "scale-0 cursor-none"
+                    : "bi bi-arrow-clockwise stroke-current cursor-pointer "
+                }${isRotating ? "animate-spinSlow" : ""} `}
+                viewBox="0 0 16 16"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="30"
-                  height="30"
-                  fill="currentColor"
-                  className={`bi bi-arrow-clockwise stroke-current cursor-pointer ${
-                    isRotating ? "animate-spinSlow" : ""
-                  }`}
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"
-                  />
-                  <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" />
-                </svg>
-              </div>
-            )}
+                <path
+                  fillRule="evenodd"
+                  d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"
+                />
+                <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" />
+              </svg>
+            </div>
           </div>
         </div>
       </div>
