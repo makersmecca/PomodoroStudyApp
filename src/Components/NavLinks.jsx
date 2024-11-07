@@ -5,7 +5,7 @@ import DisplayDateTime from "./DisplayDateTime";
 import CurrentUser from "./CurrentUser";
 import { useLocation } from "react-router-dom";
 
-const NavLinks = () => {
+const NavLinks = ({ timerState = false }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { currentUser } = useContext(UserContext);
 
@@ -43,31 +43,40 @@ const NavLinks = () => {
       {/* Hamburger Icon */}
       <div className="flex justify-between items-center fixed sm:absolute md:top-20 top-10 right-5 md:right-20 z-20 left-4 md:left-20">
         {/* Time display */}
-        <div className="md:order-first">
+        <div
+          className={`${
+            timerState
+              ? "scale-110 translate-x-1/2 md:translate-x-0"
+              : "md:order-first"
+          } transition-all duraion-500 ease-in-out `}
+        >
           <DisplayDateTime></DisplayDateTime>
         </div>
 
         {/* Hamburger button */}
-        <div className="md:order-3 flex">
+        <div
+          className={`${timerState ? "md:order-3" : ""} flex cursor-pointer`}
+        >
           <button
             ref={buttonRef}
             onClick={toggleMenu}
-            className="w-8 h-8 flex flex-col items-center justify-center focus:outline-none space-y-1"
+            className={` w-8 h-8 flex flex-col items-center justify-center focus:outline-none space-y-1`}
+            disabled={timerState}
           >
             <span
               className={`block w-8 h-1 bg-buttonColor rounded transition-transform duration-300 ${
-                isOpen ? "rotate-45 translate-y-2 w-7" : ""
-              }`}
+                timerState ? "cursor-not-allowed bg-opacity-50" : ""
+              } ${isOpen ? "rotate-45 translate-y-2 w-7" : ""}`}
             ></span>
             <span
               className={`block w-8 h-1 bg-buttonColor rounded transition-opacity duration-300 ${
-                isOpen ? "opacity-0" : ""
-              }`}
+                timerState ? "cursor-not-allowed bg-opacity-50" : ""
+              } ${isOpen ? "opacity-0" : ""}`}
             ></span>
             <span
               className={`block w-8 h-1 bg-buttonColor rounded transition-transform duration-300 ${
-                isOpen ? "-rotate-45 -translate-y-2 w-7" : ""
-              }`}
+                timerState ? "cursor-not-allowed bg-opacity-50" : ""
+              } ${isOpen ? "-rotate-45 -translate-y-2 w-7" : ""}`}
             ></span>
           </button>
         </div>
