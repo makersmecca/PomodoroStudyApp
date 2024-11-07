@@ -70,7 +70,7 @@ const DisplayTimer = ({
 
   return (
     <>
-      <div className="min-h-screen flex flex-col items-center justify-center pt-0 sm:pt-20 px-4 sm:mt-10 lg:mt-0">
+      <div className="main-content min-h-screen flex flex-col items-center justify-center pt-0 sm:pt-20 px-4 sm:mt-10 lg:mt-0">
         {/* Main container */}
         <div className="relative w-full max-w-[300px] flex flex-col items-center gap-8">
           <div className="flex gap-4">
@@ -177,38 +177,35 @@ const DisplayTimer = ({
               onClick={timer.isRunning ? timer.handlePause : timer.handleStart}
               className={`px-4 py-1 ${
                 timer.isRunning
-                  ? "bg-pastelRed hover:bg-opacity-85"
-                  : "bg-buttonColor hover:bg-opacity-85"
-              } ${
-                timer.isRunning
-                  ? "text-slate-600 font-semibold"
-                  : "text-white font-normal"
+                  ? "bg-pastelRed scale-100 py-4 hover:bg-opacity-85 text-slate-600 font-semibold"
+                  : "bg-buttonColor hover:bg-opacity-85 text-white font-normal"
               } rounded-3xl active:scale-95 transition-all duration-300 text-xl shadow-md w-[90px]`}
             >
               {timer.isRunning ? "Pause" : "Start"}
             </button>
-
-            <div
-              onClick={handleRotate}
-              className={`px-4 py-2 mt-1 text-buttonColor rounded-lg active:scale-95 transition-all duration-300 text-lg w-[50px] cursor-pointer`}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="30"
-                height="30"
-                fill="currentColor"
-                className={`bi bi-arrow-clockwise stroke-current cursor-pointer ${
-                  isRotating ? "animate-spinSlow" : ""
-                }`}
-                viewBox="0 0 16 16"
+            {!timer.isRunning && (
+              <div
+                onClick={handleRotate}
+                className={`px-4 py-2 mt-1 text-buttonColor rounded-lg active:scale-95 transition-all ease-in-out duration-300 text-lg w-[50px] cursor-pointer`}
               >
-                <path
-                  fillRule="evenodd"
-                  d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"
-                />
-                <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" />
-              </svg>
-            </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="30"
+                  fill="currentColor"
+                  className={`bi bi-arrow-clockwise stroke-current cursor-pointer ${
+                    isRotating ? "animate-spinSlow" : ""
+                  }`}
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"
+                  />
+                  <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" />
+                </svg>
+              </div>
+            )}
           </div>
         </div>
       </div>
