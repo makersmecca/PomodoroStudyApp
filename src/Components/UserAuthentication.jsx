@@ -15,13 +15,13 @@ import { getAuthInstance } from "../auth/firebaseAuth";
 const provider = new GoogleAuthProvider();
 
 const UserAuthentication = () => {
-  let auth = null;
-  useEffect(() => {
-    const setupFirebase = async () => {
-      auth = await getAuthInstance();
-    };
-    setupFirebase();
-  }, []);
+  //   let auth = null;
+  //   useEffect(() => {
+  //     const setupFirebase = async () => {
+  //       auth = await getAuthInstance();
+  //     };
+  //     setupFirebase();
+  //   }, []);
   const Navigate = useNavigate();
 
   const [formInput, setFormInput] = useState({
@@ -50,6 +50,7 @@ const UserAuthentication = () => {
   };
 
   const handleSignUp = async (e) => {
+    const auth = await getAuthInstance();
     e.preventDefault();
     console.log("signing up");
     if (auth) {
@@ -81,6 +82,7 @@ const UserAuthentication = () => {
       setErrorMsg("Please Enter Credentials");
       return;
     }
+    const auth = await getAuthInstance();
     if (auth) {
       await signInWithEmailAndPassword(
         auth,
@@ -115,8 +117,9 @@ const UserAuthentication = () => {
     }
   };
   //google sign in popup authentication
-  const handleGoogleSignIn = () => {
+  const handleGoogleSignIn = async () => {
     // console.log("continuing with google");
+    const auth = await getAuthInstance();
     if (auth) {
       signInWithPopup(auth, provider)
         .then((result) => {

@@ -7,7 +7,6 @@ import { getAuthInstance } from "../auth/firebaseAuth";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  let auth = null;
   const [currentUser, setCurrentUser] = useState({
     email: null,
     uid: null,
@@ -17,11 +16,8 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const setupFirebase = async () => {
-      auth = await getAuthInstance();
+      const auth = await getAuthInstance();
       getAuth();
-    };
-    setupFirebase();
-    if (auth) {
       onAuthStateChanged(auth, (user) => {
         if (user) {
           user.displayName === null
@@ -41,7 +37,8 @@ export const UserProvider = ({ children }) => {
           setCurrentUser(null);
         }
       });
-    }
+    };
+    setupFirebase();
   }, []);
 
   return (
