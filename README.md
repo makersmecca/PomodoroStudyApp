@@ -1,7 +1,5 @@
 # POMODORO TIMER STUDY APP
-[![Netlify Status](https://api.netlify.com/api/v1/badges/d8fc2ebb-90ca-43f3-b061-093d64262a65/deploy-status)](https://app.netlify.com/sites/ayudhn/deploys)
-
-![CodeQL](https://github.com/github/docs/actions/workflows/codeql.yml/badge.svg?event=push)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d8fc2ebb-90ca-43f3-b061-093d64262a65/deploy-status)](https://app.netlify.com/sites/ayudhn/deploys) ![CodeQL (https://github.com/github/docs/actions/workflows/codeql.yml/badge.svg?event=push)
 
 ![NodeJS CLI](https://github.com/github/docs/actions/workflows/node.js.yml/badge.svg?event=push)
 
