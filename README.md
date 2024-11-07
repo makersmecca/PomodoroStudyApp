@@ -5,8 +5,6 @@ Enable users to track study sessions using a Pomodoro timer, set custom work and
 
 ![CodeQL](https://github.com/github/docs/actions/workflows/codeql.yml/badge.svg?event=push)
 
-![NodeJS CLI](https://github.com/github/docs/actions/workflows/node.js.yml/badge.svg?event=push)
-
 ## FEATURES [Planned]:
 
 ### Dashboard:
