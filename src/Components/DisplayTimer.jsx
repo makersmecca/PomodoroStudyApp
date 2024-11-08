@@ -63,7 +63,7 @@ const DisplayTimer = ({
     timer.isRunning && location === "/"
       ? (document.body.style.backgroundColor = "#3c3d37")
       : (document.body.style.backgroundColor = "#fff4ea");
-    document.body.style.transition = "background-color 0.5s ease-in-out";
+    document.body.style.transition = "background-color 0.4s ease-in-out";
     return () => {
       document.body.style.transition = "";
       document.body.style.backgroundColor = "";
@@ -180,7 +180,7 @@ const DisplayTimer = ({
               onClick={timer.isRunning ? timer.handlePause : timer.handleStart}
               className={`px-4 py-1 ${
                 timer.isRunning
-                  ? "bg-pastelRed hover:bg-opacity-85 text-slate-600 font-semibold h-14 translate-x-1/4"
+                  ? "bg-pastelRed hover:bg-opacity-85 text-slate-600 font-semibold h-14 translate-x-1/3"
                   : "bg-buttonColor hover:bg-opacity-85 text-white font-normal h-12"
               } rounded-3xl active:scale-95 transition-all ease-in-out duration-300 text-xl shadow-md w-[90px]`}
             >
@@ -191,10 +191,8 @@ const DisplayTimer = ({
             <div
               onClick={handleRotate}
               className={`${
-                timer.isRunning
-                  ? "scale-0 cursor-none"
-                  : "text-buttonColor rounded-lg active:scale-95 transition-all ease-in-out duration-300 text-lg w-[50px] cursor-pointer"
-              } `}
+                timer.isRunning ? "scale-0 cursor-none" : ""
+              } text-buttonColor rounded-lg active:scale-95 transition-all ease-in-out duration-300 text-lg w-[50px] cursor-pointer `}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -203,10 +201,10 @@ const DisplayTimer = ({
                 fill="currentColor"
                 className={`${
                   timer.isRunning
-                    ? "scale-0 cursor-none"
-                    : "bi bi-arrow-clockwise stroke-current cursor-pointer "
+                    ? "scale-0 cursor-nonetransition-all ease-in-out duration-300"
+                    : "bi bi-arrow-clockwise stroke-current cursor-pointer"
                 }${isRotating ? "animate-spinSlow" : ""} `}
-                viewBox="0 0 16 16"
+                viewBox={`${timer.isRunning ? "0 0 0 0" : "1 -1 16 16"}`}
               >
                 <path
                   fillRule="evenodd"
