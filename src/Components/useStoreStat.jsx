@@ -9,6 +9,13 @@ const useStoreStat = (componentName = "Unknown") => {
   const { currentUser } = useContext(UserContext);
   const [dataArray, setDataArray] = useState([]);
 
+  //object to provide collection names corresponding to location
+  const components = {
+    "/": "pomodoro",
+    "/rest": "rest",
+    "/customtimer": "custom",
+  };
+
   useEffect(() => {
     if (currentUser) {
       // console.log("User is signed in:", currentUser.email);
@@ -18,9 +25,11 @@ const useStoreStat = (componentName = "Unknown") => {
     }
   }, [currentUser]);
 
+  //dont really need this fetch bit but using for testing
+  //will need to implement this is stats.jsx component to display the actual stats
   const fetchData = async (email) => {
     if (!email) return;
-    const docRef = doc(db, "pomodoro", email);
+    const docRef = doc(db, components[componentName], email);
     const docSnap = await getDoc(docRef);
     console.log(docSnap);
     if (docSnap.exists()) {
