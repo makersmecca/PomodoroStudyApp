@@ -48,7 +48,7 @@ const NavLinks = ({ timerState = false }) => {
             timerState
               ? "scale-110 translate-x-1/2 md:translate-x-0"
               : "md:order-first"
-          } transition-all duraion-500 ease-in-out `}
+          } transition-all duration-300 ease-in-out `}
         >
           <DisplayDateTime></DisplayDateTime>
         </div>
