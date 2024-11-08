@@ -182,9 +182,11 @@ const DisplayTimer = ({
                 timer.isRunning
                   ? "bg-pastelRed hover:bg-opacity-85 text-slate-600 font-semibold h-14 translate-x-1/3"
                   : "bg-buttonColor hover:bg-opacity-85 text-white font-normal h-12"
-              } rounded-3xl active:scale-95 transition-all ease-in-out duration-300 text-xl shadow-md w-[90px]`}
+              } rounded-3xl active:scale-95 transition-all ease-in-out duration-300 text-lg shadow-md w-[95px]`}
             >
-              {timer.isRunning ? "Pause" : "Start"}
+              {timer.isRunning
+                ? "Pause"
+                : `${timer.isPaused ? "Resume" : "Start"}`}
             </button>
 
             {/*Reset Button */}

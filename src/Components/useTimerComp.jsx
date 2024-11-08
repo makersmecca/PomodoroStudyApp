@@ -10,6 +10,7 @@ const useTimerComp = ({
   const [defaultDuration, setDefaultDuration] = useState(initialMinutes * 60);
   const [timeLeft, setTimeLeft] = useState(defaultDuration);
   const [isRunning, setIsRunning] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const startTimeRef = useRef(0);
   const elapsedTimeRef = useRef(0);
   const animationFrameRef = useRef(null);
@@ -65,10 +66,12 @@ const useTimerComp = ({
   const handleStart = () => {
     startTimeRef.current = performance.now() - elapsedTimeRef.current * 1000;
     setIsRunning(true);
+    setIsPaused(false);
   };
 
   const handlePause = () => {
     setIsRunning(false);
+    setIsPaused(true);
     if (animationFrameRef.current) {
       cancelAnimationFrame(animationFrameRef.current);
     }
@@ -77,6 +80,7 @@ const useTimerComp = ({
 
   const handleCancel = () => {
     setIsRunning(false);
+    setIsPaused(false);
     if (animationFrameRef.current) {
       cancelAnimationFrame(animationFrameRef.current);
     }
@@ -106,6 +110,7 @@ const useTimerComp = ({
   return {
     timeLeft,
     isRunning,
+    isPaused,
     defaultDuration,
     formatTime,
     handleStart,
