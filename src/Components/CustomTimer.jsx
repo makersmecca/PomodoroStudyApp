@@ -1,11 +1,16 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import NavLinks from "./NavLinks";
+import useStoreStat from "./useStoreStat";
+import { useLocation } from "react-router-dom";
 
 const CustomTimer = () => {
   const [displayTime, setDisplayTime] = useState("00:00:00");
   const [isRunning, setIsRunning] = useState(false);
   const [isRotating, setIsRotating] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+
+  const location = useLocation().pathname;
+  const { addTime } = useStoreStat(location);
 
   const secondsRef = useRef(0);
   const startTimeRef = useRef(0);
@@ -67,6 +72,7 @@ const CustomTimer = () => {
   };
 
   const handleReset = () => {
+    addTime(totalSeconds);
     setIsRunning(false);
     setIsPaused(false);
     secondsRef.current = 0;
