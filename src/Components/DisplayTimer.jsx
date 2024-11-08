@@ -15,7 +15,7 @@ const DisplayTimer = ({
   const [isRotating, setIsRotating] = useState(false);
 
   const location = useLocation().pathname;
-  const { totalTime, addTime } = useStoreStat(location);
+  const { addTime } = useStoreStat(location);
 
   // const storeStat = (timeSpent) => {
   //   const existingTime = "00:04:20";
@@ -59,7 +59,7 @@ const DisplayTimer = ({
     if (!timer.isRunning) {
       timer.handleCancel();
       // storeStat(defaultTime * 60 - timer.timeLeft);
-      addTime(defaultTime * 60 - timer.timeLeft);
+      addTime(defaultTime * 60 - timer.timeLeft); //function from custom hook useStoreStat
       setBreatheState(true);
       setIsRotating(true);
       setTimeout(() => {
