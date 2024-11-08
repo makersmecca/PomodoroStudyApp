@@ -59,7 +59,7 @@ const DisplayTimer = ({
   }, [componentName, timer.isRunning]);
 
   useEffect(() => {
-    toggleTimerState(timer.isRunning);
+    location === "/" && toggleTimerState(timer.isRunning);
     timer.isRunning && location === "/"
       ? (document.body.style.backgroundColor = "#3c3d37")
       : (document.body.style.backgroundColor = "#fff4ea");
