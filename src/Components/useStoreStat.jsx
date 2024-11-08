@@ -1,7 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { db } from "../auth/firebaseAuth";
+import { doc, setDoc, getDoc, collection } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { UserContext } from "./UserContext";
 
 const useStoreStat = (componentName = "Unknown") => {
   const [totalTime, setTotalTime] = useState("00:00:00");
+  const { currentUser } = useContext(UserContext);
+
+  useEffect(() => {
+    if (currentUser) {
+      // console.log("User is signed in:", currentUser.email);
+      fetchData(currentUser.email);
+    } else {
+      // console.log("User is signed out");
+    }
+  }, [currentUser]);
+
+  const fetchData = async (email) => {
+    if (!email) return;
+    const sfRef = db.collection("users").doc("ayudhnandi@gmail.com");
+    const collections = await sfRef.listCollections();
+    collections.forEach((collection) => {
+      console.log("Found subcollection with id:", collection.id);
+    });
+  };
 
   const addTime = (timeSpent) => {
     try {
