@@ -5,6 +5,8 @@ const CustomTimer = () => {
   const [displayTime, setDisplayTime] = useState("00:00:00");
   const [isRunning, setIsRunning] = useState(false);
   const [isRotating, setIsRotating] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+
   const secondsRef = useRef(0);
   const startTimeRef = useRef(0);
   const rafIdRef = useRef(null);
@@ -45,31 +47,40 @@ const CustomTimer = () => {
     if (isRunning) {
       startTimeRef.current = performance.now() - secondsRef.current * 1000;
       rafIdRef.current = requestAnimationFrame(updateTimer);
+      document.body.style.backgroundColor = "#3c3d37";
     } else {
       cancelAnimationFrame(rafIdRef.current);
+      document.body.style.backgroundColor = "#fff4ea";
     }
+    document.body.style.transition = "background-color 0.4s ease-in-out";
 
-    return () => cancelAnimationFrame(rafIdRef.current);
+    return () => {
+      cancelAnimationFrame(rafIdRef.current);
+      document.body.style.backgroundColor = "";
+      document.body.style.transition = "";
+    };
   }, [isRunning, updateTimer]);
 
   const handleStartPause = () => {
     setIsRunning((prevIsRunning) => !prevIsRunning);
+    setIsPaused(isRunning);
   };
 
   const handleReset = () => {
     setIsRunning(false);
+    setIsPaused(false);
     secondsRef.current = 0;
     setDisplayTime("00:00:00");
     cancelAnimationFrame(rafIdRef.current);
   };
 
   return (
-    <div>
+    <div className="main-content">
       <div className="flex justify-between w-full items-center">
-        <NavLinks></NavLinks>
+        <NavLinks timerState={isRunning}></NavLinks>
       </div>
       <div className="min-h-screen flex flex-col items-center justify-center pt-0 sm:pt-20 px-4 sm:mt-10 lg:mt-0">
-        <span className="text-lg font-semibold mb-5">HAPPY FOCUSING!</span>
+        <span className="text-2xl font-semibold mb-5">HAPPY FOCUSING!</span>
         <div className="relative w-[180px] xs:w-[200px] sm:w-[220px] md:w-[250px] aspect-square">
           {/* Timer circle */}
           <div
@@ -85,35 +96,36 @@ const CustomTimer = () => {
             </div>
           </div>
         </div>
-        <div className="flex gap-4 w-full justify-center mt-4">
+        <div className="flex gap-4 w-full justify-center mt-4 h-12">
           <button
             onClick={handleStartPause}
             className={`px-4 py-1 ${
               isRunning
-                ? "bg-pastelRed hover:bg-opacity-85"
-                : "bg-buttonColor hover:bg-opacity-85"
-            } ${
-              isRunning
-                ? "text-slate-600 font-semibold"
-                : "text-white font-normal"
-            } rounded-3xl active:scale-95 transition-all duration-300 text-xl shadow-md w-[90px]`}
+                ? "bg-pastelRed hover:bg-opacity-85 text-slate-600 font-semibold h-14 translate-x-1/3"
+                : "bg-buttonColor hover:bg-opacity-85 text-white font-normal h-12"
+            }  rounded-3xl active:scale-95 transition-all ease-in-out duration-300 text-lg shadow-md w-[95px]`}
           >
-            {isRunning ? "Pause" : "Start"}
+            {isRunning ? "Pause" : `${isPaused ? "Resume" : "Start"}`}
           </button>
 
           <div
             onClick={handleRotate}
-            className={`px-4 py-2 mt-1 text-buttonColor rounded-lg active:scale-95 transition-all duration-300 text-lg w-[50px] cursor-pointer`}
+            className={`${
+              isRunning
+                ? "scale-0 cursor-none transition-all ease-in-out duration-300"
+                : "scale-100 cursor-pointer transition-all ease-in-out duration-300"
+            } text-buttonColor rounded-lg text-lg w-[50px]`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="30"
-              height="30"
+              width="40"
+              height="40"
               fill="currentColor"
-              className={`bi bi-arrow-clockwise stroke-current cursor-pointer ${
+              onClick={handleRotate}
+              className={`bi bi-arrow-clockwise stroke-current cursor-pointer pb-1 mt-1 ${
                 isRotating ? "animate-spinSlow" : ""
-              }`}
-              viewBox="0 0 16 16"
+              } ${isRunning ? "cursor-none" : ""}`}
+              viewBox="0 -1 16 16"
             >
               <path
                 fillRule="evenodd"
