@@ -14,12 +14,14 @@ const DisplayTimer = ({
   const [isRotating, setIsRotating] = useState(false);
 
   const handleRotate = () => {
-    timer.handleCancel();
-    setBreatheState(true);
-    setIsRotating(true);
-    setTimeout(() => {
-      setIsRotating(false);
-    }, 1000);
+    if (!timer.isRunning) {
+      timer.handleCancel();
+      setBreatheState(true);
+      setIsRotating(true);
+      setTimeout(() => {
+        setIsRotating(false);
+      }, 1000);
+    }
   };
 
   const location = useLocation().pathname;
@@ -191,22 +193,22 @@ const DisplayTimer = ({
 
             {/*Reset Button */}
             <div
-              onClick={handleRotate}
               className={`${
-                timer.isRunning ? "scale-0 cursor-none" : ""
-              } text-buttonColor rounded-lg active:scale-95 transition-all ease-in-out duration-300 text-lg w-[50px] cursor-pointer `}
+                timer.isRunning
+                  ? "scale-0 cursor-none transition-all ease-in-out duration-300"
+                  : "scale-100 cursor-pointer transition-all ease-in-out duration-300"
+              } text-buttonColor rounded-lg text-lg w-[50px]`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="30"
-                height="30"
+                width="40"
+                height="40"
                 fill="currentColor"
-                className={`${
-                  timer.isRunning
-                    ? "scale-0 cursor-nonetransition-all ease-in-out duration-300"
-                    : "bi bi-arrow-clockwise stroke-current cursor-pointer"
-                }${isRotating ? "animate-spinSlow" : ""} `}
-                viewBox={`${timer.isRunning ? "0 0 0 0" : "1 -1 16 16"}`}
+                onClick={handleRotate}
+                className={`bi bi-arrow-clockwise stroke-current cursor-pointer pb-1 mt-1 ${
+                  isRotating ? "animate-spinSlow" : ""
+                } ${timer.isRunning ? "cursor-none" : ""}`}
+                viewBox="0 -1 16 16"
               >
                 <path
                   fillRule="evenodd"
