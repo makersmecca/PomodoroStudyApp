@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from "react";
 import useTimerComp from "./useTimerComp";
 import { Link, useLocation } from "react-router-dom";
 import NavButtons from "./NavButtons";
+import useStoreStat from "./useStoreStat";
 
 const DisplayTimer = ({
   defaultTime,
@@ -13,9 +14,52 @@ const DisplayTimer = ({
   const [breatheState, setBreatheState] = useState(true);
   const [isRotating, setIsRotating] = useState(false);
 
+  const location = useLocation().pathname;
+  const { totalTime, addTime } = useStoreStat(location);
+
+  // const storeStat = (timeSpent) => {
+  //   const existingTime = "00:04:20";
+  //   try {
+  //     // Convert existingTime to seconds
+  //     const [existingHours, existingMinutes, existingSeconds] = existingTime
+  //       .split(":")
+  //       .map(Number);
+  //     const existingTotalSeconds =
+  //       existingHours * 3600 + existingMinutes * 60 + existingSeconds;
+
+  //     // Add existingTime (in seconds) to timeSpent
+  //     const totalSeconds = existingTotalSeconds + timeSpent;
+
+  //     // Convert total seconds to HH:MM:SS format
+  //     const hours = Math.floor(totalSeconds / 3600);
+  //     const minutes = Math.floor((totalSeconds % 3600) / 60);
+  //     const seconds = totalSeconds % 60;
+
+  //     // Format each component to ensure two digits
+  //     const formattedHours = hours.toString().padStart(2, "0");
+  //     const formattedMinutes = minutes.toString().padStart(2, "0");
+  //     const formattedSeconds = seconds.toString().padStart(2, "0");
+
+  //     // Combine into HH:MM:SS format
+  //     const formattedTime = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+
+  //     console.log(`${formattedTime} -- ${new Date().toLocaleDateString()}`);
+
+  //     // Here you could add code to actually store the stat
+  //     // For example: localStorage.setItem('totalTime', formattedTime);
+
+  //     return formattedTime;
+  //   } catch (error) {
+  //     console.error("Error in storeStat:", error);
+  //     return null;
+  //   }
+  // };
+
   const handleRotate = () => {
     if (!timer.isRunning) {
       timer.handleCancel();
+      // storeStat(defaultTime * 60 - timer.timeLeft);
+      addTime(defaultTime * 60 - timer.timeLeft);
       setBreatheState(true);
       setIsRotating(true);
       setTimeout(() => {
@@ -23,8 +67,6 @@ const DisplayTimer = ({
       }, 1000);
     }
   };
-
-  const location = useLocation().pathname;
 
   const timer =
     componentName === "Breathe"
