@@ -11,6 +11,7 @@ const useTimerComp = ({
   const [timeLeft, setTimeLeft] = useState(defaultDuration);
   const [isRunning, setIsRunning] = useState(false);
   const startTimeRef = useRef(0);
+  const elapsedTimeRef = useRef(0);
   const animationFrameRef = useRef(null);
 
   useEffect(() => {
@@ -18,7 +19,7 @@ const useTimerComp = ({
 
     const updateTimer = (timestamp) => {
       if (!startTimeRef.current) {
-        startTimeRef.current = timestamp;
+        startTimeRef.current = timestamp - elapsedTimeRef.current * 1000;
         lastUpdateTime = timestamp;
       }
 
@@ -62,7 +63,7 @@ const useTimerComp = ({
   };
 
   const handleStart = () => {
-    startTimeRef.current = 0;
+    startTimeRef.current = performance.now() - elapsedTimeRef.current * 1000;
     setIsRunning(true);
   };
 
@@ -71,6 +72,7 @@ const useTimerComp = ({
     if (animationFrameRef.current) {
       cancelAnimationFrame(animationFrameRef.current);
     }
+    elapsedTimeRef.current = defaultDuration - timeLeft;
   };
 
   const handleCancel = () => {
@@ -78,8 +80,8 @@ const useTimerComp = ({
     if (animationFrameRef.current) {
       cancelAnimationFrame(animationFrameRef.current);
     }
-    setTimeLeft(initialMinutes * 60);
-    setDefaultDuration(initialMinutes * 60);
+    elapsedTimeRef.current = 0;
+    setTimeLeft(defaultDuration);
   };
 
   const handleIncrease = () => {
