@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import useTimerComp from "./useTimerComp";
 import { Link, useLocation } from "react-router-dom";
 import NavButtons from "./NavButtons";
@@ -8,9 +8,11 @@ const DisplayTimer = ({
   increment,
   decrement,
   componentName = "",
+  toggleTimerState = null,
 }) => {
   const [breatheState, setBreatheState] = useState(true);
   const [isRotating, setIsRotating] = useState(false);
+
   const handleRotate = () => {
     timer.handleCancel();
     setBreatheState(true);
@@ -56,26 +58,41 @@ const DisplayTimer = ({
     return "";
   }, [componentName, timer.isRunning]);
 
+  useEffect(() => {
+    toggleTimerState(timer.isRunning);
+    timer.isRunning && location === "/"
+      ? (document.body.style.backgroundColor = "#3c3d37")
+      : (document.body.style.backgroundColor = "#fff4ea");
+    document.body.style.transition = "background-color 0.5s ease-in-out";
+    return () => {
+      document.body.style.transition = "";
+      document.body.style.backgroundColor = "";
+    };
+  }, [timer.isRunning]);
+
   return (
     <>
-      <div className="min-h-screen flex flex-col items-center justify-center pt-0 sm:pt-20 px-4 sm:mt-10 lg:mt-0">
+      <div className="main-content min-h-screen flex flex-col items-center justify-center pt-0 sm:pt-20 px-4 sm:mt-10 lg:mt-0">
         {/* Main container */}
         <div className="relative w-full max-w-[300px] flex flex-col items-center gap-8">
           <div className="flex gap-4">
             <Link to="/">
               <NavButtons
+                timerState={timer.isRunning}
                 componentName={"Pomodoro"}
                 currentPage={location === "/"}
               ></NavButtons>
             </Link>
             <Link to="/rest">
               <NavButtons
+                timerState={timer.isRunning}
                 componentName={"Rest"}
                 currentPage={location === "/rest"}
               ></NavButtons>
             </Link>
             <Link to="/breathe">
               <NavButtons
+                timerState={timer.isRunning}
                 componentName={"Breathe"}
                 currentPage={location === "/breathe"}
               ></NavButtons>
@@ -118,8 +135,11 @@ const DisplayTimer = ({
 
             {/* Control buttons */}
             <button
+              disabled={timer.isRunning}
               onClick={timer.handleDecrease}
-              className="absolute md:left-[-20%] left-[-30%] top-1/2 -translate-y-1/2 flex items-center justify-center active:scale-95 transition-all duration-300 text-3xl xs:text-2xl pb-1"
+              className={`${
+                timer.isRunning && "cursor-not-allowed opacity-50"
+              } absolute md:left-[-20%] left-[-30%] top-1/2 -translate-y-1/2 flex items-center justify-center active:scale-95 transition-all duration-300 text-3xl xs:text-2xl pb-1`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -134,8 +154,11 @@ const DisplayTimer = ({
             </button>
 
             <button
+              disabled={timer.isRunning}
               onClick={timer.handleIncrease}
-              className="absolute md:right-[-20%] right-[-30%] top-1/2 -translate-y-1/2 flex items-center justify-center active:scale-95 transition-all duration-300 text-3xl xs:text-2xl pb-1"
+              className={`${
+                timer.isRunning && "cursor-not-allowed opacity-50"
+              } absolute md:right-[-20%] right-[-30%] top-1/2 -translate-y-1/2 flex items-center justify-center active:scale-95 transition-all duration-300 text-3xl xs:text-2xl pb-1`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -151,34 +174,38 @@ const DisplayTimer = ({
           </div>
 
           {/* Timer controls */}
-          <div className="flex gap-4 w-full justify-center mt-4">
+          <div className="flex gap-4 w-full justify-center items-center h-12 md:h-14">
+            {/*Start Pause Button */}
             <button
               onClick={timer.isRunning ? timer.handlePause : timer.handleStart}
               className={`px-4 py-1 ${
                 timer.isRunning
-                  ? "bg-pastelRed hover:bg-opacity-85"
-                  : "bg-buttonColor hover:bg-opacity-85"
-              } ${
-                timer.isRunning
-                  ? "text-slate-600 font-semibold"
-                  : "text-white font-normal"
-              } rounded-3xl active:scale-95 transition-all duration-300 text-xl shadow-md w-[90px]`}
+                  ? "bg-pastelRed hover:bg-opacity-85 text-slate-600 font-semibold h-14 translate-x-1/4"
+                  : "bg-buttonColor hover:bg-opacity-85 text-white font-normal h-12"
+              } rounded-3xl active:scale-95 transition-all ease-in-out duration-300 text-xl shadow-md w-[90px]`}
             >
               {timer.isRunning ? "Pause" : "Start"}
             </button>
 
+            {/*Reset Button */}
             <div
               onClick={handleRotate}
-              className={`px-4 py-2 mt-1 text-buttonColor rounded-lg active:scale-95 transition-all duration-300 text-lg w-[50px] cursor-pointer`}
+              className={`${
+                timer.isRunning
+                  ? "scale-0 cursor-none"
+                  : "text-buttonColor rounded-lg active:scale-95 transition-all ease-in-out duration-300 text-lg w-[50px] cursor-pointer"
+              } `}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="30"
                 height="30"
                 fill="currentColor"
-                className={`bi bi-arrow-clockwise stroke-current cursor-pointer ${
-                  isRotating ? "animate-spinSlow" : ""
-                }`}
+                className={`${
+                  timer.isRunning
+                    ? "scale-0 cursor-none"
+                    : "bi bi-arrow-clockwise stroke-current cursor-pointer "
+                }${isRotating ? "animate-spinSlow" : ""} `}
                 viewBox="0 0 16 16"
               >
                 <path

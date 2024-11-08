@@ -2,15 +2,15 @@ import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { db } from "../auth/firebaseAuth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { auth } from "../auth/firebaseAuth";
+import { getAuth } from "firebase/auth";
 import NavLinks from "./NavLinks";
 import { UserContext } from "./UserContext";
 
 const ToDo = () => {
+  document.body.style.backgroundColor = "#fff4ea";
   getAuth();
   const [userId, setUserId] = useState("");
-  const [userStatus, setUserStatus] = useState(false);
+  // const [userStatus, setUserStatus] = useState(false);
   const [todos, setTodos] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -29,21 +29,6 @@ const ToDo = () => {
       setTodos([]);
     }
   }, [currentUser]);
-
-  // useEffect(() => {
-  //   onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       setUserStatus(true);
-  //       console.log("User is signed in:", user.email);
-  //       setUserId(user.email);
-  //       fetchData();
-  //     } else {
-  //       console.log("User is signed out");
-  //       setUserStatus(false);
-  //       setUserId("");
-  //     }
-  //   });
-  // }, [userStatus]);
 
   const fetchData = async (email) => {
     if (!email) return;
