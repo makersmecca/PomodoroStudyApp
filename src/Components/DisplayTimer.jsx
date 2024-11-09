@@ -17,62 +17,6 @@ const DisplayTimer = ({
   const location = useLocation().pathname;
   const { addTime } = useStoreStat(location);
 
-  // const storeStat = (timeSpent) => {
-  //   const existingTime = "00:04:20";
-  //   try {
-  //     // Convert existingTime to seconds
-  //     const [existingHours, existingMinutes, existingSeconds] = existingTime
-  //       .split(":")
-  //       .map(Number);
-  //     const existingTotalSeconds =
-  //       existingHours * 3600 + existingMinutes * 60 + existingSeconds;
-
-  //     // Add existingTime (in seconds) to timeSpent
-  //     const totalSeconds = existingTotalSeconds + timeSpent;
-
-  //     // Convert total seconds to HH:MM:SS format
-  //     const hours = Math.floor(totalSeconds / 3600);
-  //     const minutes = Math.floor((totalSeconds % 3600) / 60);
-  //     const seconds = totalSeconds % 60;
-
-  //     // Format each component to ensure two digits
-  //     const formattedHours = hours.toString().padStart(2, "0");
-  //     const formattedMinutes = minutes.toString().padStart(2, "0");
-  //     const formattedSeconds = seconds.toString().padStart(2, "0");
-
-  //     // Combine into HH:MM:SS format
-  //     const formattedTime = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
-
-  //     console.log(`${formattedTime} -- ${new Date().toLocaleDateString()}`);
-
-  //     // Here you could add code to actually store the stat
-  //     // For example: localStorage.setItem('totalTime', formattedTime);
-
-  //     return formattedTime;
-  //   } catch (error) {
-  //     console.error("Error in storeStat:", error);
-  //     return null;
-  //   }
-  // };
-
-  // const handleRotate = async () => {
-  //   setIsRotating(true);
-  //   setTimeout(() => {
-  //     setIsRotating(false);
-  //   }, 1000);
-  //   try {
-  //     if (!timer.isRunning) {
-  //       timer.handleCancel();
-  //       // storeStat(defaultTime * 60 - timer.timeLeft);
-  //       componentName !== "Breathe" &&
-  //         (await addTime(defaultTime * 60 - timer.timeLeft)); //function from custom hook useStoreStat
-  //       setBreatheState(true);
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
   const timer =
     componentName === "Breathe"
       ? useTimerComp({
@@ -83,16 +27,6 @@ const DisplayTimer = ({
             if (newTime % 5 === 0 && newTime !== defaultTime * 60) {
               setBreatheState((prev) => !prev);
             }
-          },
-          onComplete: () => {
-            setBreatheState(true);
-          },
-          // Add these callbacks for time adjustment
-          onTimeDecrease: () => {
-            setBreatheState(true);
-          },
-          onTimeIncrease: () => {
-            setBreatheState(true);
           },
         })
       : useTimerComp({
@@ -123,11 +57,19 @@ const DisplayTimer = ({
       console.log(err);
     }
   };
-  // ${
-  //   breatheState
-  //     ? "bg-green-100 shadow-green-500"
-  //     : "bg-blue-100 shadow-blue-500"
-  // }
+
+  useEffect(() => {
+    if (componentName === "Breathe" && timer.isRunning && !timer.isPaused) {
+      setBreatheState(true);
+    }
+  }, [
+    timer.isRunning,
+    timer.isPaused,
+    componentName,
+    timer.handleIncrease,
+    timer.handleDecrease,
+    timer.handleCancel,
+  ]);
 
   const glowClasses = useMemo(() => {
     if (componentName === "Breathe" && timer.isRunning) {
@@ -146,7 +88,7 @@ const DisplayTimer = ({
       document.body.style.transition = "";
       document.body.style.backgroundColor = "";
     };
-  }, [timer.isRunning]);
+  }, [timer.isRunning, toggleTimerState]);
 
   return (
     <>
