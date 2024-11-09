@@ -2,9 +2,14 @@ import { useState } from "react";
 
 const MusicPlayer = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedTrack, setSelectedTrack] = useState(null);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleTrackSelection = (trackId) => {
+    setSelectedTrack(trackId);
   };
 
   return (
@@ -29,27 +34,19 @@ const MusicPlayer = () => {
       </button>
 
       {isOpen && (
-        <div className="dropdown-content relative mx-auto">
-          <input
-            type="checkbox"
-            className="dropdown-item text-left hover:bg-gray-100 me-4"
-          />
-          Track 1
-          <input
-            type="checkbox"
-            className="dropdown-item text-left hover:bg-gray-100 me-4"
-          />
-          Track 2
-          <input
-            type="checkbox"
-            className="dropdown-item text-left hover:bg-gray-100 me-4"
-          />
-          Track 3
-          <input
-            type="checkbox"
-            className="dropdown-item text-left hover:bg-gray-100 me-4"
-          />
-          Track 4
+        <div className="dropdown-content relative mx-auto flex flex-col">
+          {["track1", "track2", "track3", "track4"].map((trackId) => (
+            <span key={trackId}>
+              <input
+                type="checkbox"
+                className="dropdown-item text-left hover:bg-gray-100 me-4"
+                id={trackId}
+                checked={selectedTrack === trackId}
+                onChange={() => handleTrackSelection(trackId)}
+              />
+              <label htmlFor={trackId}>{`Track ${trackId.slice(-1)}`}</label>
+            </span>
+          ))}
         </div>
       )}
     </div>
