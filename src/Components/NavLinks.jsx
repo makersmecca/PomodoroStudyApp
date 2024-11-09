@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import DisplayDateTime from "./DisplayDateTime";
 import CurrentUser from "./CurrentUser";
 import { useLocation } from "react-router-dom";
-import MusicPlayer from "./MusicPlayer";
+import MusicPlayer from "./navitems/MusicPlayer";
 
 const NavLinks = ({ timerState = false }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -115,13 +115,14 @@ const NavLinks = ({ timerState = false }) => {
             />
           )}
 
-          <div className="text-lg text-gray-800 cursor-default">
+          <Link to="/" className="text-lg text-gray-800 cursor-pointer">
             {currentUser ? (
               <span>Hello, {`${currentUser.displayName}`}</span>
             ) : (
               "Hello!"
             )}
-          </div>
+          </Link>
+
           {location === "/" ||
           location === "/rest" ||
           location === "/breathe" ? (
@@ -149,13 +150,15 @@ const NavLinks = ({ timerState = false }) => {
             <MusicPlayer />
           </div>
 
-          <Link
-            to="/todo"
-            onClick={toggleMenu}
-            className="text-lg text-gray-800 hover:text-buttonColor"
-          >
-            Your Tasks
-          </Link>
+          {location !== "/todo" && (
+            <Link
+              to="/todo"
+              onClick={toggleMenu}
+              className="text-lg text-gray-800 hover:text-buttonColor"
+            >
+              Your Tasks
+            </Link>
+          )}
 
           {location !== "/stats" && (
             <Link
