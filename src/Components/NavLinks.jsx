@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import DisplayDateTime from "./DisplayDateTime";
 import CurrentUser from "./CurrentUser";
 import { useLocation } from "react-router-dom";
+import MusicPlayer from "./MusicPlayer";
 
 const NavLinks = ({ timerState = false }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -134,15 +135,6 @@ const NavLinks = ({ timerState = false }) => {
               Pomodoro
             </Link>
           )}
-
-          <Link
-            to="/todo"
-            onClick={toggleMenu}
-            className="text-lg text-gray-800 hover:text-buttonColor"
-          >
-            Your Tasks
-          </Link>
-
           {location !== "/customtimer" && (
             <Link
               to="/customtimer"
@@ -152,6 +144,18 @@ const NavLinks = ({ timerState = false }) => {
               Custom Timer
             </Link>
           )}
+
+          <div className="text-lg text-gray-800 hover:text-buttonColor">
+            <MusicPlayer />
+          </div>
+
+          <Link
+            to="/todo"
+            onClick={toggleMenu}
+            className="text-lg text-gray-800 hover:text-buttonColor"
+          >
+            Your Tasks
+          </Link>
 
           {location !== "/stats" && (
             <Link
