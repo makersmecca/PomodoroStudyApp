@@ -153,6 +153,16 @@ const NavLinks = ({ timerState = false }) => {
             </Link>
           )}
 
+          {location !== "/stats" && (
+            <Link
+              to="/stats"
+              onClick={toggleMenu}
+              className="text-lg text-gray-800 hover:text-buttonColor"
+            >
+              Your Stats
+            </Link>
+          )}
+
           {currentUser ? (
             <CurrentUser />
           ) : (
