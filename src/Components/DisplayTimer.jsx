@@ -11,7 +11,7 @@ const DisplayTimer = ({
   componentName = "",
   toggleTimerState = null,
 }) => {
-  const [breatheState, setBreatheState] = useState(false);
+  const [breatheState, setBreatheState] = useState(true);
   const [isRotating, setIsRotating] = useState(false);
 
   const location = useLocation().pathname;
@@ -55,23 +55,23 @@ const DisplayTimer = ({
   //   }
   // };
 
-  const handleRotate = async () => {
-    setIsRotating(true);
-    setTimeout(() => {
-      setIsRotating(false);
-    }, 1000);
-    try {
-      if (!timer.isRunning) {
-        timer.handleCancel();
-        // storeStat(defaultTime * 60 - timer.timeLeft);
-        componentName !== "Breathe" &&
-          (await addTime(defaultTime * 60 - timer.timeLeft)); //function from custom hook useStoreStat
-        setBreatheState(false);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const handleRotate = async () => {
+  //   setIsRotating(true);
+  //   setTimeout(() => {
+  //     setIsRotating(false);
+  //   }, 1000);
+  //   try {
+  //     if (!timer.isRunning) {
+  //       timer.handleCancel();
+  //       // storeStat(defaultTime * 60 - timer.timeLeft);
+  //       componentName !== "Breathe" &&
+  //         (await addTime(defaultTime * 60 - timer.timeLeft)); //function from custom hook useStoreStat
+  //       setBreatheState(true);
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   const timer =
     componentName === "Breathe"
@@ -80,11 +80,18 @@ const DisplayTimer = ({
           incrementMinutes: increment,
           minimumMinutes: decrement,
           onTick: (newTime) => {
-            if (newTime % 5 === 0) {
+            if (newTime % 5 === 0 && newTime !== defaultTime * 60) {
               setBreatheState((prev) => !prev);
             }
           },
           onComplete: () => {
+            setBreatheState(true);
+          },
+          // Add these callbacks for time adjustment
+          onTimeDecrease: () => {
+            setBreatheState(true);
+          },
+          onTimeIncrease: () => {
             setBreatheState(true);
           },
         })
@@ -94,6 +101,28 @@ const DisplayTimer = ({
           minimumMinutes: decrement,
         });
 
+  useEffect(() => {
+    if (componentName === "Breathe" && !timer.isRunning) {
+      setBreatheState(true);
+    }
+  }, [defaultTime, componentName, timer.isRunning]);
+
+  const handleRotate = async () => {
+    setIsRotating(true);
+    setTimeout(() => {
+      setIsRotating(false);
+    }, 1000);
+    try {
+      if (!timer.isRunning) {
+        timer.handleCancel();
+        componentName !== "Breathe" &&
+          (await addTime(defaultTime * 60 - timer.timeLeft));
+        setBreatheState(true);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
   // ${
   //   breatheState
   //     ? "bg-green-100 shadow-green-500"
