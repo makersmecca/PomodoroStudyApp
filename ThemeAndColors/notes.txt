@@ -27,3 +27,10 @@ auth.useDeviceLanguage();
 export const db = getFirestore(app);
 export default app;
 
+Firestore Structure:
+"userstats" |
+            --> email |
+                      --> field      ||  value
+                          "pomodoro" -- "00:00:00"
+                          "custom"   -- "00:00:00"
+                          "rest"     -- "00:00:00"
