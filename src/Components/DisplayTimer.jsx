@@ -55,16 +55,20 @@ const DisplayTimer = ({
   //   }
   // };
 
-  const handleRotate = () => {
-    if (!timer.isRunning) {
-      timer.handleCancel();
-      // storeStat(defaultTime * 60 - timer.timeLeft);
-      addTime(defaultTime * 60 - timer.timeLeft); //function from custom hook useStoreStat
-      setBreatheState(true);
-      setIsRotating(true);
-      setTimeout(() => {
-        setIsRotating(false);
-      }, 1000);
+  const handleRotate = async () => {
+    setIsRotating(true);
+    setTimeout(() => {
+      setIsRotating(false);
+    }, 1000);
+    try {
+      if (!timer.isRunning) {
+        timer.handleCancel();
+        // storeStat(defaultTime * 60 - timer.timeLeft);
+        await addTime(defaultTime * 60 - timer.timeLeft); //function from custom hook useStoreStat
+        setBreatheState(true);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
