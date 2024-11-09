@@ -71,13 +71,18 @@ const CustomTimer = () => {
     setIsPaused(isRunning);
   };
 
-  const handleReset = () => {
-    addTime(totalSeconds);
-    setIsRunning(false);
-    setIsPaused(false);
-    secondsRef.current = 0;
-    setDisplayTime("00:00:00");
-    cancelAnimationFrame(rafIdRef.current);
+  const handleReset = async () => {
+    try {
+      await addTime(secondsRef.current);
+      // console.log(typeof secondsRef.current);
+      setIsRunning(false);
+      setIsPaused(false);
+      secondsRef.current = 0;
+      setDisplayTime("00:00:00");
+      cancelAnimationFrame(rafIdRef.current);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
