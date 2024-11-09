@@ -66,7 +66,7 @@ const DisplayTimer = ({
         // storeStat(defaultTime * 60 - timer.timeLeft);
         componentName !== "Breathe" &&
           (await addTime(defaultTime * 60 - timer.timeLeft)); //function from custom hook useStoreStat
-        setBreatheState(true);
+        setBreatheState(false);
       }
     } catch (err) {
       console.log(err);
