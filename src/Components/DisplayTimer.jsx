@@ -11,7 +11,7 @@ const DisplayTimer = ({
   componentName = "",
   toggleTimerState = null,
 }) => {
-  const [breatheState, setBreatheState] = useState(true);
+  const [breatheState, setBreatheState] = useState(false);
   const [isRotating, setIsRotating] = useState(false);
 
   const location = useLocation().pathname;
@@ -64,7 +64,8 @@ const DisplayTimer = ({
       if (!timer.isRunning) {
         timer.handleCancel();
         // storeStat(defaultTime * 60 - timer.timeLeft);
-        await addTime(defaultTime * 60 - timer.timeLeft); //function from custom hook useStoreStat
+        componentName !== "Breathe" &&
+          (await addTime(defaultTime * 60 - timer.timeLeft)); //function from custom hook useStoreStat
         setBreatheState(true);
       }
     } catch (err) {
