@@ -166,9 +166,12 @@ const ToDo = () => {
       </div>
 
       {!currentUser ? (
-        <div className="flex-grow flex items-center justify-center">
-          <Link to="/LogIn" className="text-lg font-semibold">
-            Log in to continue
+        <div className="flex-grow flex flex-col items-center justify-center top-1/2">
+          <span className="text-xl font-semibold">
+            Uh Oh! No Tasks to show!
+          </span>
+          <Link to="/LogIn" className="text-xl font-semibold">
+            <span className="underline">Log in</span> to continue.
           </Link>
         </div>
       ) : (
@@ -205,7 +208,7 @@ const ToDo = () => {
           <div className="w-80 sm:w-10/12 max-w-md mt-52 rounded-lg shadow-md overflow-hidden">
             {" "}
             {/* Added mt-24 to account for fixed input */}
-            <h2 className="text-xl font-semibold p-4 bg-buttonColor text-white">
+            <h2 className="text-xl md:text-2xl text-center font-semibold p-4 bg-buttonColor text-white">
               Your Tasks
             </h2>
             {isLoading ? (
