@@ -24,7 +24,11 @@ const DisplayTimer = ({
           incrementMinutes: increment,
           minimumMinutes: decrement,
           onTick: (newTime) => {
-            if (newTime % 5 === 0 && newTime !== defaultTime * 60) {
+            if (
+              !timer.isPaused &&
+              newTime % 5 === 0 &&
+              newTime !== defaultTime * 60
+            ) {
               setBreatheState((prev) => !prev);
             }
           },
@@ -34,12 +38,6 @@ const DisplayTimer = ({
           incrementMinutes: increment,
           minimumMinutes: decrement,
         });
-
-  useEffect(() => {
-    if (componentName === "Breathe" && !timer.isRunning) {
-      setBreatheState(true);
-    }
-  }, [defaultTime, componentName, timer.isRunning]);
 
   const handleRotate = async () => {
     setIsRotating(true);
@@ -57,19 +55,6 @@ const DisplayTimer = ({
       console.log(err);
     }
   };
-
-  useEffect(() => {
-    if (componentName === "Breathe" && timer.isRunning && !timer.isPaused) {
-      setBreatheState(true);
-    }
-  }, [
-    timer.isRunning,
-    timer.isPaused,
-    componentName,
-    timer.handleIncrease,
-    timer.handleDecrease,
-    timer.handleCancel,
-  ]);
 
   const glowClasses = useMemo(() => {
     if (componentName === "Breathe" && timer.isRunning) {
@@ -89,6 +74,12 @@ const DisplayTimer = ({
       document.body.style.backgroundColor = "";
     };
   }, [timer.isRunning, toggleTimerState]);
+  useEffect(() => {
+    // Set breatheState to true only when starting a new session
+    if (componentName === "Breathe" && timer.isRunning && !timer.isPaused) {
+      setBreatheState(true);
+    }
+  }, [componentName, timer.isRunning, timer.isPaused]);
 
   return (
     <>
