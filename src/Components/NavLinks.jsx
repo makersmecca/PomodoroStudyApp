@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import DisplayDateTime from "./DisplayDateTime";
 import CurrentUser from "./CurrentUser";
 import { useLocation } from "react-router-dom";
-import MusicPlayer from "./navitems/MusicPlayer";
+import MusicSelector from "./navitems/MusicSelector";
 
 const NavLinks = ({ timerState = false }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -147,7 +147,7 @@ const NavLinks = ({ timerState = false }) => {
           )}
 
           <div className="text-lg text-gray-800 hover:text-buttonColor">
-            <MusicPlayer />
+            <MusicSelector />
           </div>
 
           {location !== "/todo" && (
