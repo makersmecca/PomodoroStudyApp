@@ -1,8 +1,8 @@
 import { useState, useMemo, useEffect } from "react";
-import useTimerComp from "./useTimerComp";
+import useTimerComp from "../hooks/useTimerComp";
 import { Link, useLocation } from "react-router-dom";
-import NavButtons from "./NavButtons";
-import useStoreStat from "./useStoreStat";
+import NavButtons from "../NavButtons";
+import useStoreStat from "../hooks/useStoreStat";
 
 const DisplayTimer = ({
   defaultTime,
