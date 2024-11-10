@@ -81,40 +81,43 @@ const CustomTimer = () => {
       setDisplayTime("00:00:00");
       cancelAnimationFrame(rafIdRef.current);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 
   return (
-    <div className="main-content">
-      <div className="flex justify-between w-full items-center">
+    <div className="flex flex-col items-center justify-center min-h-screen">
+      <div className="w-full">
         <NavLinks timerState={isRunning}></NavLinks>
       </div>
-      <div className="min-h-screen flex flex-col items-center justify-center pt-0 sm:pt-20 px-4 sm:mt-10 lg:mt-0">
-        <span className="text-2xl font-semibold mb-5">HAPPY FOCUSING!</span>
+      <div className="flex flex-col items-center justify-center flex-1 px-4">
+        <span
+          className={`${
+            isRunning && "bg-opacity-50"
+          } bg-buttonColor cursor-none rounded-3xl py-2 text-white text-center text-2xl w-[250px] mb-6 shadow-xl felx items-center`}
+        >
+          Focus Timer
+        </span>
         <div className="relative w-[180px] xs:w-[200px] sm:w-[220px] md:w-[250px] aspect-square">
           {/* Timer circle */}
-          <div
-            className={`absolute inset-0 bg-pastelWhite border-solid rounded-full shadow-lg flex items-center justify-center border-4 border-buttonColor border-opacity-50 transition-all duration-500`}
-          >
+          <div className="absolute inset-0 bg-pastelWhite border-solid rounded-full shadow-lg flex items-center justify-center border-4 border-buttonColor border-opacity-50 transition-all duration-500">
             {/* Timer text container */}
             <div className="flex flex-col items-center justify-center">
-              <div
-                className={`text-4xl xs:text-5xl sm:text-6xl font-semibold text-slate-600 mb-2 `}
-              >
+              <div className="text-4xl xs:text-5xl sm:text-6xl font-semibold text-slate-600">
                 <div>{displayTime}</div>
               </div>
             </div>
           </div>
         </div>
-        <div className="flex gap-4 w-full justify-center mt-4 h-12">
+
+        <div className="flex gap-4 justify-center mt-6 h-12">
           <button
             onClick={handleStartPause}
             className={`px-4 py-1 ${
               isRunning
                 ? "bg-pastelRed hover:bg-opacity-85 text-slate-600 font-semibold h-14 translate-x-1/3"
                 : "bg-buttonColor hover:bg-opacity-85 text-white font-normal h-12"
-            }  rounded-3xl active:scale-95 transition-all ease-in-out duration-300 text-lg shadow-md w-[95px]`}
+            } rounded-3xl active:scale-95 transition-all ease-in-out duration-300 text-lg shadow-md w-[95px]`}
           >
             {isRunning ? "Pause" : `${isPaused ? "Resume" : "Start"}`}
           </button>
