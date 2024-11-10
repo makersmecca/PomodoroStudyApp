@@ -1,8 +1,8 @@
 import { useState, useMemo, useEffect } from "react";
-import useTimerComp from "../hooks/useTimerComp";
+import useTimerComp from "./useTimerComp";
 import { Link, useLocation } from "react-router-dom";
-import NavButtons from "../NavButtons";
-import useStoreStat from "../hooks/useStoreStat";
+import NavButtons from "./NavButtons";
+import useStoreStat from "./useStoreStat";
 
 const DisplayTimer = ({
   defaultTime,
@@ -11,11 +11,33 @@ const DisplayTimer = ({
   componentName = "",
   toggleTimerState = null,
 }) => {
-  const [breatheState, setBreatheState] = useState(false);
+  const [breatheState, setBreatheState] = useState(true);
   const [isRotating, setIsRotating] = useState(false);
 
   const location = useLocation().pathname;
   const { addTime } = useStoreStat(location);
+
+  const timer =
+    componentName === "Breathe"
+      ? useTimerComp({
+          initialMinutes: defaultTime,
+          incrementMinutes: increment,
+          minimumMinutes: decrement,
+          onTick: (newTime) => {
+            if (
+              !timer.isPaused &&
+              newTime % 5 === 0 &&
+              newTime !== defaultTime * 60
+            ) {
+              setBreatheState((prev) => !prev);
+            }
+          },
+        })
+      : useTimerComp({
+          initialMinutes: defaultTime,
+          incrementMinutes: increment,
+          minimumMinutes: decrement,
+        });
 
   const handleRotate = async () => {
     setIsRotating(true);
@@ -25,42 +47,14 @@ const DisplayTimer = ({
     try {
       if (!timer.isRunning) {
         timer.handleCancel();
-        // storeStat(defaultTime * 60 - timer.timeLeft);
         componentName !== "Breathe" &&
-          (await addTime(defaultTime * 60 - timer.timeLeft)); //function from custom hook useStoreStat
+          (await addTime(defaultTime * 60 - timer.timeLeft));
         setBreatheState(true);
       }
     } catch (err) {
       console.log(err);
     }
   };
-
-  const timer =
-    componentName === "Breathe"
-      ? useTimerComp({
-          initialMinutes: defaultTime,
-          incrementMinutes: increment,
-          minimumMinutes: decrement,
-          onTick: (newTime) => {
-            if (newTime % 5 === 0) {
-              setBreatheState((prev) => !prev);
-            }
-          },
-          onComplete: () => {
-            setBreatheState(true);
-          },
-        })
-      : useTimerComp({
-          initialMinutes: defaultTime,
-          incrementMinutes: increment,
-          minimumMinutes: decrement,
-        });
-
-  // ${
-  //   breatheState
-  //     ? "bg-green-100 shadow-green-500"
-  //     : "bg-blue-100 shadow-blue-500"
-  // }
 
   const glowClasses = useMemo(() => {
     if (componentName === "Breathe" && timer.isRunning) {
@@ -79,7 +73,13 @@ const DisplayTimer = ({
       document.body.style.transition = "";
       document.body.style.backgroundColor = "";
     };
-  }, [timer.isRunning]);
+  }, [timer.isRunning, toggleTimerState]);
+  useEffect(() => {
+    // Set breatheState to true only when starting a new session
+    if (componentName === "Breathe" && timer.isRunning && !timer.isPaused) {
+      setBreatheState(true);
+    }
+  }, [componentName, timer.isRunning, timer.isPaused]);
 
   return (
     <>
