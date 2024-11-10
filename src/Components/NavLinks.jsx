@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import DisplayDateTime from "./DisplayDateTime";
 import CurrentUser from "./CurrentUser";
 import { useLocation } from "react-router-dom";
-import MusicSelector from "./navitems/Music/MusicSelector";
 
 const NavLinks = ({ timerState = false }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -144,16 +143,6 @@ const NavLinks = ({ timerState = false }) => {
             >
               Custom Timer
             </Link>
-          )}
-          {location === "/" ||
-          location === "/rest" ||
-          location === "/breathe" ||
-          location === "/customtimer" ? (
-            <div className="text-lg text-gray-800 hover:text-buttonColor">
-              <MusicSelector />
-            </div>
-          ) : (
-            <></>
           )}
 
           {location !== "/todo" && (

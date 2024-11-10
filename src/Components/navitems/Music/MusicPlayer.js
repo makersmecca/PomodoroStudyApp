@@ -8,23 +8,28 @@ class MusicPlayer {
     this.currentTrackId = null;
 
     this.tracks = {
-      nature: new Howl({
-        src: ["/path/to/nature.mp3"],
+      river: new Howl({
+        src: ["./Sounds/River.mp3"],
         loop: true,
         volume: 0.5,
       }),
       rain: new Howl({
-        src: ["/path/to/rain.mp3"],
+        src: ["./Sounds/Rain.mp3"],
         loop: true,
         volume: 0.5,
       }),
-      cafe: new Howl({
-        src: ["/path/to/cafe.mp3"],
+      library: new Howl({
+        src: ["./Sounds/Library.mp3"],
         loop: true,
         volume: 0.5,
       }),
-      whitenoise: new Howl({
-        src: ["/path/to/whitenoise.mp3"],
+      bonfire: new Howl({
+        src: ["./Sounds/Bonfire.mp3"],
+        loop: true,
+        volume: 0.5,
+      }),
+      binaural: new Howl({
+        src: ["./Sounds/Binaural.mp3"],
         loop: true,
         volume: 0.5,
       }),

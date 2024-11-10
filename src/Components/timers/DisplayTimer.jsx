@@ -3,6 +3,7 @@ import useTimerComp from "../hooks/useTimerComp";
 import { Link, useLocation } from "react-router-dom";
 import NavButtons from "../NavButtons";
 import useStoreStat from "../hooks/useStoreStat";
+import MusicButton from "../navitems/Music/MusicButton";
 
 const DisplayTimer = ({
   defaultTime,
@@ -62,6 +63,10 @@ const DisplayTimer = ({
     }
     return "";
   }, [componentName, timer.isRunning]);
+
+  const handleMusicBtn = () => {
+    console.log("music!!!");
+  };
 
   useEffect(() => {
     location === "/" && toggleTimerState(timer.isRunning);
@@ -206,7 +211,7 @@ const DisplayTimer = ({
                 timer.isRunning
                   ? "scale-0 cursor-none transition-all ease-in-out duration-300"
                   : "scale-100 cursor-pointer transition-all ease-in-out duration-300"
-              } text-buttonColor rounded-lg text-lg w-[50px]`}
+              } text-buttonColor rounded-lg text-lg w-[40px]`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -225,6 +230,16 @@ const DisplayTimer = ({
                 />
                 <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" />
               </svg>
+            </div>
+            <div
+              onClick={handleMusicBtn}
+              className={`${
+                timer.isRunning
+                  ? "scale-0 cursor-none transition-all ease-in-out duration-300"
+                  : "scale-100 cursor-pointer transition-all ease-in-out duration-300"
+              } text-buttonColor rounded-lg text-lg w-[50px]`}
+            >
+              <MusicButton />
             </div>
           </div>
         </div>
