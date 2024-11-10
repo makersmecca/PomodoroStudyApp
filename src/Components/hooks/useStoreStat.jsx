@@ -49,7 +49,7 @@ const useStoreStat = (componentName = "Unknown") => {
         setDataArray([]);
       }
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       setDataArray([]);
     }
   };
@@ -73,7 +73,7 @@ const useStoreStat = (componentName = "Unknown") => {
         { merge: true } // merge: true ensures other fields aren't overwritten
       );
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 
@@ -113,7 +113,7 @@ const useStoreStat = (componentName = "Unknown") => {
 
       await updateFirestore(formattedTime);
     } catch (error) {
-      console.error(`Error in addTime for ${componentName}:`, error);
+      // console.error(`Error in addTime for ${componentName}:`, error);
     }
   };
 
