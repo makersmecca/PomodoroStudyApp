@@ -51,25 +51,27 @@ const MusicButton = () => {
         </svg>
       </button>
 
-      {isPopupOpen && (
-        <div
-          ref={popupRef}
-          className="absolute z-50 bg-white rounded-lg shadow-lg p-4 w-64 right-0 bottom-[100%] mb-2"
-        >
-          <h3 className="text-lg font-semibold mb-2">Music Options</h3>
-          <ul className="space-y-2">
-            <li className="cursor-pointer hover:bg-gray-100 p-2 rounded">
-              Option 1
-            </li>
-            <li className="cursor-pointer hover:bg-gray-100 p-2 rounded">
-              Option 2
-            </li>
-            <li className="cursor-pointer hover:bg-gray-100 p-2 rounded">
-              Option 3
-            </li>
-          </ul>
-        </div>
-      )}
+      <div
+        ref={popupRef}
+        className={`${
+          isPopupOpen ? "scale-100 -translate-y-10" : "scale-0 "
+        } transition-all ease-in-out duration-200 absolute z-50 bg-pastelYellow rounded-lg shadow-lg p-4 w-[220px] right-0 bottom-[100%] mb-2`}
+      >
+        <h3 className="text-lg font-semibold mb-2 text-center">
+          Music Options
+        </h3>
+        <ul className="space-y-2">
+          <li className="cursor-pointer hover:bg-gray-100 p-2 rounded w-full text-center">
+            Option 1
+          </li>
+          <li className="cursor-pointer hover:bg-gray-100 p-2 rounded  w-full text-center">
+            Option 2
+          </li>
+          <li className="cursor-pointer hover:bg-gray-100 p-2 rounded  w-full text-center">
+            Option 3
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };
