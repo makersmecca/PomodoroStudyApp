@@ -39,7 +39,7 @@ const MusicButton = ({ status }) => {
   };
 
   const handleTrackName = (selectedTrackId) => {
-    if (selectedTrack === "none") {
+    if (selectedTrack === "Mute") {
       setSelectedTrack("");
     } else setSelectedTrack(selectedTrackId);
   };
