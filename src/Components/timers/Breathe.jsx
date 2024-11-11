@@ -1,8 +1,8 @@
 import { useState } from "react";
-import useTimerComp from "./useTimerComp";
+import useTimerComp from "../hooks/useTimerComp";
 import DisplayTimer from "./DisplayTimer";
-import CurrentUser from "./CurrentUser";
-import NavLinks from "./NavLinks";
+import CurrentUser from "../CurrentUser";
+import NavLinks from "../NavLinks";
 // import Timer from "./Timer";
 const Breathe = () => {
   const [breatheState, setBreatheState] = useState(true);

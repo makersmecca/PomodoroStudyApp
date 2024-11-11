@@ -1,11 +1,11 @@
 import "./App.css";
-import CustomTimer from "./Components/CustomTimer";
-import CountdownTimer from "./Components/CountdownTimer";
-import RestTimer from "./Components/RestTimer";
-import Breathe from "./Components/Breathe";
-import Todo from "./Components/ToDo";
-import Stats from "./Components/Stats";
-import Settings from "./Components/Settings";
+import CustomTimer from "./Components/timers/CustomTimer";
+import CountdownTimer from "./Components/timers/CountdownTimer";
+import RestTimer from "./Components/timers/RestTimer";
+import Breathe from "./Components/timers/Breathe";
+import ToDo from "./Components/navitems/ToDo";
+import Stats from "./Components/navitems/Stats";
+import Settings from "./Components/navitems/Settings";
 import UserAuthentication from "./Components/UserAuthentication";
 import { Route, Routes } from "react-router-dom";
 import { UserProvider } from "./Components/UserContext";
@@ -29,7 +29,7 @@ function App() {
         <Route path="/customtimer" element={<CustomTimer />} />
         <Route path="/rest" element={<RestTimer />} />
         <Route path="/breathe" element={<Breathe />} />
-        <Route path="/todo" element={<Todo />} />
+        <Route path="/todo" element={<ToDo />} />
         <Route path="/stats" element={<Stats />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/SignUp" element={<UserAuthentication />} />

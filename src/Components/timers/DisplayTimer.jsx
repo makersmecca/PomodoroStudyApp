@@ -1,8 +1,9 @@
 import { useState, useMemo, useEffect } from "react";
-import useTimerComp from "./useTimerComp";
+import useTimerComp from "../hooks/useTimerComp";
 import { Link, useLocation } from "react-router-dom";
-import NavButtons from "./NavButtons";
-import useStoreStat from "./useStoreStat";
+import NavButtons from "../NavButtons";
+import useStoreStat from "../hooks/useStoreStat";
+import MusicButton from "./MusicPlayerComponent/MusicButton";
 
 const DisplayTimer = ({
   defaultTime,
@@ -62,6 +63,10 @@ const DisplayTimer = ({
     }
     return "";
   }, [componentName, timer.isRunning]);
+
+  const handleMusicBtn = () => {
+    // console.log("music!!!");
+  };
 
   useEffect(() => {
     location === "/" && toggleTimerState(timer.isRunning);
@@ -191,9 +196,9 @@ const DisplayTimer = ({
               onClick={timer.isRunning ? timer.handlePause : timer.handleStart}
               className={`px-4 py-1 ${
                 timer.isRunning
-                  ? "bg-pastelRed hover:bg-opacity-85 text-slate-600 font-semibold h-14 translate-x-1/3"
+                  ? "bg-pastelRed hover:bg-opacity-85 text-slate-600 font-semibold h-14 translate-x-[60%]"
                   : "bg-buttonColor hover:bg-opacity-85 text-white font-normal h-12"
-              } rounded-3xl active:scale-95 transition-all ease-in-out duration-300 text-lg shadow-md w-[95px]`}
+              } rounded-3xl active:scale-95 transition-all ease-in-out duration-300 text-lg shadow-md w-[100px]`}
             >
               {timer.isRunning
                 ? "Pause"
@@ -206,7 +211,7 @@ const DisplayTimer = ({
                 timer.isRunning
                   ? "scale-0 cursor-none transition-all ease-in-out duration-300"
                   : "scale-100 cursor-pointer transition-all ease-in-out duration-300"
-              } text-buttonColor rounded-lg text-lg w-[50px]`}
+              } text-buttonColor rounded-lg text-lg w-[40px]`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -225,6 +230,20 @@ const DisplayTimer = ({
                 />
                 <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" />
               </svg>
+            </div>
+            <div
+              onClick={handleMusicBtn}
+              className={`${
+                timer.isRunning
+                  ? "scale-0 cursor-none transition-all ease-in-out duration-300"
+                  : "scale-100 cursor-pointer transition-all ease-in-out duration-300"
+              } text-buttonColor rounded-lg text-lg w-[50px]`}
+            >
+              <MusicButton
+                status={
+                  timer.isRunning ? "play" : timer.isPaused ? "pause" : "stop"
+                }
+              />
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
-import { db } from "../auth/firebaseAuth";
+import { db } from "../../auth/firebaseAuth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
-import { UserContext } from "./UserContext";
+import { UserContext } from "../UserContext";
 
 const useStoreStat = (componentName = "Unknown") => {
   const [totalTime, setTotalTime] = useState("00:00:00");
@@ -49,7 +49,7 @@ const useStoreStat = (componentName = "Unknown") => {
         setDataArray([]);
       }
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       setDataArray([]);
     }
   };
@@ -73,7 +73,7 @@ const useStoreStat = (componentName = "Unknown") => {
         { merge: true } // merge: true ensures other fields aren't overwritten
       );
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 
@@ -113,7 +113,7 @@ const useStoreStat = (componentName = "Unknown") => {
 
       await updateFirestore(formattedTime);
     } catch (error) {
-      console.error(`Error in addTime for ${componentName}:`, error);
+      // console.error(`Error in addTime for ${componentName}:`, error);
     }
   };
 

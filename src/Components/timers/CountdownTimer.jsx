@@ -1,6 +1,6 @@
 import React from "react";
 import DisplayTimer from "./DisplayTimer";
-import NavLinks from "./NavLinks";
+import NavLinks from "../NavLinks";
 import { useState } from "react";
 
 const CountdownTimer = () => {

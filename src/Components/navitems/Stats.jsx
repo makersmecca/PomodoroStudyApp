@@ -1,8 +1,8 @@
 import { useEffect, useState, useContext } from "react";
-import { db } from "../auth/firebaseAuth";
+import { db } from "../../auth/firebaseAuth";
 import { doc, getDoc } from "firebase/firestore";
-import { UserContext } from "./UserContext";
-import NavLinks from "./NavLinks";
+import { UserContext } from "../UserContext";
+import NavLinks from "../NavLinks";
 import { Link } from "react-router-dom";
 
 const Stats = () => {

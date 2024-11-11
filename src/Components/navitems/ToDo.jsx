@@ -1,10 +1,10 @@
 import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { db } from "../auth/firebaseAuth";
+import { db } from "../../auth/firebaseAuth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import NavLinks from "./NavLinks";
-import { UserContext } from "./UserContext";
+import NavLinks from "../NavLinks";
+import { UserContext } from "../UserContext";
 
 const ToDo = () => {
   document.body.style.backgroundColor = "#fff4ea";
