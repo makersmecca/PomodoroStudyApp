@@ -122,17 +122,6 @@ const NavLinks = ({ timerState = false }) => {
             )}
           </Link>
 
-          </div>
-
-          {location !== "/customtimer" && (
-            <Link
-              to="/customtimer"
-              onClick={toggleMenu}
-              className="text-lg text-gray-800 hover:text-buttonColor"
-            >
-              Custom Timer
-            </Link>
-          )}
           {location === "/" ||
           location === "/rest" ||
           location === "/breathe" ? (
@@ -146,15 +135,6 @@ const NavLinks = ({ timerState = false }) => {
               Pomodoro
             </Link>
           )}
-
-          <Link
-            to="/todo"
-            onClick={toggleMenu}
-            className="text-lg text-gray-800 hover:text-buttonColor"
-          >
-            Your Tasks
-          </Link>
-
           {location !== "/customtimer" && (
             <Link
               to="/customtimer"
@@ -162,6 +142,16 @@ const NavLinks = ({ timerState = false }) => {
               className="text-lg text-gray-800 hover:text-buttonColor"
             >
               Custom Timer
+            </Link>
+          )}
+
+          {location !== "/todo" && (
+            <Link
+              to="/todo"
+              onClick={toggleMenu}
+              className="text-lg text-gray-800 hover:text-buttonColor"
+            >
+              Your Tasks
             </Link>
           )}
 
