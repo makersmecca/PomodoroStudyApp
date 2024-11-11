@@ -3,7 +3,7 @@ import useTimerComp from "../hooks/useTimerComp";
 import { Link, useLocation } from "react-router-dom";
 import NavButtons from "../NavButtons";
 import useStoreStat from "../hooks/useStoreStat";
-import MusicButton from "../navitems/Music/MusicButton";
+import MusicButton from "./MusicPlayerComponent/MusicButton";
 
 const DisplayTimer = ({
   defaultTime,
@@ -65,7 +65,7 @@ const DisplayTimer = ({
   }, [componentName, timer.isRunning]);
 
   const handleMusicBtn = () => {
-    console.log("music!!!");
+    // console.log("music!!!");
   };
 
   useEffect(() => {
@@ -196,9 +196,9 @@ const DisplayTimer = ({
               onClick={timer.isRunning ? timer.handlePause : timer.handleStart}
               className={`px-4 py-1 ${
                 timer.isRunning
-                  ? "bg-pastelRed hover:bg-opacity-85 text-slate-600 font-semibold h-14 translate-x-1/3"
+                  ? "bg-pastelRed hover:bg-opacity-85 text-slate-600 font-semibold h-14 translate-x-[60%]"
                   : "bg-buttonColor hover:bg-opacity-85 text-white font-normal h-12"
-              } rounded-3xl active:scale-95 transition-all ease-in-out duration-300 text-lg shadow-md w-[95px]`}
+              } rounded-3xl active:scale-95 transition-all ease-in-out duration-300 text-lg shadow-md w-[100px]`}
             >
               {timer.isRunning
                 ? "Pause"
@@ -239,7 +239,11 @@ const DisplayTimer = ({
                   : "scale-100 cursor-pointer transition-all ease-in-out duration-300"
               } text-buttonColor rounded-lg text-lg w-[50px]`}
             >
-              <MusicButton />
+              <MusicButton
+                status={
+                  timer.isRunning ? "play" : timer.isPaused ? "pause" : "stop"
+                }
+              />
             </div>
           </div>
         </div>

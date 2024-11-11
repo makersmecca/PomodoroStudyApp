@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import NavLinks from "../NavLinks";
 import useStoreStat from "../hooks/useStoreStat";
 import { useLocation } from "react-router-dom";
+import MusicButton from "./MusicPlayerComponent/MusicButton";
 
 const CustomTimer = () => {
   const [displayTime, setDisplayTime] = useState("00:00:00");
@@ -110,14 +111,14 @@ const CustomTimer = () => {
           </div>
         </div>
 
-        <div className="flex gap-4 justify-center mt-6 h-12">
+        <div className="flex gap-4 justify-center items-center mt-6 h-12">
           <button
             onClick={handleStartPause}
             className={`px-4 py-1 ${
               isRunning
-                ? "bg-pastelRed hover:bg-opacity-85 text-slate-600 font-semibold h-14 translate-x-1/3"
+                ? "bg-pastelRed hover:bg-opacity-85 text-slate-600 font-semibold h-14 translate-x-[60%]"
                 : "bg-buttonColor hover:bg-opacity-85 text-white font-normal h-12"
-            } rounded-3xl active:scale-95 transition-all ease-in-out duration-300 text-lg shadow-md w-[95px]`}
+            } rounded-3xl active:scale-95 transition-all ease-in-out duration-300 text-lg shadow-md w-[100px]`}
           >
             {isRunning ? "Pause" : `${isPaused ? "Resume" : "Start"}`}
           </button>
@@ -147,6 +148,18 @@ const CustomTimer = () => {
               />
               <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" />
             </svg>
+          </div>
+
+          <div
+            className={`${
+              isRunning
+                ? "scale-0 cursor-none transition-all ease-in-out duration-300"
+                : "scale-100 cursor-pointer transition-all ease-in-out duration-300"
+            } text-buttonColor rounded-lg text-lg w-[50px]`}
+          >
+            <MusicButton
+              status={isRunning ? "play" : isPaused ? "pause" : "stop"}
+            />
           </div>
         </div>
       </div>
