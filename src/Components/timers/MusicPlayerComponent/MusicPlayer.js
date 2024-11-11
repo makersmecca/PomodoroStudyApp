@@ -16,7 +16,6 @@ const MusicPlayer = ({ selectedTrack, timerStatus }) => {
     Binaural: "/Sounds/Binaural.mp3",
   };
 
-  // Initialize Audio Context
   useEffect(() => {
     const context = new (window.AudioContext || window.webkitAudioContext)();
     setAudioContext(context);
@@ -80,7 +79,7 @@ const MusicPlayer = ({ selectedTrack, timerStatus }) => {
         audioSource.stop();
         setAudioSource(null);
 
-        // Calculate time where we paused
+        //Calculate time at which audio was paused
         const elapsed = audioContext.currentTime - startTime;
         setPausedTime(elapsed % audioBuffer.duration);
         setIsPlaying(false);
