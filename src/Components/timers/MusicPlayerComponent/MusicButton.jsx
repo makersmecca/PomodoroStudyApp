@@ -8,7 +8,7 @@ const MusicButton = ({ status }) => {
   const popupRef = useRef(null);
   const buttonRef = useRef(null);
 
-  const trackId = ["River", "Rain", "Library", "Bonfire", "Binaural", "None"];
+  const trackId = ["River", "Rain", "Library", "Bonfire", "Binaural", "Mute"];
 
   useEffect(() => {
     status != timerStatus && setTimerStatus(status);
@@ -57,7 +57,9 @@ const MusicButton = ({ status }) => {
           width="45"
           height="45"
           fill="currentColor"
-          className="bi bi-soundwave mt-2"
+          className={`bi bi-soundwave mt-2 ${
+            isPopupOpen && "bg-pastelYellow bg-opacity-80 rounded-full"
+          }`}
           viewBox="0 0 16 16"
         >
           <path
@@ -71,9 +73,9 @@ const MusicButton = ({ status }) => {
         ref={popupRef}
         className={`${
           isPopupOpen ? "scale-100 -translate-y-3 z-50" : "scale-0"
-        } transition-all ease-in-out duration-200 absolute bg-pastelYellow rounded-lg shadow-lg p-4 w-[220px] right-0 bottom-[100%] mb-2`}
+        } transition-all ease-in-out duration-200 absolute bg-pastelYellow rounded-lg shadow-lg ps-4 pe-4 pt-2 w-[220px] right-0 bottom-[100%] mb-2`}
       >
-        <h3 className="text-lg font-semibold mb-2 text-center">
+        <h3 className="text-lg font-semibold mb-2 text-center bg-buttonColor text-white rounded-xl w-full">
           Ambient Sounds
         </h3>
         <ul className="">
@@ -81,12 +83,18 @@ const MusicButton = ({ status }) => {
             return (
               <li
                 key={index}
-                className={`cursor-pointer ${
-                  trackId === selectedTrack ? "bg-gray-100" : ""
-                } hover:bg-gray-100 pb-1 rounded w-full text-center`}
+                className={`cursor-pointer flex justify-between ${
+                  trackId === selectedTrack
+                    ? "bg-gray-100 rounded"
+                    : "border-b border-buttonColor"
+                } hover:bg-gray-100 w-full text-left last:border-b-0 last:mb-1`}
                 onClick={() => handleTrackName(trackId)}
               >
-                {trackId}
+                <div className="ps-1">{trackId}</div>{" "}
+                <div className="p e-1">
+                  {trackId === selectedTrack && trackId !== "Mute" ? "🔊" : ""}
+                  {trackId === selectedTrack && trackId === "Mute" ? "🔇" : ""}
+                </div>
               </li>
             );
           })}
