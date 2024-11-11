@@ -75,7 +75,7 @@ const MusicButton = ({ status }) => {
       <div
         ref={popupRef}
         className={`${
-          isPopupOpen ? "scale-100 -translate-y-3 z-50" : "scale-0"
+          isPopupOpen ? "scale-100 -translate-y-5 z-50" : "scale-0"
         } transition-all ease-in-out duration-200 absolute bg-pastelYellow rounded-lg shadow-lg ps-4 pe-4 pt-2 w-[220px] right-0 bottom-[100%] mb-2`}
       >
         <h3 className="text-lg font-semibold mb-2 text-center bg-buttonColor text-white rounded-xl w-full">
@@ -88,11 +88,15 @@ const MusicButton = ({ status }) => {
                 key={index}
                 className={`cursor-pointer flex justify-between items-center ${
                   trackId === selectedTrack ? "bg-gray-100 rounded" : ""
+                } ${
+                  selectedTrack === "" && trackId === "Mute"
+                    ? "bg-gray-100 rounded"
+                    : ""
                 } hover:bg-gray-100 w-full text-left border-b border-buttonColor last:border-b-0 last:mb-1`}
                 onClick={() => handleTrackName(trackId)}
               >
                 <div className="ps-1">{trackId}</div>{" "}
-                <div className="p e-1">
+                <div className="pe-1">
                   {trackId === selectedTrack && trackId !== "Mute" ? (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
