@@ -56,7 +56,7 @@ const MusicPlayer = ({ selectedTrack, timerStatus }) => {
 
   // Handle play/pause/stop
   useEffect(() => {
-    if (!audioContext || !audioBuffer) return;
+    if (!audioContext || !audioBuffer || !selectedTrack) return;
 
     const playSound = (offset = 0) => {
       const source = audioContext.createBufferSource();
@@ -118,6 +118,7 @@ const MusicPlayer = ({ selectedTrack, timerStatus }) => {
     isPlaying,
     pausedTime,
     startTime,
+    selectedTrack, // Add selectedTrack to dependencies
   ]);
 
   // Cleanup
