@@ -7,6 +7,7 @@ const MusicPlayer = ({ selectedTrack, timerStatus }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [pausedTime, setPausedTime] = useState(0);
   const [startTime, setStartTime] = useState(0);
+  const [isPageVisible, setIsPageVisible] = useState(!document.hidden);
 
   const trackFiles = {
     River: "/Sounds/River.mp3",
@@ -15,6 +16,48 @@ const MusicPlayer = ({ selectedTrack, timerStatus }) => {
     Bonfire: "/Sounds/Bonfire.mp3",
     Binaural: "/Sounds/Binaural.mp3",
   };
+  // Visibility change handler
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      setIsPageVisible(!document.hidden);
+
+      // For iOS devices, we need to resume the AudioContext when the page becomes visible
+      if (
+        !document.hidden &&
+        audioContext &&
+        audioContext.state === "suspended"
+      ) {
+        audioContext.resume();
+      }
+    };
+
+    // Handle page visibility changes
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    // Special handling for iOS devices
+    const isIOS =
+      /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+      (navigator.userAgent.includes("Mac") && "ontouchend" in document);
+
+    if (isIOS) {
+      window.addEventListener("focus", () => {
+        if (audioContext && audioContext.state === "suspended") {
+          audioContext.resume();
+        }
+      });
+
+      window.addEventListener("blur", () => {
+        // Don't suspend on blur for iOS
+        if (audioContext && audioSource) {
+          // Keep playing
+        }
+      });
+    }
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [audioContext, audioSource]);
 
   useEffect(() => {
     const context = new (window.AudioContext || window.webkitAudioContext)();
@@ -54,7 +97,7 @@ const MusicPlayer = ({ selectedTrack, timerStatus }) => {
     loadAudio();
   }, [selectedTrack, audioContext]);
 
-  // Handle play/pause/stop
+  // Play/Pause sounds
   useEffect(() => {
     if (!audioContext || !audioBuffer || !selectedTrack) return;
 
@@ -64,6 +107,7 @@ const MusicPlayer = ({ selectedTrack, timerStatus }) => {
       source.loop = true;
       source.connect(audioContext.destination);
 
+      // Ensure audio context is running
       if (audioContext.state === "suspended") {
         audioContext.resume();
       }
@@ -72,14 +116,21 @@ const MusicPlayer = ({ selectedTrack, timerStatus }) => {
       source.start(0, offset);
       setAudioSource(source);
       setIsPlaying(true);
+
+      // Add error handling for iOS
+      source.onended = () => {
+        if (!source.stopped) {
+          // If the source ended unexpectedly, try to restart it
+          playSound(0);
+        }
+      };
     };
 
     const pauseSound = () => {
       if (audioSource) {
+        audioSource.stopped = true; // Mark as intentionally stopped
         audioSource.stop();
         setAudioSource(null);
-
-        //Calculate time at which audio was paused
         const elapsed = audioContext.currentTime - startTime;
         setPausedTime(elapsed % audioBuffer.duration);
         setIsPlaying(false);
@@ -88,6 +139,7 @@ const MusicPlayer = ({ selectedTrack, timerStatus }) => {
 
     const stopSound = () => {
       if (audioSource) {
+        audioSource.stopped = true; // Mark as intentionally stopped
         audioSource.stop();
         setAudioSource(null);
         setPausedTime(0);
@@ -96,6 +148,7 @@ const MusicPlayer = ({ selectedTrack, timerStatus }) => {
       }
     };
 
+    // Handle play/pause/stop based on timer status
     if (timerStatus === "play") {
       if (!isPlaying) {
         playSound(pausedTime);
@@ -108,6 +161,7 @@ const MusicPlayer = ({ selectedTrack, timerStatus }) => {
 
     return () => {
       if (audioSource) {
+        audioSource.stopped = true;
         audioSource.stop();
       }
     };
@@ -118,8 +172,37 @@ const MusicPlayer = ({ selectedTrack, timerStatus }) => {
     isPlaying,
     pausedTime,
     startTime,
-    selectedTrack, // Add selectedTrack to dependencies
+    selectedTrack,
+    isPageVisible, // Add isPageVisible to dependencies
   ]);
+  useEffect(() => {
+    const initAudioContext = () => {
+      if (!audioContext) {
+        const context = new (window.AudioContext ||
+          window.webkitAudioContext)();
+        setAudioContext(context);
+      }
+    };
+
+    // Initialize on user interaction
+    const handleInteraction = () => {
+      initAudioContext();
+      // Remove listeners after first interaction
+      document.removeEventListener("touchstart", handleInteraction);
+      document.removeEventListener("touchend", handleInteraction);
+      document.removeEventListener("click", handleInteraction);
+    };
+
+    document.addEventListener("touchstart", handleInteraction);
+    document.addEventListener("touchend", handleInteraction);
+    document.addEventListener("click", handleInteraction);
+
+    return () => {
+      document.removeEventListener("touchstart", handleInteraction);
+      document.removeEventListener("touchend", handleInteraction);
+      document.removeEventListener("click", handleInteraction);
+    };
+  }, [audioContext]);
 
   // Cleanup
   useEffect(() => {
