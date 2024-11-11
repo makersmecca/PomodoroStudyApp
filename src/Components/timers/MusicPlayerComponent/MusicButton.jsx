@@ -39,11 +39,13 @@ const MusicButton = ({ status }) => {
   };
 
   const handleTrackName = (selectedTrackId) => {
-    if (selectedTrack === "Mute") {
+    console.log(selectedTrackId);
+    if (selectedTrackId === "Mute") {
       setSelectedTrack("");
-    } else setSelectedTrack(selectedTrackId);
+    } else {
+      setSelectedTrack(selectedTrackId);
+    }
   };
-  // console.log(selectedTrack);
 
   return (
     <div className="relative">
@@ -104,7 +106,7 @@ const MusicButton = ({ status }) => {
                   ) : (
                     ""
                   )}
-                  {trackId === selectedTrack && trackId === "Mute" ? (
+                  {trackId === "Mute" ? (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="18"
