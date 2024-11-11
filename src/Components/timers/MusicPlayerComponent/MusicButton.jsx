@@ -39,7 +39,7 @@ const MusicButton = ({ status }) => {
   };
 
   const handleTrackName = (selectedTrackId) => {
-    console.log(selectedTrackId);
+    // console.log(selectedTrackId);
     if (selectedTrackId === "Mute") {
       setSelectedTrack("");
     } else {
@@ -52,7 +52,7 @@ const MusicButton = ({ status }) => {
       <button
         ref={buttonRef}
         onClick={() => handleMusic()}
-        className="hover:scale-110 w-[40px]"
+        className="hover:scale-110 w-[40px] transition-all ease-in-out duration-200"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +60,8 @@ const MusicButton = ({ status }) => {
           height="45"
           fill="currentColor"
           className={`bi bi-soundwave mt-2 ${
-            isPopupOpen && "bg-pastelYellow bg-opacity-80 rounded-full"
+            isPopupOpen &&
+            "bg-pastelYellow bg-opacity-80 rounded-full transition-all ease-in-out duration-200"
           }`}
           viewBox="0 0 16 16"
         >
