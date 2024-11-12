@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+    <link rel="icon" type="image/png" href="/Icons/16x16.png" />
+    <link rel="icon" type="image/png" href="/Icons/24x24.png" />
+    <link rel="icon" type="image/png" href="/Icons/32x32.png" />
+    <link rel="icon" type="image/png" href="/Icons/64x64.png" />
+    <link rel="icon" type="image/png" href="/Icons/128x128.png" />
+    <link rel="icon" type="image/png" href="/Icons/256x256.png" />
+    <link rel="icon" type="image/png" href="/Icons/512x512.png" />
+
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <meta name="viewport" content="width=device-width initial-scale=1.0" />
+    <title>Pomodoro Timer</title>
+  </head>
+  <body>
+    <div class="mainContent">
+      <div>
+        <img src="Icons/512x512.png" alt="Logo" height="80px" width="80px" />
+      </div>
+      <p class="line1 sour-gummy-fontName">Uh Oh!</p>
+      <p class="line2 sour-gummy-fontName">You seem to be Offline!</p>
+      <a href="/"><button class="sour-gummy-fontName">Retry</button></a>
+    </div>
+    <style>
+      .sour-gummy-fontName {
+        font-family: "SourGummy", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 100;
+        font-style: normal;
+        font-variation-settings: "wdth" 100;
+      }
+      .mainContent {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 250px;
+      }
+      .line1 {
+        font-family: "SourGummy", sans-serif;
+        font-size: 30px;
+        font-weight: 600;
+      }
+      .line2 {
+        font-family: "SourGummy", sans-serif;
+        font-size: 20px;
+        font-weight: 400;
+      }
+      body {
+        background-color: #fff4ea;
+        color: #c96868;
+      }
+      a {
+        margin-top: 45px;
+      }
+      button {
+        border-radius: 30px;
+        border-width: 0;
+        width: 80px;
+        height: 40px;
+        font-family: "SourGummy", sans-serif;
+        font-weight: 600;
+        font-size: 15px;
+        background-color: #c96868;
+        color: aliceblue;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #d87777;
+      }
+
+      button:active {
+        background-color: #b85959;
+      }
+    </style>
+  </body>
+</html>
