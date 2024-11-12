@@ -75,7 +75,7 @@ const InstallPrompt = () => {
       >
         <div className="prompt-content">
           <div className="flex justify-between items-center">
-            <div className="text-xl font-semibold">Install Pomodoro Timer!</div>
+            <div className="text-xl font-semibold">Install Halo Focus!</div>
             <button onClick={handleClose}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +121,8 @@ const InstallPrompt = () => {
               </div>
             ) : (
               <>
-                Install Pomodoro Timer for easier access from your homescreen.
+                Install HaloFocus Pomodoro for easier access from your
+                homescreen.
                 <div className="flex justify-around pt-3">
                   <button
                     onClick={handleInstallClick}

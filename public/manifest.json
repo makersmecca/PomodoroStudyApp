@@ -1,7 +1,7 @@
 {
-  "name": "Pomodoro Timer",
-  "short_name": "Pomodoro",
-  "description": "A Pomodoro Timer application to help with time management and productivity",
+  "name": "Halo Focus",
+  "short_name": "HaloFocus",
+  "description": "HaloFocus, A Pomodoro Timer application to help you focus for productive study sessions.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#fff4ea",
@@ -59,9 +59,9 @@
   "prefer_related_applications": false,
   "shortcuts": [
     {
-      "name": "Pomodoro Timer",
-      "short_name": "Pomodoro",
-      "description": "A Pomodoro Timer application to help with time management and productivity",
+      "name": "Halo Focus",
+      "short_name": "HaloFocus",
+      "description": "HaloFocus, A Pomodoro Timer application to help you focus for productive study sessions.",
       "url": "/?action=start",
       "icons": [{ "src": "Icons/iOS192x192.png", "sizes": "192x192" }]
     }
