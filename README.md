@@ -1,6 +1,6 @@
 # HALO FOCUS
 
-<h3>A Pomodoro Timer, study companion app to help users focus, and track their study sessions seamlessly.</h3>
+<h3>A Pomodoro Timer, study companion app to help users focus, and track their sessions seamlessly.</h3>
 
 <div align="center">
   <span>
