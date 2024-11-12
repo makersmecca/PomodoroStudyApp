@@ -18,7 +18,7 @@ function App() {
       navigator.serviceWorker
         .register("serviceWorker.js")
         .then((regis) => {
-          console.log("SW registered", regis.scope);
+          console.log(regis.scope);
         })
         .catch((err) => {
           console.log("SW registration failed", err);

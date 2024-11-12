@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 const InstallButton = () => {
   const [installable, setInstallable] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState(null);
-  const [pageLoad, setPageLoad] = useState(false);
 
   useEffect(() => {
     const handler = (e) => {
@@ -15,11 +14,7 @@ const InstallButton = () => {
 
     window.addEventListener("beforeinstallprompt", handler);
     return () => window.removeEventListener("beforeinstallprompt", handler);
-  }, [pageLoad]);
-
-  window.addEventListener("load", () => {
-    setPageLoad((prevState) => !prevState);
-  });
+  }, []);
 
   const handleInstallClick = async () => {
     if (!deferredPrompt) return;
