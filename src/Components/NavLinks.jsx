@@ -3,6 +3,7 @@ import { UserContext } from "./UserContext";
 import { Link } from "react-router-dom";
 import DisplayDateTime from "./DisplayDateTime";
 import CurrentUser from "./CurrentUser";
+import InstallButton from "./navitems/InstallButton";
 import { useLocation } from "react-router-dom";
 
 const NavLinks = ({ timerState = false }) => {
@@ -122,6 +123,9 @@ const NavLinks = ({ timerState = false }) => {
             )}
           </Link>
 
+          {/* PWA Install Button */}
+          <InstallButton onClick={toggleMenu} />
+
           {location === "/" ||
           location === "/rest" ||
           location === "/breathe" ? (
@@ -141,7 +145,7 @@ const NavLinks = ({ timerState = false }) => {
               onClick={toggleMenu}
               className="text-lg text-gray-800 hover:text-buttonColor"
             >
-              Custom Timer
+              CustomTime
             </Link>
           )}
 
