@@ -35,6 +35,10 @@ export default {
           "50%": { boxShadow: "0 0 20px 10px rgba(201, 104, 104, 0.7)" },
         },
       },
+
+      fontFamily: {
+        SourGummy: ["Sour+Gummy", "sans-serif"],
+      },
     },
   },
   plugins: [],
