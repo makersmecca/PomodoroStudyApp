@@ -12,6 +12,20 @@ import { UserProvider } from "./Components/UserContext";
 import ForgotPassword from "./Components/ForgotPassword";
 import { useState } from "react";
 function App() {
+  //register SW
+  window.addEventListener("load", () => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("serviceWorker.js")
+        .then((regis) => {
+          console.log("SW registered", regis.scope);
+        })
+        .catch((err) => {
+          console.log("SW registration failed", err);
+        });
+    }
+  });
+
   const [fullScreen, setFullScreen] = useState(false);
   const handleFullScreen = () => {
     if (document.fullscreenElement) {
