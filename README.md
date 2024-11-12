@@ -6,7 +6,7 @@ A Pomodoro Timer, study companion app to help users focus, and track their study
 
 ![CodeQL](https://github.com/github/docs/actions/workflows/codeql.yml/badge.svg?event=push)
 
-## HaloFocus is live!
+### HaloFocus is live!
 
 Click <a href="https://ayudh.netlify.app">here</a> to check it out!
 
