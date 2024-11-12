@@ -104,7 +104,7 @@ const CustomTimer = () => {
           <div className="absolute inset-0 bg-pastelWhite border-solid rounded-full shadow-lg flex items-center justify-center border-4 border-buttonColor border-opacity-50 transition-all duration-500">
             {/* Timer text container */}
             <div className="flex flex-col items-center justify-center">
-              <div className="text-4xl xs:text-5xl sm:text-6xl font-semibold text-slate-600">
+              <div className="text-4xl sm:text-5xl font-semibold text-slate-600">
                 <div>{displayTime}</div>
               </div>
             </div>
