@@ -2,7 +2,7 @@
 
 A Pomodoro Timer, study companion app to help users focus, and track their study sessions seamlessly.
 
-<img src="https://api.netlify.com/api/v1/badges/d8fc2ebb-90ca-43f3-b061-093d64262a65/deploy-status" />
+<p align="center"><img src="https://api.netlify.com/api/v1/badges/d8fc2ebb-90ca-43f3-b061-093d64262a65/deploy-status" /> </p>
 [![Netlify Status](https://api.netlify.com/api/v1/badges/d8fc2ebb-90ca-43f3-b061-093d64262a65/deploy-status)](https://app.netlify.com/sites/ayudhn/deploys)
 
 ![CodeQL](https://github.com/github/docs/actions/workflows/codeql.yml/badge.svg?event=push)
