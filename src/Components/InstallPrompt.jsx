@@ -4,6 +4,22 @@ import React, { useState, useEffect } from "react";
 const InstallPrompt = () => {
   const [showPrompt, setShowPrompt] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [isIOS, setIsIOS] = useState(false);
+
+  const isIos = () => {
+    const deviceType = window.navigator.userAgent.toLowerCase();
+    return /iphone|ipad|ipod/.test(deviceType);
+  };
+
+  window.addEventListener("load", () => {
+    console.log(isIos());
+    setIsIOS(isIos());
+    if (window.navigator.standalone) {
+      setShowPrompt(false);
+    } else {
+      setShowPrompt(true);
+    }
+  });
 
   useEffect(() => {
     const handler = (e) => {
@@ -72,21 +88,52 @@ const InstallPrompt = () => {
             </button>
           </div>
           <div className="pt-1 ms-2">
-            Install Pomodoro Timer for easier access from your homescreen.
-          </div>
-          <div className="flex justify-around pt-3">
-            <button
-              onClick={handleInstallClick}
-              className="bg-buttonColor text-white rounded-lg px-2 py-1 hover:scale-105 transition-all ease-in-out"
-            >
-              Install
-            </button>
-            <button
-              onClick={handleClose}
-              className="bg-buttonColor text-white rounded-lg px-2 py-1 hover:scale-105 transition-all ease-in-out"
-            >
-              Not Now
-            </button>
+            {isIOS ? (
+              <div className="text-[17px]">
+                <span className="whitespace-nowrap">
+                  For easier access, <br /> Tap the share
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    stroke="currentColor"
+                    strokeWidth="2%"
+                    className="bi bi-box-arrow-up inline-block align-text-bottom ml-1 mb-0.5"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M3.5 6a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-8a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 1 0-1h2A1.5 1.5 0 0 1 14 6.5v8a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-8A1.5 1.5 0 0 1 3.5 5h2a.5.5 0 0 1 0 1z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M7.646.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 1.707V10.5a.5.5 0 0 1-1 0V1.707L5.354 3.854a.5.5 0 1 1-.708-.708z"
+                    />
+                  </svg>
+                </span>{" "}
+                button and then click
+                <br /> "Add to Homescreen".
+              </div>
+            ) : (
+              <>
+                Install Pomodoro Timer for easier access from your homescreen.
+                <div className="flex justify-around pt-3">
+                  <button
+                    onClick={handleInstallClick}
+                    className="bg-buttonColor text-white rounded-lg px-2 py-1 hover:scale-105 transition-all ease-in-out"
+                  >
+                    Install
+                  </button>
+                  <button
+                    onClick={handleClose}
+                    className="bg-buttonColor text-white rounded-lg px-2 py-1 hover:scale-105 transition-all ease-in-out"
+                  >
+                    Not Now
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
