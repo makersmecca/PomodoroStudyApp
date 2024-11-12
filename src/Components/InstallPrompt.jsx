@@ -12,7 +12,7 @@ const InstallPrompt = () => {
   };
 
   window.addEventListener("load", () => {
-    console.log(isIos());
+    // console.log(isIos());
     setIsIOS(isIos());
     if (window.navigator.standalone) {
       setShowPrompt(false);
@@ -63,7 +63,11 @@ const InstallPrompt = () => {
   //   if (!showPrompt) return null;
 
   return (
-    <div className="fixed bottom-0 md:bottom-4 left-0 md:left-5 right-0 flex justify-center md:justify-start w-full">
+    <div
+      className={`fixed bottom-0 md:bottom-4 left-0 md:left-5 right-0 flex justify-center md:justify-start w-full sm:w-[400px] ${
+        showPrompt ? "h-auto" : "h-0"
+      } transition-transform duration-300 ease-in-out`}
+    >
       <div
         className={`${
           showPrompt ? "scale-100 translate-y-0" : "scale-0 translate-y-full"
@@ -103,11 +107,11 @@ const InstallPrompt = () => {
                     viewBox="0 0 16 16"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M3.5 6a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-8a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 1 0-1h2A1.5 1.5 0 0 1 14 6.5v8a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-8A1.5 1.5 0 0 1 3.5 5h2a.5.5 0 0 1 0 1z"
                     />
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M7.646.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 1.707V10.5a.5.5 0 0 1-1 0V1.707L5.354 3.854a.5.5 0 1 1-.708-.708z"
                     />
                   </svg>
