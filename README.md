@@ -8,7 +8,7 @@ A Pomodoro Timer, study companion app to help users focus, and track their study
 
 ### HaloFocus is live!
 
-Click <a href="https://ayudh.netlify.app">here</a> to check it out!
+Click [https://ayudh.netlify.app](https://halofocus.netlify.app)here to check it out!
 
 ## FEATURES [Planned]:
 
