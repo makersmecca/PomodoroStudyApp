@@ -10,6 +10,7 @@ import UserAuthentication from "./Components/UserAuthentication";
 import { Route, Routes } from "react-router-dom";
 import { UserProvider } from "./Components/UserContext";
 import ForgotPassword from "./Components/ForgotPassword";
+import InstallPrompt from "./Components/InstallPrompt";
 import { useState } from "react";
 function App() {
   //register SW
@@ -50,6 +51,7 @@ function App() {
         <Route path="/LogIn" element={<UserAuthentication />} />
         <Route path="/ForgotPassword" element={<ForgotPassword />} />
       </Routes>
+      <InstallPrompt />
       {/* Fullscreen button */}
       <button
         onClick={handleFullScreen}
