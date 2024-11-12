@@ -1,70 +1,69 @@
 {
-    "name": "Pomodoro Timer",
-    "short_name": "Pomodoro",
-    "description": "A Pomodoro Timer application to help with time management and productivity",
-    "start_url": "/",
-    "display": "standalone",
-    "background_color": "#fff4ea",
-    "theme_color": "#c96868",
-    "icons": [
-      {
-        "src": "Icons/16x16.png",
-        "sizes": "16x16",
-        "type": "image/png"
-      },
-      {
-        "src": "Icons/24x24.png",
-        "sizes": "24x24",
-        "type": "image/png"
-      },
-      {
-        "src": "Icons/32x32.png",
-        "sizes": "32x32",
-        "type": "image/png"
-      },
-      {
-        "src": "Icons/64x64.png",
-        "sizes": "64x64",
-        "type": "image/png"
-      },
-      {
-        "src": "Icons/128x128.png",
-        "sizes": "128x128",
-        "type": "image/png"
-      },
-      {
-        "src": "Icons/192x192.png",
-        "sizes": "192x192",
-        "type": "image/png"
-      },
-      {
-        "src": "Icons/iOS192x192.png",
-        "sizes": "192x192",
-        "type": "image/png"
-      },
-      {
-        "src": "Icons/256x256.png",
-        "sizes": "256x256",
-        "type": "image/png"
-      },
-      {
-        "src": "Icons/512x512.png",
-        "sizes": "512x512",
-        "type": "image/png",
-        "purpose": "any maskable"
-      }
-    ],
-    "orientation": "any",
-    "categories": ["productivity", "utilities"],
-    "prefer_related_applications": false,
-    "shortcuts": [
-      {
-        "name": "Pomodoro Timer",
-        "short_name": "Pomodoro",
-        "description": "A Pomodoro Timer application to help with time management and productivity",
-        "url": "/?action=start",
-        "icons": [{ "src": "Icons/iOS192x192.png", "sizes": "192x192" }]
-      }
-    ]
-  }
-  
+  "name": "Pomodoro Timer",
+  "short_name": "Pomodoro",
+  "description": "A Pomodoro Timer application to help with time management and productivity",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fff4ea",
+  "theme_color": "#c96868",
+  "icons": [
+    {
+      "src": "Icons/pwa/16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "Icons/pwa/24x24.png",
+      "sizes": "24x24",
+      "type": "image/png"
+    },
+    {
+      "src": "Icons/pwa/32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "Icons/pwa/64x64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "Icons/pwa/128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "Icons/pwa/192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "Icons/iOS192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "Icons/pwa/256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "Icons/pwa/512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "orientation": "any",
+  "categories": ["productivity", "utilities"],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Pomodoro Timer",
+      "short_name": "Pomodoro",
+      "description": "A Pomodoro Timer application to help with time management and productivity",
+      "url": "/?action=start",
+      "icons": [{ "src": "Icons/iOS192x192.png", "sizes": "192x192" }]
+    }
+  ]
+}
