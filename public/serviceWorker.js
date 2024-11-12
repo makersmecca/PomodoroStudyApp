@@ -1,11 +1,13 @@
 //Service Worker for Pomodoro Timer
-const OFFLINE_VERSION = "0.0.2";
+const OFFLINE_VERSION = "0.0.4";
 const CACHE_NAME = "pomoff" + OFFLINE_VERSION;
 const OFFLINE_URL = "fallback.html";
 const assets = [
   "fallback.html",
   "Icons/512x512.png",
   "Icons/256x256.png",
+  "Icons/192x192.png",
+  "Icons/iOS192x192.png",
   "Icons/128x128.png",
   "Icons/64x64.png",
   "Icons/32x32.png",
