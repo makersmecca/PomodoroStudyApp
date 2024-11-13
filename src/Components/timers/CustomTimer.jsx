@@ -101,7 +101,7 @@ const CustomTimer = () => {
             } transition-all ease-in-out duration-200 flex justify-center items-baseline`}
           >
             <div className={`relative inline-flex items-center`}>
-              <div className="absolute w-full h-full bg-yellow-300 rounded-full blur-[8px] animate-pulse transition-all duration-1000"></div>
+              <div className="absolute translate-x-2 translate-y-1.5 w-full h-full bg-yellow-300 rounded-full blur-[10px] animate-pulse transition-all duration-1000"></div>
               <img
                 src={logoImage}
                 className="h-[35px] md:h-[40px] w-[35px] md:w-[40px] 

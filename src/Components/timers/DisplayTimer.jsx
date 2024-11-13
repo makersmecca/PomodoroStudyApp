@@ -97,13 +97,19 @@ const DisplayTimer = ({
               timer.isRunning ? "scale-0" : "scale-100 "
             } transition-all ease-in-out duration-200`}
           >
-            <div className="flex items-baseline">
-              <img
-                src={logoImage}
-                className="h-[35px] md:h-[40px] w-[35px] md:w-[40px] drop-shadow-glow"
-              />
-              <div className="me-2 ms-2">Halo</div>
-              <div>Focus</div>
+            <div
+              className={`${
+                timer.isRunning ? "scale-0" : "scale-100 "
+              } transition-all ease-in-out duration-200 flex justify-center items-baseline`}
+            >
+              <div className={`relative inline-flex items-center`}>
+                <div className="absolute translate-x-2 translate-y-1.5 w-full h-full bg-yellow-300 rounded-full blur-[10px] animate-pulse transition-all duration-1000"></div>
+                <img
+                  src={logoImage}
+                  className="h-[35px] md:h-[40px] w-[35px] md:w-[40px] relative transition-transform duration-300"
+                />
+              </div>
+              <div className="ms-2">Halo Focus</div>
             </div>
           </div>
         </div>
