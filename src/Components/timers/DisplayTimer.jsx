@@ -90,16 +90,16 @@ const DisplayTimer = ({
     <>
       <div className="main-content min-h-screen flex flex-col items-center justify-center pt-0 sm:pt-20 px-4 mt-0 lg:mt-0">
         {/* Main container */}
-        <div className="relative w-full max-w-[300px] flex flex-col items-center gap-8">
-          <div className="text-3xl md:text-4xl font-semibold h-[40px]">
-            <div
-              className={`${
-                timer.isRunning ? "scale-0" : "scale-100 "
-              } transition-all ease-in-out duration-200`}
-            >
-              Halo Focus
-            </div>
+        <div className="text-3xl md:text-4xl font-semibold h-[40px] mb-[40px] mt-0">
+          <div
+            className={`${
+              timer.isRunning ? "scale-0" : "scale-100 "
+            } transition-all ease-in-out duration-200`}
+          >
+            Halo Focus
           </div>
+        </div>
+        <div className="relative w-full max-w-[300px] flex flex-col items-center gap-8">
           <div className="flex gap-4">
             <Link to="/">
               <NavButtons

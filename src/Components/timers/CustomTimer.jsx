@@ -93,7 +93,7 @@ const CustomTimer = () => {
       </div>
 
       <div className="flex flex-col items-center justify-center flex-1 px-4">
-        <div className="text-3xl md:text-4xl font-semibold h-[40px] w-full text-center mb-[25px] md:mt-20">
+        <div className="text-3xl md:text-4xl font-semibold h-[40px] w-full text-center mb-[25px] mt-0 md:mt-20">
           <div
             className={`${
               isRunning ? "scale-0" : "scale-100 "
