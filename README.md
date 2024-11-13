@@ -34,3 +34,4 @@ With a clean, distraction-free UI, and an array of Ambient Sounds, HaloFocus ass
 - Animated visual cues to help Users with synchronized breathing
 - Custom breathing cycles
 
+![](https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/footers/gray0_ctp_on_line.svg?sanitize=true)
