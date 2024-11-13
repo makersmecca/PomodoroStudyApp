@@ -30,14 +30,16 @@ const InstallButton = () => {
   return (
     <button
       onClick={handleInstallClick}
-      className="text-lg font-normal text-gray-800 hover:text-buttonColor hover:bg-opacity-95 bg-slate-300 w-full rounded-lg flex justify-center gap-x-2 items-center cursor-pointer"
+      className="text-lg font-normal text-gray-800 hover:text-buttonColor hover:bg-opacity-95 bg-slate-300 w-full rounded-lg flex justify-center gap-x-2 items-center cursor-pointer px-2"
     >
       <div className="ps-0.5">Install App</div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="18"
         height="18"
-        fill="#1f2937"
+        fill="#c96868"
+        stroke="#c96868"
+        strokeWidth="1%"
         className="bi bi-gear-wide-connected mt-0.5 pe-0.5 cursor-pointer"
         viewBox="0 0 16 16"
       >
