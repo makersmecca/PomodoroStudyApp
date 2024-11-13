@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import NavButtons from "../NavButtons";
 import useStoreStat from "../hooks/useStoreStat";
 import MusicButton from "./MusicPlayerComponent/MusicButton";
+import logoImage from "/Icons/512x512.png";
 
 const DisplayTimer = ({
   defaultTime,
@@ -96,7 +97,14 @@ const DisplayTimer = ({
               timer.isRunning ? "scale-0" : "scale-100 "
             } transition-all ease-in-out duration-200`}
           >
-            Halo Focus
+            <div className="flex items-baseline">
+              <img
+                src={logoImage}
+                className="h-[35px] md:h-[40px] w-[35px] md:w-[40px] drop-shadow-glow"
+              />
+              <div className="me-2 ms-2">Halo</div>
+              <div>Focus</div>
+            </div>
           </div>
         </div>
         <div className="relative w-full max-w-[300px] flex flex-col items-center gap-8">
