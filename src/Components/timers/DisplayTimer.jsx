@@ -91,7 +91,7 @@ const DisplayTimer = ({
     <>
       <div className="main-content min-h-screen flex flex-col items-center justify-center pt-0 sm:pt-20 px-4 mt-0 lg:mt-0">
         {/* Main container */}
-        <div className="text-3xl md:text-4xl font-semibold h-[40px] mb-[40px] mt-0">
+        <div className="w-full text-4xl font-semibold h-[40px] mb-[40px] mt-0">
           <div
             className={`${
               timer.isRunning ? "scale-0" : "scale-100 "

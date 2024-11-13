@@ -56,7 +56,9 @@ const NavLinks = ({ timerState = false }) => {
 
         {/* Hamburger button */}
         <div
-          className={`${timerState ? "md:order-3" : ""} flex cursor-pointer`}
+          className={`${
+            timerState ? "md:order-3 scale-y-0" : "scale-y-100"
+          } transition-all ease-in-out duration-300 flex cursor-pointer`}
         >
           <button
             ref={buttonRef}
