@@ -1,4 +1,4 @@
-# HALO FOCUS
+# HALO FOCUS ![](https://api.netlify.com/api/v1/badges/d8fc2ebb-90ca-43f3-b061-093d64262a65/deploy-status)
 
 <h3>A Pomodoro-style productivity app, designed to help you stay focused and on track with your study/work sessions</h3>
 <div align="center">
