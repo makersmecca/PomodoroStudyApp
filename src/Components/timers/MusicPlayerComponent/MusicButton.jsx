@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import MusicPlayer from "./MusicPlayer";
 
 const MusicButton = ({ status }) => {
@@ -8,7 +8,10 @@ const MusicButton = ({ status }) => {
   const popupRef = useRef(null);
   const buttonRef = useRef(null);
 
-  const trackId = ["River", "Rain", "Library", "Bonfire", "Binaural", "Mute"];
+  const trackId = useMemo(
+    () => ["River", "Rain", "Library", "Bonfire", "Binaural", "Mute"],
+    []
+  );
 
   useEffect(() => {
     status != timerStatus && setTimerStatus(status);
@@ -77,7 +80,9 @@ const MusicButton = ({ status }) => {
       <div
         ref={popupRef}
         className={`${
-          isPopupOpen ? "scale-100 -translate-y-5 z-50" : "scale-0"
+          isPopupOpen
+            ? "scale-100 -translate-y-5 z-50 visible"
+            : "scale-0 invisible"
         } transition-all ease-in-out duration-200 absolute bg-pastelYellow rounded-lg shadow-lg ps-4 pe-4 pt-2 w-[220px] right-0 bottom-[100%] mb-2`}
       >
         <h3 className="text-lg font-semibold mb-2 text-center bg-buttonColor text-white rounded-xl w-full">
