@@ -5,6 +5,8 @@
 ### HaloFocus is [live!](https://halofocus.netlify.app "Halo Focus")
 With a clean, distraction-free UI, and an array of Ambient Sounds, HaloFocus assists your workflow and provides tools like Breathing Exercises and To-Do lists to enhance productivity.
 
+![Halo UI](https://raw.githubusercontent.com/makersmecca/Halo-Focus-Pomodoro/refs/heads/master/Halo%20Focus%20UI.png)
+
 ## FEATURES:
 - **Pomodoro Timer:** Predefined time durations as well as custom time durations for your focus sessions.
 - **Stats:** Get comprehensive stats of your focus/rest sessions in-app. Stats get synced with your User Account.
