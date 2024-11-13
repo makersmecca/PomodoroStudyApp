@@ -56,9 +56,11 @@ const MusicButton = ({ status }) => {
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="45"
-          height="45"
+          width="47"
+          height="47"
           fill="currentColor"
+          stroke="currentColor"
+          strokeWidth="2%"
           className={`bi bi-soundwave mt-2 ${
             isPopupOpen &&
             "bg-pastelYellow bg-opacity-80 rounded-full transition-all ease-in-out duration-200"
