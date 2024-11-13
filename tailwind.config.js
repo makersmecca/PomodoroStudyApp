@@ -26,6 +26,9 @@ export default {
           lightest: "#f9fafc",
         },
       },
+      dropShadow: {
+        glow: "0 0 20px rgba(255, 223, 0, 0.7)",
+      },
       animation: {
         spinSlow: "spin 1s ease-in-out",
         breatheGlow: "breatheGlow 10s ease-in-out infinite",
