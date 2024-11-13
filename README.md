@@ -7,8 +7,9 @@
     <img src="https://github.com/github/docs/actions/workflows/codeql.yml/badge.svg?event=push"/>
   </span>
 </div>
-<h3> HaloFocus is <a href="https://halofocus.netlify.app">live!</a></h3>
-> With a clean, distraction-free UI, and an array of Ambient Sounds, HaloFocus assists your workflow and provides tools like Breathing Exercises and To-Do lists to enhance productivity.
+
+#### HaloFocus is [live!](https://halofocus.netlify.app "Halo Focus")
+With a clean, distraction-free UI, and an array of Ambient Sounds, HaloFocus assists your workflow and provides tools like Breathing Exercises and To-Do lists to enhance productivity.
 
 ## FEATURES:
 - **Pomodoro Timer:** Predefined time durations as well as custom time durations for your focus sessions.
