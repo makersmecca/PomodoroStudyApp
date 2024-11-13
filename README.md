@@ -19,43 +19,18 @@ With a clean, distraction-free UI, and an array of Ambient Sounds, HaloFocus ass
 - **Breathing Exercise:** In-app breathing exercise feature to help you unwind.
 - **Authentication:** All your data is secured by Google Firebase.
 
-
-### Dashboard:
-- Display User data [Requires auth]
-- Display Pomodoro cycles with date and time
-- Display Breathing exercise history and activity
-- Calendar view of timings
-
 ### Pomodoro Timer:
+- 25 minutes, default focus sessions, but can easily be customized.
+- 5 minutes, default rest sessions but can easily be customized.
+- Custom Timer option to track focus sessions for limitless focus sessions.
 
-- Standard pomodoro cycles with work and break sessions.
-- Users can set custon timer for study sessions, short breaks and long breaks
-- Visual feedback on progress and alerts for breaks and session ends [Progress bar]
-- Adjustable work and break timers, personalised study sessions
-- Save custom time durations for future use
-
-### YT Music integration: [IFrame API]
-
-- Play white noise playlist by default
-- Choose playlist to play using URL
-- Media controls in app
-- Play/Pause music based on timer status
-
-### To-Do Checklist:
-
-- Create, Update, Delete checklist items
-- Synced with user's auth across all sessions
+### To-Do Checklist [Requires Authentication]:
+- Add, Edit and Delete Tasks
+- Mark as done once completed.
+- Synced with your User Account across all sessions.
 
 ### Breathing Exercise:
+- Dedicated guided breathing exercise tab to help Users unwind during breaks.
+- Animated visual cues to help Users with synchronized breathing
+- Custom breathing cycles
 
-- Dedicated tab for guided breathing exercise to help users relax during breaks
-- Animated visual cues to help user with synchronized breathing
-- Custom breathing cycles [custom time]
-
-## TECH STACK [PLANNED]:
-
-- React for frontend
-- Firebase Firestore/ Supabase for data storage
-- Youtube IFrame API
-- Firebase Auth
-- Notifications API for notifications
