@@ -88,9 +88,18 @@ const DisplayTimer = ({
 
   return (
     <>
-      <div className="main-content min-h-screen flex flex-col items-center justify-center pt-0 sm:pt-20 px-4 sm:mt-10 lg:mt-0">
+      <div className="main-content min-h-screen flex flex-col items-center justify-center pt-0 sm:pt-20 px-4 mt-0 lg:mt-0">
         {/* Main container */}
         <div className="relative w-full max-w-[300px] flex flex-col items-center gap-8">
+          <div className="text-3xl md:text-4xl font-semibold h-[40px]">
+            <div
+              className={`${
+                timer.isRunning ? "scale-0" : "scale-100 "
+              } transition-all ease-in-out duration-200`}
+            >
+              Halo Focus
+            </div>
+          </div>
           <div className="flex gap-4">
             <Link to="/">
               <NavButtons
@@ -190,7 +199,7 @@ const DisplayTimer = ({
           </div>
 
           {/* Timer controls */}
-          <div className="flex gap-4 w-full justify-center items-center h-12 md:h-14">
+          <div className="flex gap-4 w-full justify-center items-center h-[60px] md:h-14">
             {/*Start Pause Button */}
             <button
               onClick={timer.isRunning ? timer.handlePause : timer.handleStart}
@@ -215,14 +224,14 @@ const DisplayTimer = ({
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="40"
-                height="40"
+                width="44"
+                height="44"
                 fill="currentColor"
                 onClick={handleRotate}
-                className={`bi bi-arrow-clockwise stroke-current cursor-pointer pb-1 mt-1 ${
+                className={`bi bi-arrow-clockwise stroke-current cursor-pointer mt-1 ${
                   isRotating ? "animate-spinSlow" : ""
                 } ${timer.isRunning ? "cursor-none" : ""}`}
-                viewBox="0 -1 16 16"
+                viewBox="0 0 16 16"
               >
                 <path
                   fillRule="evenodd"
