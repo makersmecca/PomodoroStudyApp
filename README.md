@@ -1,12 +1,6 @@
 # HALO FOCUS ![](https://api.netlify.com/api/v1/badges/d8fc2ebb-90ca-43f3-b061-093d64262a65/deploy-status) ![](https://github.com/github/docs/actions/workflows/codeql.yml/badge.svg?event=push)
 
-<h3>A Pomodoro-style productivity app, designed to help you stay focused and on track with your study/work sessions</h3>
-<div align="center">
-  <span>
-    <img src="https://api.netlify.com/api/v1/badges/d8fc2ebb-90ca-43f3-b061-093d64262a65/deploy-status" /> 
-    <img src="https://github.com/github/docs/actions/workflows/codeql.yml/badge.svg?event=push"/>
-  </span>
-</div>
+### A Pomodoro-style productivity app, designed to help you stay focused and on track with your study/work sessions
 
 ### HaloFocus is [live!](https://halofocus.netlify.app "Halo Focus")
 With a clean, distraction-free UI, and an array of Ambient Sounds, HaloFocus assists your workflow and provides tools like Breathing Exercises and To-Do lists to enhance productivity.
