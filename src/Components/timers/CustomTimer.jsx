@@ -3,6 +3,7 @@ import NavLinks from "../NavLinks";
 import useStoreStat from "../hooks/useStoreStat";
 import { useLocation } from "react-router-dom";
 import MusicButton from "./MusicPlayerComponent/MusicButton";
+import logoImage from "/Icons/512x512.png";
 
 const CustomTimer = () => {
   const [displayTime, setDisplayTime] = useState("00:00:00");
@@ -97,9 +98,15 @@ const CustomTimer = () => {
           <div
             className={`${
               isRunning ? "scale-0" : "scale-100 "
-            } transition-all ease-in-out duration-200`}
+            } transition-all ease-in-out duration-200 flex items-baseline justify-center`}
           >
-            Halo Focus
+            <img
+              src={logoImage}
+              height="35px"
+              width="35px"
+              className="drop-shadow-glow"
+            />
+            <div className="ms-2">Halo Focus</div>
           </div>
         </div>
         <span
