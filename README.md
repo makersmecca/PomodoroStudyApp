@@ -11,7 +11,7 @@
 <p>With a clean, distraction-free UI, and an array of Ambient Sounds, HaloFocus assists your workflow and provides tools like Breathing Exercises and To-Do lists to enhance productivity. </p>
 
 ## FEATURES:
-- <strong>Pomodoro Timer:</strong> Predefined time durations as well as custom time durations for your focus sessions.
+- **Pomodoro Timer:** Predefined time durations as well as custom time durations for your focus sessions.
 
 
 ### Dashboard:
