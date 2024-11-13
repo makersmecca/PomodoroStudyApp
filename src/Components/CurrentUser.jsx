@@ -17,7 +17,7 @@ const CurrentUser = () => {
     <>
       <div
         onClick={handleSignOut}
-        className="text-lg text-gray-800 hover:text-buttonColor cursor-pointer"
+        className="text-lg text-gray-800 hover:text-buttonColor cursor-pointer px-2"
       >
         Log Out
       </div>
