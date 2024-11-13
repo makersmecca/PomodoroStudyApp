@@ -7,7 +7,7 @@
     <img src="https://github.com/github/docs/actions/workflows/codeql.yml/badge.svg?event=push"/>
   </span>
 </div>
-<h3> HaloFocus is live! Click <a href="https://halofocus.netlify.app">here</a> to check it out!</h3>
+<h3> HaloFocus is <a href="https://halofocus.netlify.app">live</a>!</h3>
 <p>With a clean, distraction-free UI, and an array of Ambient Sounds, HaloFocus assists your workflow and provides tools like Breathing Exercises and To-Do lists to enhance productivity. </p>
 
 ## FEATURES:
