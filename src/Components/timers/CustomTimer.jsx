@@ -91,11 +91,21 @@ const CustomTimer = () => {
       <div className="w-full">
         <NavLinks timerState={isRunning}></NavLinks>
       </div>
+
       <div className="flex flex-col items-center justify-center flex-1 px-4">
+        <div className="text-3xl md:text-4xl font-semibold h-[40px] w-full text-center mb-[25px] md:mt-20">
+          <div
+            className={`${
+              isRunning ? "scale-0" : "scale-100 "
+            } transition-all ease-in-out duration-200`}
+          >
+            Halo Focus
+          </div>
+        </div>
         <span
           className={`${
             isRunning && "bg-opacity-50"
-          } bg-buttonColor cursor-none rounded-3xl py-2 text-white text-center text-2xl w-[250px] mb-6 shadow-xl felx items-center`}
+          } bg-buttonColor cursor-none rounded-3xl py-2 text-white text-center text-2xl w-[250px] mb-6 shadow-xl items-center mt-6`}
         >
           Focus Timer
         </span>
