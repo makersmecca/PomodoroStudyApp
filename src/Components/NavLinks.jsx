@@ -106,12 +106,11 @@ const NavLinks = ({ timerState = false }) => {
             //     d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
             //   />
             // </svg>
-            <img
-              src={logoImage}
-              height="35px"
-              width="35px"
-              className="drop-shadow-glow"
-            />
+
+            <div className={`relative inline-flex items-center`}>
+              <div className="absolute translate-x-2.5 translate-y-1.5 w-full h-full bg-yellow-300 rounded-full blur-[10px]"></div>
+              <img src={logoImage} className="h-[35px] w-[35px] relative" />
+            </div>
           ) : (
             <img
               src={`${currentUser.photoURL}`}
