@@ -98,14 +98,17 @@ const CustomTimer = () => {
           <div
             className={`${
               isRunning ? "scale-0" : "scale-100 "
-            } transition-all ease-in-out duration-200 flex items-baseline justify-center`}
+            } transition-all ease-in-out duration-200 flex justify-center items-baseline`}
           >
-            <img
-              src={logoImage}
-              height="35px"
-              width="35px"
-              className="drop-shadow-glow"
-            />
+            <div className={`relative inline-flex items-center`}>
+              <div className="absolute w-full h-full bg-yellow-300 rounded-full blur-[8px] animate-pulse transition-all duration-1000"></div>
+              <img
+                src={logoImage}
+                className="h-[35px] md:h-[40px] w-[35px] md:w-[40px] 
+              relative 
+              transition-transform duration-300"
+              />
+            </div>
             <div className="ms-2">Halo Focus</div>
           </div>
         </div>
