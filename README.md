@@ -1,4 +1,4 @@
-# HALO FOCUS ![](https://api.netlify.com/api/v1/badges/d8fc2ebb-90ca-43f3-b061-093d64262a65/deploy-status) ![](https://github.com/github/docs/actions/workflows/codeql.yml/badge.svg?event=push)
+# HALO FOCUS   ![](https://api.netlify.com/api/v1/badges/d8fc2ebb-90ca-43f3-b061-093d64262a65/deploy-status) ![](https://github.com/github/docs/actions/workflows/codeql.yml/badge.svg?event=push)
 
 ### A Pomodoro-style productivity app, designed to help you stay focused and on track with your study/work sessions
 
