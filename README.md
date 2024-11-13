@@ -8,7 +8,7 @@
   </span>
 </div>
 
-#### HaloFocus is [live!](https://halofocus.netlify.app "Halo Focus")
+### HaloFocus is [live!](https://halofocus.netlify.app "Halo Focus")
 With a clean, distraction-free UI, and an array of Ambient Sounds, HaloFocus assists your workflow and provides tools like Breathing Exercises and To-Do lists to enhance productivity.
 
 ## FEATURES:
