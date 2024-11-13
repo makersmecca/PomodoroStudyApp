@@ -10,7 +10,7 @@ const DisplayDateTime = () => {
   setInterval(updateTime, 1000);
 
   return (
-    <div className={`px-2 md:text-xl font-semibold self-center`}>
+    <div className={`px-2 text-lg md:text-xl font-semibold self-center`}>
       {currentTime.getHours() < 10 ? (
         <span>0{currentTime.getHours()}</span>
       ) : (
