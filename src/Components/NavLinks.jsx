@@ -122,7 +122,9 @@ const NavLinks = ({ timerState = false }) => {
 
           <Link to="/" className="text-lg text-gray-800 cursor-pointer px-2">
             {currentUser ? (
-              <span>Hello, {`${currentUser.displayName}`}</span>
+              <span className="font-semibold text-buttonColor text-lg">
+                Hello, {`${currentUser.displayName}`}
+              </span>
             ) : (
               <span className="font-semibold text-buttonColor text-xl">
                 Hi, there!
