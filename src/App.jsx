@@ -57,6 +57,7 @@ function App() {
         onClick={handleFullScreen}
         className="hidden md:block fixed bottom-20 right-20 md:right-20 p-2 cursor-pointer border-2 border-buttonColor border-opacity-50 rounded-full hover:scale-125 transition-all ease-in-out shadow-lg"
         data-tooltip-target="tooltip-default"
+        aria-label={fullScreen ? "Exit fullscreen" : "Enter fullscreen"}
       >
         {fullScreen ? (
           <svg
