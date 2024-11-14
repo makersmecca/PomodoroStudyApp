@@ -7,10 +7,12 @@ import ToDo from "./Components/navitems/ToDo";
 import Stats from "./Components/navitems/Stats";
 import Settings from "./Components/navitems/Settings";
 import UserAuthentication from "./Components/UserAuthentication";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Link } from "react-router-dom";
 import { UserProvider } from "./Components/UserContext";
 import ForgotPassword from "./Components/ForgotPassword";
 import InstallPrompt from "./Components/InstallPrompt";
+import PrivacyPolicy from "./Components/OAuth consent screen requirements/PrivacyPolicy";
+import TermsOfUse from "./Components/OAuth consent screen requirements/TermsOfUse";
 import { useState } from "react";
 function App() {
   //register SW
@@ -50,6 +52,8 @@ function App() {
         <Route path="/SignUp" element={<UserAuthentication />} />
         <Route path="/LogIn" element={<UserAuthentication />} />
         <Route path="/ForgotPassword" element={<ForgotPassword />} />
+        <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
+        <Route path="/TermsOfUse" element={<TermsOfUse />} />
       </Routes>
       <InstallPrompt />
       {/* Fullscreen button */}
@@ -83,6 +87,16 @@ function App() {
           </svg>
         )}
       </button>
+      {!fullScreen &&
+        !window.matchMedia("(display-mode: standalone)").matches && (
+          <div
+            className={`w-full flex justify-around md:justify-start md:ps-4 md:gap-x-4`}
+          >
+            <p>HaloFocus 2024</p>
+            <Link to="/TermsOfUse">Terms of Use</Link>
+            <Link to="/PrivacyPolicy">Privacy Policy</Link>
+          </div>
+        )}
     </UserProvider>
   );
 }
