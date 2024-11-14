@@ -20,9 +20,6 @@ const useStoreStat = (componentName = "Unknown") => {
     if (currentUser) {
       fetchData(currentUser.email);
     }
-    return () =>{
-      mounted=false;
-    };
   }, [currentUser]);
 
   //fetches the exisating user data from the firestore db to add new data to it
