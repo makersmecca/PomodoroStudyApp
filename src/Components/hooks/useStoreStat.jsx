@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useMemo } from "react";
 import { db } from "../../auth/firebaseAuth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { UserContext } from "../UserContext";
@@ -7,21 +7,26 @@ const useStoreStat = (componentName = "Unknown") => {
   const [totalTime, setTotalTime] = useState("00:00:00");
   const { currentUser } = useContext(UserContext);
   const [dataArray, setDataArray] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   //object to provide collection names corresponding to location
-  const components = {
+  const components = useMemo(()=>({
     "/": "pomodoro",
     "/rest": "rest",
     "/customtimer": "custom",
-  };
+  }),[]);
 
   useEffect(() => {
     if (currentUser) {
       fetchData(currentUser.email);
     }
+    return () =>{
+      mounted=false;
+    };
   }, [currentUser]);
 
   //fetches the exisating user data from the firestore db to add new data to it
+
   const fetchData = async (email) => {
     // console.log(components[componentName]);
     try {
@@ -81,9 +86,11 @@ const useStoreStat = (componentName = "Unknown") => {
     try {
       if (!timeSpent || typeof timeSpent !== "number" || timeSpent < 0) {
         throw new Error("Invalid time input");
+        return;
       }
       if (!currentUser?.email) {
         throw new Error("User not authenticated");
+        return;
       }
 
       const currentTimeFromDB = await fetchData(currentUser?.email); //fetch user data
