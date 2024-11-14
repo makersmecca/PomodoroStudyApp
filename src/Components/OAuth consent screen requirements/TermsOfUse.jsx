@@ -14,12 +14,12 @@ const TermsOfUse = () => {
           <h1 className="text-3xl font-bold mb-2">
             Terms of Use for HaloFocus
           </h1>
-          <p className="text-opacity-60">Effective Date: 14.11.2024</p>
+          <p className="text-opacity-60 font-semibold">Effective Date: 14.11.2024</p>
         </div>
 
         {/* Introduction Section */}
         <div className="py-6 px-2 mb-6">
-          <h2 className="text-xl font-semibold mb-4">Introduction</h2>
+          <h2 className="text-2xl font-semibold mb-4">Introduction</h2>
           <p className="text-gray-700">
             By using HaloFocus (“the app”), you agree to these terms of use.
             Please read them carefully.
