@@ -14,7 +14,9 @@ const TermsOfUse = () => {
           <h1 className="text-3xl font-bold mb-2">
             Terms of Use for HaloFocus
           </h1>
-          <p className="text-opacity-60 font-semibold">Effective Date: 14.11.2024</p>
+          <p className="text-opacity-60 font-semibold">
+            Effective Date: 14.11.2024
+          </p>
         </div>
 
         {/* Introduction Section */}
