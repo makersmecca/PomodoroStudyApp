@@ -31,10 +31,10 @@ const TermsOfUse = () => {
           <ol className="space-y-8 pl-4">
             {/* Section 1: Acceptance of Terms */}
             <li className="bg-white p-6 rounded-lg shadow-sm">
-              <h3 className="text-xl font-semibold mb-4">
+              <div className="text-xl font-semibold mb-4">
                 Acceptance of Terms
-              </h3>
-              <div className="list-disc pl-5 space-y-3">
+              </div>
+              <div className="md:pl-5 space-y-3">
                 By accessing or using HaloFocus, you agree to be bound by these
                 Terms of Use and our{" "}
                 <Link to="/PrivacyPolicy">Privacy Policy</Link>.
@@ -46,7 +46,7 @@ const TermsOfUse = () => {
               <h3 className="text-lg font-semibold mb-4">
                 License to Use the App
               </h3>
-              <div className="list-disc pl-5 space-y-3">
+              <div className="md:pl-5 space-y-3">
                 We grant you a limited, non-exclusive, non-transferable license
                 to use HaloFocus for personal, non-commercial purposes.
               </div>
@@ -70,7 +70,7 @@ const TermsOfUse = () => {
               <h3 className="text-lg font-semibold mb-4">
                 Intellectual Property
               </h3>
-              <div className="list-disc pl-5 space-y-3">
+              <div className="md:pl-5 space-y-3">
                 All content, features, and functionality in HaloFocus are the
                 exclusive property of HaloFocus. You may not duplicate,
                 distribute, or otherwise use our content without permission.
@@ -82,7 +82,7 @@ const TermsOfUse = () => {
               <h3 className="text-lg font-semibold mb-4">
                 Limitation of Liability
               </h3>
-              <div className="list-disc pl-5 space-y-3">
+              <div className="md:pl-5 space-y-3">
                 HaloFocus is provided “as is,” without warranties of any kind.
                 We are not liable for any indirect or consequential damages
                 arising from your use of the app.
@@ -92,7 +92,7 @@ const TermsOfUse = () => {
             {/* Section 6: Changes to Terms */}
             <li className="bg-white p-6 rounded-lg shadow-sm">
               <h3 className="text-lg font-semibold mb-4">Changes to Terms</h3>
-              <div className="list-disc pl-5 space-y-3">
+              <div className="md:space-y-3">
                 We may update these Terms of Use from time to time. Your
                 continued use of HaloFocus following changes constitutes
                 acceptance of the new terms.
@@ -102,7 +102,7 @@ const TermsOfUse = () => {
             {/* Section 7: Contact Us */}
             <li className="bg-white p-6 rounded-lg shadow-sm">
               <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
-              <div className="list-disc pl-5 space-y-3">
+              <div className="md:pl-5 space-y-3">
                 Contact For questions or concerns, please contact us at{" "}
                 <a href="">here</a>.
               </div>

@@ -91,7 +91,7 @@ const PrivacyPolicy = () => {
               <h3 className="text-lg font-semibold mb-4">
                 Data Storage and Security
               </h3>
-              <div className="list-disc pl-5 space-y-3">
+              <div className="md:pl-5 space-y-3">
                 We do not sell or share your personal information with third
                 parties, except as necessary to comply with legal obligations or
                 protect our rights.
@@ -101,7 +101,7 @@ const PrivacyPolicy = () => {
             {/* Section 5: Your Rights */}
             <li className="bg-white p-6 rounded-lg shadow-sm">
               <h3 className="text-lg font-semibold mb-4">Your Rights</h3>
-              <div className="list-disc pl-5 space-y-3">
+              <div className="md:pl-5 space-y-3">
                 You have the right to request access to, correction, or deletion
                 of your personal data. Contact us{" "}
                 <a
@@ -119,7 +119,7 @@ const PrivacyPolicy = () => {
               <h3 className="text-lg font-semibold mb-4">
                 Changes to the Privacy Policy
               </h3>
-              <div className="list-disc pl-5 space-y-3">
+              <div className="md:pl-5 space-y-3">
                 We may update our Privacy Policy occasionally. Please check back
                 to this page from time to time to stay updated with our Privacy
                 Policy
