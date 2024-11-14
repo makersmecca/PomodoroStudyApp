@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import NavLinks from "../NavLinks";
 import useStoreStat from "../hooks/useStoreStat";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import MusicButton from "./MusicPlayerComponent/MusicButton";
 import logoImage from "/Icons/512x512.png";
 
@@ -94,7 +94,7 @@ const CustomTimer = () => {
       </div>
 
       <div className="flex flex-col items-center justify-center flex-1 px-4">
-        <div className="text-3xl md:text-4xl font-semibold h-[40px] w-full text-center mb-[25px] mt-0 md:mt-20">
+        <div className="text-4xl font-semibold h-[40px] w-full text-center mb-[25px] mt-0 md:mt-20">
           <div
             className={`${
               isRunning ? "scale-0" : "scale-100 "
@@ -102,14 +102,18 @@ const CustomTimer = () => {
           >
             <div className={`relative inline-flex items-center`}>
               <div className="absolute translate-x-2 translate-y-1.5 w-full h-full bg-yellow-300 rounded-full blur-[10px] animate-pulse transition-all duration-1000"></div>
-              <img
-                src={logoImage}
-                className="h-[35px] md:h-[40px] w-[35px] md:w-[40px] 
+              <Link to="/">
+                <img
+                  src={logoImage}
+                  className="h-[35px] md:h-[40px] w-[35px] md:w-[40px] 
               relative 
               transition-transform duration-300"
-              />
+                />
+              </Link>
             </div>
-            <div className="ms-2">Halo Focus</div>
+            <div className="ms-2">
+              <Link to="/">Halo Focus</Link>
+            </div>
           </div>
         </div>
         <span

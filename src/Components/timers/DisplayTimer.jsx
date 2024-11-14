@@ -104,12 +104,16 @@ const DisplayTimer = ({
             >
               <div className={`relative inline-flex items-center`}>
                 <div className="absolute translate-x-2 translate-y-1.5 w-full h-full bg-yellow-300 rounded-full blur-[10px] animate-pulse transition-all duration-1000"></div>
-                <img
-                  src={logoImage}
-                  className="h-[35px] md:h-[40px] w-[35px] md:w-[40px] relative transition-transform duration-300"
-                />
+                <Link to="/">
+                  <img
+                    src={logoImage}
+                    className="h-[35px] md:h-[40px] w-[35px] md:w-[40px] relative transition-transform duration-300"
+                  />
+                </Link>
               </div>
-              <div className="ms-2">Halo Focus</div>
+              <div className="ms-2">
+                <Link to="/">Halo Focus</Link>
+              </div>
             </div>
           </div>
         </div>
