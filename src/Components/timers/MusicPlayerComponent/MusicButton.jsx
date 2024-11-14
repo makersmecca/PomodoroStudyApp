@@ -14,7 +14,6 @@ const MusicButton = ({ status }) => {
   const renderTabContent = () => {
     switch (activeTab) {
       case "ambient":
-        console.log(activeTab);
         return (
           <>
             <AmbientMusic
