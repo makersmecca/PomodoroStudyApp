@@ -92,7 +92,7 @@ function App() {
           <div
             className={`w-full flex justify-around md:justify-start md:ps-4 md:gap-x-4`}
           >
-            <p>HaloFocus 2024</p>
+            <Link to="/">© HaloFocus 2024</Link>
             <Link to="/TermsOfUse">Terms of Use</Link>
             <Link to="/PrivacyPolicy">Privacy Policy</Link>
           </div>
