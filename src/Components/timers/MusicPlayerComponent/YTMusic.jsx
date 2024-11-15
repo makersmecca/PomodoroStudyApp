@@ -6,6 +6,7 @@ const YTMusic = ({ status }) => {
   const [player, setPlayer] = useState(null);
   const [videoId, setVideoId] = useState(null);
   const [playlistId, setPlaylistId] = useState(null);
+  const [videoTitle, setVideoTitle] = useState("No Media");
 
   //state for form handling and play pause button
   const [youtubeURL, setYoutubeURL] = useState("");
@@ -39,23 +40,36 @@ const YTMusic = ({ status }) => {
     setYoutubeURL("");
   };
 
+  const updateVideoTitle = (playerInstance) => {
+    const videoData = playerInstance.getVideoData();
+    setVideoTitle(videoData.title);
+  };
+
   const handleNext = () => {
     player?.nextVideo();
+    setTimeout(() => {
+      updateVideoTitle(player);
+    }, 500);
   };
 
   const handlePrev = () => {
     player?.previousVideo();
+    setTimeout(() => {
+      updateVideoTitle(player);
+    }, 500);
   };
 
-  const handlePlayPause = () => {
-    setIsPlaying((prevState) => {
-      if (isPlaying) {
-        player?.pauseVideo();
-      } else {
-        player?.playVideo();
-      }
-      return !prevState;
-    });
+  const handlePlay = () => {
+    console.log("playing");
+    player?.playVideo();
+    updateVideoTitle(player);
+    setIsPlaying(true);
+  };
+
+  const handlePause = () => {
+    console.log("paused");
+    player?.pauseVideo();
+    setIsPlaying(false);
   };
 
   const trackTime = "20px"; //need to calculate this vlaue and assign it depending upon the track time
@@ -98,7 +112,7 @@ const YTMusic = ({ status }) => {
             </svg>
           </button>
           {isPlaying ? (
-            <button onClick={handlePlayPause} className="hover:scale-95">
+            <button onClick={handlePause} className="hover:scale-95">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="35"
@@ -111,7 +125,7 @@ const YTMusic = ({ status }) => {
               </svg>
             </button>
           ) : (
-            <button onClick={handlePlayPause} className="hover:scale-95">
+            <button onClick={handlePlay} className="hover:scale-95">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="35"
@@ -148,6 +162,9 @@ const extractYoutubeId = (url) => {
   const playlistIdMatch = url.match(
     /(?:https?:\/\/)?(?:www\.)?youtube\.com\/playlist\?list=([^&]+)/
   );
+
+  console.log(videoId);
+  console.log(playlistId);
 
   if (videoIdMatch) return { videoId: videoIdMatch[1], playlistId: null };
   if (playlistIdMatch) return { videoId: null, playlistId: playlistIdMatch[1] };
