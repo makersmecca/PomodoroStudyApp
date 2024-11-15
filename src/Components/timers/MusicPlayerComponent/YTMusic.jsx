@@ -1,21 +1,56 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import YouTube from "react-youtube";
 
 const YTMusic = ({ status }) => {
+  //state for react-youtube lib
+  const [player, setPlayer] = useState(null);
+  const [videoId, setVideoId] = useState(null);
+  const [playlistId, setPlaylistId] = useState(null);
+
+  //state for form handling and play pause button
   const [youtubeURL, setYoutubeURL] = useState("");
-  const [playerState, setPlayerState] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const opts = {
+    height: "0",
+    width: "0",
+    playerVars: {
+      autoplay: 1,
+      controls: 1,
+      listType: playlistId ? "playlist" : "",
+      list: playlistId || undefined,
+    },
+  };
+
+  const onReady = (event) => {
+    setPlayer(event.target);
+  };
 
   const handleFormInput = (e) => {
     setYoutubeURL(e.target.value);
   };
-
   const handleYoutubePlayer = (e) => {
     e.preventDefault();
     console.log(youtubeURL);
+
+    const { videoId, playlistId } = extractYoutubeId(youtubeURL);
+    setVideoId(videoId);
+    setPlaylistId(playlistId);
     setYoutubeURL("");
   };
 
+  const play = player?.playVideo();
+  const pause = player?.pauseVideo();
+  const nextVideo = player?.nextVideo();
+  const prevVideo = player?.previousVideo();
+
   const handlePlayPause = () => {
-    setPlayerState((prevState) => !prevState);
+    setIsPlaying((prevState) => !prevState);
+    if (isPlaying) {
+      pause();
+    } else {
+      play();
+    }
   };
 
   const trackTime = "20px"; //need to calculate this vlaue and assign it depending upon the track time
@@ -36,12 +71,16 @@ const YTMusic = ({ status }) => {
           Submit
         </button>
       </form>
+
+      {videoId || playlistId ? (
+        <YouTube videoId={videoId} opts={opts} onReady={onReady} />
+      ) : null}
       <div className="mt-8">
-        <div className="mb-2">Track Name</div>
+        <div className="mb-2">Media not playing</div>
         <div className={`bg-buttonColor pt-0.5 w-[${trackTime}]`}></div>
-        <div className="flex justify-center h-[40pxpx] w-full items-center">
+        <div className="flex justify-center h-[40pxpx] w-full items-center mt-4">
           <button onClick={handlePlayPause} className="self-center">
-            {playerState ? (
+            {isPlaying ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="35"
@@ -69,6 +108,18 @@ const YTMusic = ({ status }) => {
       </div>
     </>
   );
+};
+const extractYoutubeId = (url) => {
+  const videoIdMatch = url.match(
+    /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^&]+)/
+  );
+  const playlistIdMatch = url.match(
+    /(?:https?:\/\/)?(?:www\.)?youtube\.com\/playlist\?list=([^&]+)/
+  );
+
+  if (videoIdMatch) return { videoId: videoIdMatch[1], playlistId: null };
+  if (playlistIdMatch) return { videoId: null, playlistId: playlistIdMatch[1] };
+  return { videoId: null, playlistId: null };
 };
 
 export default YTMusic;
