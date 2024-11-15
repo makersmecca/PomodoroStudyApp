@@ -19,13 +19,14 @@ const YTMusic = () => {
     }
     return "highvol";
   };
+
+  //effect to keep playing audio when minimized or moved from visibility
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === "hidden") {
-        actions.playVideo(); // Resume playback when minimized
+        playerDetails.state === PlayerState.PLAYING && actions.playVideo();
       }
     };
-
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
@@ -39,7 +40,7 @@ const YTMusic = () => {
       <div className="video-title">
         {playerDetails.title ? playerDetails.title : "loading"}
       </div>
-      <div className="player-controls">
+      <div className="player-controls flex gap-4">
         <button onClick={actions.previousVideo}>Previous</button>
         {playerDetails.state === PlayerState.PLAYING ? (
           <button className="emphasised" onClick={actions.pauseVideo}>
@@ -52,16 +53,16 @@ const YTMusic = () => {
         )}
         <button onClick={actions.stopVideo}>Stop</button>
         <button onClick={actions.nextVideo}>Next</button>
-        <div className="volume-control">
-          {renderVolumeIcon()}
-          <input
-            type="range"
-            value={playerDetails.volume ?? 0}
-            min={0}
-            max={100}
-            onChange={(event) => actions.setVolume(event.target.valueAsNumber)}
-          />
-        </div>
+      </div>
+      <div className="volume-control">
+        {renderVolumeIcon()}
+        <input
+          type="range"
+          value={playerDetails.volume ?? 0}
+          min={0}
+          max={100}
+          onChange={(event) => actions.setVolume(event.target.valueAsNumber)}
+        />
       </div>
     </div>
   );
