@@ -1,124 +1,73 @@
-import { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 
-const YTMusic = ({ onTrackSelect }) => {
-  const [videoUrl, setVideoUrl] = useState("");
-  const [error, setError] = useState("");
-  const [audioContext, setAudioContext] = useState(null);
+const YTMusic = ({ status }) => {
+  const [youtubeURL, setYoutubeURL] = useState("");
+  const [playerState, setPlayerState] = useState(false);
 
-  useEffect(() => {
-    // Initialize AudioContext only when needed
-    const initAudioContext = () => {
-      try {
-        const context = new (window.AudioContext ||
-          window.webkitAudioContext)();
-        setAudioContext(context);
-        return context;
-      } catch (err) {
-        console.error("Failed to create AudioContext:", err);
-        setError("Your browser doesn't support audio playback");
-        return null;
-      }
-    };
-
-    if (!audioContext) {
-      initAudioContext();
-    }
-
-    // Cleanup
-    return () => {
-      if (audioContext) {
-        audioContext.close();
-      }
-    };
-  }, []);
-
-  const handleAudioProcessing = async (audioData) => {
-    if (!audioContext) {
-      setError("Audio context not available");
-      return;
-    }
-
-    try {
-      // Create a copy of the audio data
-      const audioBuffer = audioData.slice(0);
-
-      // Attempt to decode the audio
-      const decodedData = await new Promise((resolve, reject) => {
-        audioContext.decodeAudioData(
-          audioBuffer,
-          (decoded) => resolve(decoded),
-          (err) => reject(err)
-        );
-      });
-
-      return decodedData;
-    } catch (err) {
-      console.error("Audio decoding error:", err);
-      setError(
-        "Failed to decode audio. Please try a different format or source."
-      );
-      return null;
-    }
+  const handleFormInput = (e) => {
+    setYoutubeURL(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
+  const handleYoutubePlayer = (e) => {
     e.preventDefault();
-    setError("");
-
-    try {
-      const videoId = extractVideoId(videoUrl);
-      if (!videoId) {
-        setError("Invalid YouTube URL. Please check the URL and try again.");
-        return;
-      }
-
-      // Resume AudioContext if it was suspended
-      if (audioContext?.state === "suspended") {
-        await audioContext.resume();
-      }
-
-      // Pass both the videoId and audioContext to parent
-      onTrackSelect(videoId, audioContext);
-    } catch (err) {
-      setError("Failed to process the YouTube URL. Please try again.");
-      console.error("Error processing YouTube URL:", err);
-    }
+    console.log(youtubeURL);
+    setYoutubeURL("");
   };
 
-  const extractVideoId = (url) => {
-    if (!url) return null;
-
-    const regex =
-      /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
-    const match = url.match(regex);
-    return match ? match[1] : null;
+  const handlePlayPause = () => {
+    setPlayerState((prevState) => !prevState);
   };
+
+  const trackTime = "20px"; //need to calculate this vlaue and assign it depending upon the track time
 
   return (
-    <div className="w-full">
-      <h3 className="text-lg font-semibold mb-2 text-center bg-buttonColor text-white rounded-xl w-full">
-        Youtube Music
-      </h3>
-      <form onSubmit={handleSubmit}>
+    <>
+      <form className="flex flex-col">
         <input
-          type="text"
-          value={videoUrl}
-          onChange={(e) => setVideoUrl(e.target.value)}
-          placeholder="Paste YouTube URL"
-          className="w-full p-2 rounded border border-gray-300"
+          placeholder="Youtube URL"
+          className="px-2 py-0.5 rounded-lg mb-3"
+          onChange={handleFormInput}
         />
         <button
           type="submit"
-          className="mt-2 w-full bg-pastelPurple text-white py-2 rounded hover:bg-opacity-90"
-          disabled={!audioContext}
+          className="px-2 py-1 rounded-lg bg-buttonColor text-white w-[80px] self-end"
+          onClick={handleYoutubePlayer}
         >
-          Play
+          Submit
         </button>
       </form>
-      {error && (
-        <div className="mt-2 text-red-500 text-sm text-center">{error}</div>
-      )}
-    </div>
+      <div className="mt-8">
+        <div className="mb-2">Track Name</div>
+        <div className={`bg-buttonColor pt-0.5 w-[${trackTime}]`}></div>
+        <div className="flex justify-center h-[40pxpx] w-full items-center">
+          <button onClick={handlePlayPause} className="self-center">
+            {playerState ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="35"
+                height="35"
+                fill="currentColor"
+                className="bi bi-pause-circle-fill ps-1 md:ps-0 md:pe-0.5"
+                viewBox="0 0 16 16"
+              >
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M6.25 5C5.56 5 5 5.56 5 6.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C7.5 5.56 6.94 5 6.25 5m3.5 0c-.69 0-1.25.56-1.25 1.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C11 5.56 10.44 5 9.75 5" />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="35"
+                height="35"
+                fill="currentColor"
+                className="bi bi-play-circle-fill ps-1 md:ps-0 md:pe-0.5"
+                viewBox="0 0 16 16"
+              >
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814z" />
+              </svg>
+            )}
+          </button>
+        </div>
+      </div>
+    </>
   );
 };
 

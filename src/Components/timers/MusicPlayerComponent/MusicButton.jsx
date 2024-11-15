@@ -27,7 +27,7 @@ const MusicButton = ({ status }) => {
       case "youtube":
         return (
           <>
-            <YTMusic onTrackSelect={handleTrackName} />;
+            <YTMusic status={status} />
           </>
         );
 
