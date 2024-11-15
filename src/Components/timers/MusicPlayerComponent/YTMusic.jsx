@@ -18,8 +18,10 @@ const YTMusic = ({ status }) => {
     playerVars: {
       autoplay: 1,
       controls: 1,
-      listType: playlistId ? "playlist" : "",
-      list: playlistId || undefined,
+      rel: 0, // Prevents related videos from showing
+      modestbranding: 1, // Removes YouTube branding
+      disablekb: 1, // Disables the keyboard controls (optional)
+      origin: window.location.origin, // Required to prevent CORS errors
     },
   };
 
@@ -40,29 +42,29 @@ const YTMusic = ({ status }) => {
     setYoutubeURL("");
   };
 
-  const updateVideoTitle = (playerInstance) => {
-    const videoData = playerInstance.getVideoData();
-    setVideoTitle(videoData.title);
-  };
+  // const updateVideoTitle = (playerInstance) => {
+  //   const videoData = playerInstance.getVideoData();
+  //   setVideoTitle(videoData.title);
+  // };
 
   const handleNext = () => {
     player?.nextVideo();
     setTimeout(() => {
-      updateVideoTitle(player);
+      // updateVideoTitle(player);
     }, 500);
   };
 
   const handlePrev = () => {
     player?.previousVideo();
     setTimeout(() => {
-      updateVideoTitle(player);
+      // updateVideoTitle(player);
     }, 500);
   };
 
   const handlePlay = () => {
     console.log("playing");
     player?.playVideo();
-    updateVideoTitle(player);
+    // updateVideoTitle(player);
     setIsPlaying(true);
   };
 
@@ -91,9 +93,7 @@ const YTMusic = ({ status }) => {
         </button>
       </form>
 
-      {videoId || playlistId ? (
-        <YouTube videoId={videoId} opts={opts} onReady={onReady} />
-      ) : null}
+      {videoId || playlistId ? <YouTube opts={opts} onReady={onReady} /> : null}
 
       <div className="mt-8">
         <div className="mb-2">Media not playing</div>
@@ -163,8 +163,8 @@ const extractYoutubeId = (url) => {
     /(?:https?:\/\/)?(?:www\.)?youtube\.com\/playlist\?list=([^&]+)/
   );
 
-  console.log(videoId);
-  console.log(playlistId);
+  // console.log(videoId);
+  // console.log(playlistId);
 
   if (videoIdMatch) return { videoId: videoIdMatch[1], playlistId: null };
   if (playlistIdMatch) return { videoId: null, playlistId: playlistIdMatch[1] };
