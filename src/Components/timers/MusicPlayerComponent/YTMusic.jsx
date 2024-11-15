@@ -36,7 +36,9 @@ const YTMusic = () => {
   return (
     <div className="App">
       <h1>react-youtube-music-player</h1>
-      <div className="video-title">{playerDetails.title}</div>
+      <div className="video-title">
+        {playerDetails.title ? playerDetails.title : "loading"}
+      </div>
       <div className="player-controls">
         <button onClick={actions.previousVideo}>Previous</button>
         {playerDetails.state === PlayerState.PLAYING ? (
