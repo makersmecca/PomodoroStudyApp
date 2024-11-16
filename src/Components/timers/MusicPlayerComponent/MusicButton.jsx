@@ -115,7 +115,7 @@ const MusicButton = ({ status }) => {
       >
         <div className="w-full flex justify-evenly">
           <button
-            className={`px-2 mb-2 text-xl ${
+            className={`px-2 mb-2 text-xl hover:scale-95 ${
               activeTab === "ambient"
                 ? "border-b-2 border-buttonColor"
                 : "text-gray-500"
@@ -125,7 +125,7 @@ const MusicButton = ({ status }) => {
             Ambient
           </button>
           <button
-            className={`px-2 mb-2 text-xl ${
+            className={`px-2 mb-2 text-xl hover:scale-95 ${
               activeTab === "youtube"
                 ? "border-b-2 border-buttonColor"
                 : "text-gray-500"
