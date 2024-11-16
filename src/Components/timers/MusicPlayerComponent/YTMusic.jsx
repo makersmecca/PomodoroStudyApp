@@ -15,9 +15,9 @@ const YTMusic = () => {
   const { playerDetails, actions } = useYoutube(youtubeObject);
 
   const handleMediaStop = () => {
-    actions.stopVideo();
-    setYoutubeObject({ id: "", type: "" });
     setIsLoading("No Media");
+    setYoutubeObject({ id: "", type: "" });
+    actions.stopVideo();
   };
 
   const handleInputChange = (e) => {
@@ -137,7 +137,10 @@ const YTMusic = () => {
   }, []);
 
   return (
-    <div className="my-3">
+    <div className="mb-3">
+      <div className="text-lg font-semibold mb-2 text-center bg-buttonColor text-white rounded-xl w-full cursor-default">
+        YouTube Music
+      </div>
       <form onSubmit={handleFormSubmit} className="flex flex-col">
         <input
           type="text"
@@ -147,20 +150,29 @@ const YTMusic = () => {
         />
         <button
           type="submit"
-          className="self-end me-2 mt-2 bg-buttonColor rounded-lg px-2 text-white"
+          className="self-end  mt-2 bg-buttonColor rounded-lg px-2 w-full text-white hover:opacity-95"
         >
-          Load
+          Load Media
         </button>
       </form>
       <div className="mt-2 text-center">
-        {playerDetails.title ? playerDetails.title.substring(0, 20) : isLoading}
+        <div className="w-[220px] overflow-hidden relative">
+          <span
+            className={`inline-block  whitespace-nowrap ${
+              playerDetails.title.length > 20 && "animate-scrollText"
+            }`}
+          >
+            {playerDetails.title ? playerDetails.title : isLoading}
+          </span>
+        </div>
       </div>
-      <div className="player-controls flex gap-4 justify-center mt-4">
+      <div className="player-controls flex gap-4 justify-center mt-2">
         <button
           onClick={actions.previousVideo}
           className={`${
             isLoading === "No Media" && "opacity-50 cursor-not-allowed"
           }`}
+          disabled={youtubeObject.type === "video" ? true : false}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -216,6 +228,7 @@ const YTMusic = () => {
           className={`emphasised ${
             isLoading === "No Media" && "opacity-50 cursor-not-allowed"
           }`}
+          disabled={youtubeObject.type === "video" ? true : false}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -247,7 +260,7 @@ const YTMusic = () => {
         </button>
       </div>
 
-      <div className="flex gap-4 mt-5 justify-center">
+      <div className="flex gap-4 mt-3 justify-center">
         <input
           type="range"
           value={playerDetails.volume ?? 0}
@@ -257,6 +270,7 @@ const YTMusic = () => {
           min={0}
           max={100}
           onChange={(event) => actions.setVolume(event.target.valueAsNumber)}
+          disabled={isLoading === "No Media" ? true : false}
         />
         {renderVolumeIcon()}
       </div>
