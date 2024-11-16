@@ -11,6 +11,7 @@ With a clean, distraction-free UI, and an array of Ambient Sounds, HaloFocus ass
 - **Pomodoro Timer:** Predefined time durations as well as custom time durations for your focus sessions.
 - **Stats:** Get comprehensive stats of your focus/rest sessions in-app. Stats get synced with your User Account.
 - **Ambient White Noise:** Play focus-enhancing soundscapes during your focus sessions.
+- **YT Media Player:** Play audio from URls of videos and playlists.
 - **To-Do List:** Add and maintain tasks to stay organized and track your work. Gets synced with your User Account for easier access.
 - **Breathing Exercise:** In-app breathing exercise feature to help you unwind.
 - **Authentication:** All your data is secured by Google Firebase.
