@@ -5,9 +5,9 @@ const AmbientMusic = ({
 }) => {
   return (
     <>
-      <h3 className="text-lg font-semibold mb-2 text-center bg-buttonColor text-white rounded-xl w-full">
+      <div className="text-lg font-semibold mb-2 text-center bg-buttonColor text-white rounded-xl w-full cursor-default">
         Ambient Sounds
-      </h3>
+      </div>
       <ul>
         {trackId.map((trackId, index) => {
           return (
