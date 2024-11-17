@@ -79,7 +79,7 @@ const MusicButton = ({ status }) => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative cursor-default">
       <button
         ref={buttonRef}
         onClick={() => handleMusic()}

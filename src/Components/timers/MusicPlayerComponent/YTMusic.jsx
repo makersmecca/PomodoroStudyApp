@@ -272,7 +272,7 @@ const YTMusic = () => {
           onChange={(event) => actions.setVolume(event.target.valueAsNumber)}
           disabled={isLoading === "No Media" ? true : false}
         />
-        {renderVolumeIcon()}
+        <span className="cursor-default">{renderVolumeIcon()}</span>
       </div>
     </div>
   );
