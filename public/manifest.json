@@ -58,7 +58,7 @@
   "screenshots": [
     {
       "src": "Screenshots/1.jpeg",
-      "sizes": "1640x822",
+      "sizes": "822x1640",
       "type": "image/jpeg",
       "purpose": "any",
       "form_factor": "narrow",
@@ -66,7 +66,7 @@
     },
     {
       "src": "Screenshots/2.jpeg",
-      "sizes": "1640x822",
+      "sizes": "822x1640",
       "type": "image/jpeg",
       "purpose": "any",
       "form_factor": "narrow",
@@ -74,7 +74,7 @@
     },
     {
       "src": "Screenshots/3.jpeg",
-      "sizes": "1640x822",
+      "sizes": "822x1640",
       "type": "image/jpeg",
       "purpose": "any",
       "form_factor": "narrow",
@@ -82,7 +82,7 @@
     },
     {
       "src": "Screenshots/4.jpeg",
-      "sizes": "1640x822",
+      "sizes": "822x1640",
       "type": "image/jpeg",
       "purpose": "any",
       "form_factor": "narrow",
