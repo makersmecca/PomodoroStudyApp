@@ -54,6 +54,41 @@
       "purpose": "any maskable"
     }
   ],
+
+  "screenshots": [
+    {
+      "src": "Screenshots/1.jpeg",
+      "sizes": "1640x822",
+      "type": "image/jpeg",
+      "purpose": "any",
+      "form_factor": "narrow",
+      "label": "Homepage"
+    },
+    {
+      "src": "Screenshots/2.jpeg",
+      "sizes": "1640x822",
+      "type": "image/jpeg",
+      "purpose": "any",
+      "form_factor": "narrow",
+      "label": "Music Selection"
+    },
+    {
+      "src": "Screenshots/3.jpeg",
+      "sizes": "1640x822",
+      "type": "image/jpeg",
+      "purpose": "any",
+      "form_factor": "narrow",
+      "label": "To Do list"
+    },
+    {
+      "src": "Screenshots/4.jpeg",
+      "sizes": "1640x822",
+      "type": "image/jpeg",
+      "purpose": "any",
+      "form_factor": "narrow",
+      "label": "Activity Tracker"
+    }
+  ],
   "orientation": "any",
   "categories": ["productivity", "utilities"],
   "prefer_related_applications": false,
