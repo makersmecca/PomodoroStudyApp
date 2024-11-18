@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import MusicPlayer from "./MusicPlayer";
 import YTMusic from "./YTMusic";
 import AmbientMusic from "./AmbientMusic.jsx";
+import Spotify from "./Spotify.jsx";
 
 const MusicButton = ({ status }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -32,7 +33,11 @@ const MusicButton = ({ status }) => {
         );
 
       case "spotify":
-        return <>Spotify</>;
+        return (
+          <>
+            <Spotify />
+          </>
+        );
 
       default:
         return null;
