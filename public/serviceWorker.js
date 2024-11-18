@@ -1,5 +1,5 @@
 //Service Worker for Pomodoro Timer
-const OFFLINE_VERSION = "0.0.7";
+const OFFLINE_VERSION = "0.0.8";
 const CACHE_NAME = "hlfcs" + OFFLINE_VERSION;
 const OFFLINE_URL = "fallback.html";
 const assets = [
