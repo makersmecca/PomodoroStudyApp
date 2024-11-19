@@ -5,7 +5,6 @@ import RestTimer from "./Components/timers/RestTimer";
 import Breathe from "./Components/timers/Breathe";
 import ToDo from "./Components/navitems/ToDo";
 import Stats from "./Components/navitems/Stats";
-import Settings from "./Components/navitems/Settings";
 import UserAuthentication from "./Components/UserAuthentication";
 import { Route, Routes, Link } from "react-router-dom";
 import { UserProvider } from "./Components/UserContext";
@@ -48,7 +47,6 @@ function App() {
         <Route path="/breathe" element={<Breathe />} />
         <Route path="/todo" element={<ToDo />} />
         <Route path="/stats" element={<Stats />} />
-        <Route path="/settings" element={<Settings />} />
         <Route path="/SignUp" element={<UserAuthentication />} />
         <Route path="/LogIn" element={<UserAuthentication />} />
         <Route path="/ForgotPassword" element={<ForgotPassword />} />
