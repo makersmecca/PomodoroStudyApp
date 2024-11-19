@@ -32,7 +32,7 @@ export default {
       animation: {
         spinSlow: "spin 1s ease-in-out",
         breatheGlow: "breatheGlow 10s ease-in-out infinite",
-        scrollText: "scrollText 5s linear infinite",
+        scrollText: "scrollText 6s linear infinite",
       },
       keyframes: {
         breatheGlow: {
