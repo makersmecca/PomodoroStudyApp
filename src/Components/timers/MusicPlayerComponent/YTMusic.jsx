@@ -124,16 +124,53 @@ const YTMusic = () => {
   }, [actions]);
 
   //effect to suppress browser adblock error
+  // useEffect(() => {
+  //   window.addEventListener(
+  //     "error",
+  //     (e) => {
+  //       if (e.target.src && e.target.src.includes("doubleclick.net")) {
+  //         e.preventDefault();
+  //       }
+  //     },
+  //     true
+  //   );
+  // }, []);
+  // Suppress console errors caused by adblockers when using YouTube IFrame API
+  // This prevents error logging but doesn't affect video playback functionality
+
   useEffect(() => {
-    window.addEventListener(
-      "error",
-      (e) => {
-        if (e.target.src && e.target.src.includes("doubleclick.net")) {
-          e.preventDefault();
-        }
-      },
-      true
-    );
+    const adDomains = [
+      ".doubleclick.net",
+      ".googlesyndication.com",
+      ".google-analytics.com",
+      ".youtube.com/api/stats/",
+      ".youtube.com/pagead/",
+      ".youtube.com/ads",
+    ];
+
+    const handleError = (e) => {
+      if (e.target.src) {
+        try {
+          const url = new URL(e.target.src);
+          // Check if the URL matches any of the ad-related domains
+          if (
+            adDomains.some((domain) =>
+              domain.endsWith("/")
+                ? url.pathname.startsWith(domain.slice(0, -1))
+                : url.hostname.endsWith(domain)
+            )
+          ) {
+            e.preventDefault();
+          }
+        } catch (error) {}
+      }
+    };
+
+    window.addEventListener("error", handleError, true);
+
+    return () => {
+      window.removeEventListener("error", handleError, true);
+    };
   }, []);
 
   return (
