@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 const YTMusic = () => {
   const [urlInput, setUrlInput] = useState("");
   const [isLoading, setIsLoading] = useState("No Media");
+  const [loadBtn, setLoadBtn] = useState("Load Media");
   const [youtubeObject, setYoutubeObject] = useState({
     id: "",
     type: "",
@@ -17,6 +18,7 @@ const YTMusic = () => {
   const handleMediaStop = () => {
     setIsLoading("No Media");
     setYoutubeObject({ id: "", type: "" });
+    setLoadBtn("Load Media");
     actions.stopVideo();
   };
 
@@ -33,9 +35,12 @@ const YTMusic = () => {
         type: playlistId !== null ? "playlist" : "video",
       });
       setIsLoading("Loading...");
+      setLoadBtn("Loading...");
     } else {
-      console.log("unknown url");
-      setIsLoading("No Media");
+      console.log("Invalid URL");
+      setIsLoading("Invalid URL!");
+      setYoutubeObject({ id: "", type: "" });
+      setLoadBtn("Try Again");
     }
   };
   const extractYoutubeId = (url) => {
@@ -189,7 +194,7 @@ const YTMusic = () => {
           type="submit"
           className="self-end  mt-2 bg-buttonColor rounded-lg px-2 w-full text-white hover:opacity-95"
         >
-          Load Media
+          {playerDetails.title ? "Media Loaded" : loadBtn}
         </button>
       </form>
       <div className="mt-2 text-center">
@@ -197,6 +202,10 @@ const YTMusic = () => {
           <span
             className={`inline-block  whitespace-nowrap ${
               playerDetails.title.length > 20 && "animate-scrollText"
+            } ${
+              isLoading === "Loading..." && !playerDetails.title
+                ? "animate-pulse"
+                : ""
             }`}
           >
             {playerDetails.title ? playerDetails.title : isLoading}
