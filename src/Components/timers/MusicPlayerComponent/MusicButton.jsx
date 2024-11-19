@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import MusicPlayer from "./MusicPlayer";
 import YTMusic from "./YTMusic";
 import AmbientMusic from "./AmbientMusic.jsx";
+import SoundCloud from "./SoundCloud.jsx";
 
 const MusicButton = ({ status }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -31,6 +32,12 @@ const MusicButton = ({ status }) => {
           </>
         );
 
+      case "soundcloud":
+        return (
+          <>
+            <SoundCloud />
+          </>
+        );
       default:
         return null;
     }
@@ -122,7 +129,22 @@ const MusicButton = ({ status }) => {
             }`}
             onClick={() => setActiveTab("ambient")}
           >
-            Ambient
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="25"
+              height="25"
+              fill="currentColor"
+              className="bi bi-music-note-list pb-0.5"
+              viewBox="0 0 16 16"
+            >
+              <path d="M12 13c0 1.105-1.12 2-2.5 2S7 14.105 7 13s1.12-2 2.5-2 2.5.895 2.5 2" />
+              <path fillRule="evenodd" d="M12 3v10h-1V3z" />
+              <path d="M11 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 16 2.22V4l-5 1z" />
+              <path
+                fillRule="evenodd"
+                d="M0 11.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m0-4A.5.5 0 0 1 .5 7H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m0-4A.5.5 0 0 1 .5 3H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5"
+              />
+            </svg>
           </button>
           <button
             className={`px-2 mb-2 text-xl hover:scale-95 ${
@@ -132,7 +154,35 @@ const MusicButton = ({ status }) => {
             }`}
             onClick={() => setActiveTab("youtube")}
           >
-            YTMusic
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="25"
+              height="25"
+              fill="currentColor"
+              className="bi bi-youtube"
+              viewBox="0 0 16 16"
+            >
+              <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z" />
+            </svg>
+          </button>
+          <button
+            className={`px-2 mb-2 text-xl hover:scale-95 ${
+              activeTab === "soundcloud"
+                ? "border-b-2 border-buttonColor"
+                : "text-gray-500"
+            }`}
+            onClick={() => setActiveTab("soundcloud")}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              fill="currentColor"
+              className="bi bi-cloud-fog2-fill"
+              viewBox="0 0 16 16"
+            >
+              <path d="M8.5 3a5 5 0 0 1 4.905 4.027A3 3 0 0 1 13 13h-1.5a.5.5 0 0 0 0-1H1.05a3.5 3.5 0 0 1-.713-1H9.5a.5.5 0 0 0 0-1H.035a3.5 3.5 0 0 1 0-1H7.5a.5.5 0 0 0 0-1H.337a3.5 3.5 0 0 1 3.57-1.977A5 5 0 0 1 8.5 3" />
+            </svg>
           </button>
         </div>
         {renderTabContent()}
