@@ -34,12 +34,21 @@ const DisplayTimer = ({
               setBreatheState((prev) => !prev);
             }
           },
+          onComplete: () => {
+            setBreatheState(true);
+            handleTimerComplete();
+          },
         })
       : useTimerComp({
           initialMinutes: defaultTime,
           incrementMinutes: increment,
           minimumMinutes: decrement,
         });
+
+  const handleTimerComplete = () => {
+    console.log("timer completed");
+    addTime(defaultTime * 60);
+  };
 
   const handleRotate = async () => {
     setIsRotating(true);
