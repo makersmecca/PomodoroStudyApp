@@ -45,22 +45,31 @@ const DisplayTimer = ({
           minimumMinutes: decrement,
         });
 
-  const handleTimerComplete = () => {
+  const handleTimerComplete = async () => {
     console.log("timer completed");
-    addTime(defaultTime * 60);
+    try {
+      componentName !== "Breathe" && (await addTime(defaultTime * 60));
+      setBreatheState(true);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const handleRotate = async () => {
+  const handleRotate = () => {
     setIsRotating(true);
     setTimeout(() => {
       setIsRotating(false);
     }, 1000);
+    !timer.isRunning && setBreatheState(true);
+  };
+
+  const handlePlayPause = async () => {
+    timer.isRunning ? timer.handlePause : timer.handleStart;
     try {
       if (!timer.isRunning) {
         timer.handleCancel();
         componentName !== "Breathe" &&
           (await addTime(defaultTime * 60 - timer.timeLeft));
-        setBreatheState(true);
       }
     } catch (err) {
       console.log(err);
@@ -229,7 +238,7 @@ const DisplayTimer = ({
           <div className="flex gap-4 w-full justify-center items-center h-[60px] md:h-14">
             {/*Start Pause Button */}
             <button
-              onClick={timer.isRunning ? timer.handlePause : timer.handleStart}
+              onClick={handlePlayPause}
               className={`px-4 py-1 ${
                 timer.isRunning
                   ? "bg-pastelRed hover:bg-opacity-85 text-slate-600 font-semibold h-14 translate-x-[60%]"
