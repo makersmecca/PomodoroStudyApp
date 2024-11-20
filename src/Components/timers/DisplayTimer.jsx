@@ -34,24 +34,53 @@ const DisplayTimer = ({
               setBreatheState((prev) => !prev);
             }
           },
+          onComplete: () => {
+            setBreatheState(true);
+          },
         })
       : useTimerComp({
           initialMinutes: defaultTime,
           incrementMinutes: increment,
           minimumMinutes: decrement,
+          onComplete: async () => {
+            try {
+              setBreatheState(true);
+              await handleTimerComplete();
+            } catch (err) {
+              console.log(err);
+            }
+          },
         });
 
-  const handleRotate = async () => {
+  const handleTimerComplete = async () => {
+    console.log("timer completed");
+    try {
+      await addTime(defaultTime * 60);
+      timer.handleCancel();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleRotate = () => {
     setIsRotating(true);
     setTimeout(() => {
       setIsRotating(false);
     }, 1000);
+    if (!timer.isRunning) {
+      timer.handleCancel();
+      setBreatheState(true);
+    }
+  };
+
+  const handlePlayPause = async () => {
+    console.log("play pause");
     try {
-      if (!timer.isRunning) {
-        timer.handleCancel();
-        componentName !== "Breathe" &&
-          (await addTime(defaultTime * 60 - timer.timeLeft));
-        setBreatheState(true);
+      if (timer.isRunning) {
+        timer.handlePause();
+        await addTime(defaultTime * 60 - timer.timeLeft);
+      } else {
+        timer.handleStart();
       }
     } catch (err) {
       console.log(err);
@@ -220,7 +249,7 @@ const DisplayTimer = ({
           <div className="flex gap-4 w-full justify-center items-center h-[60px] md:h-14">
             {/*Start Pause Button */}
             <button
-              onClick={timer.isRunning ? timer.handlePause : timer.handleStart}
+              onClick={handlePlayPause}
               className={`px-4 py-1 ${
                 timer.isRunning
                   ? "bg-pastelRed hover:bg-opacity-85 text-slate-600 font-semibold h-14 translate-x-[60%]"

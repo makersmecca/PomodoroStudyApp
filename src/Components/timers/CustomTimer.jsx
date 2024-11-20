@@ -69,22 +69,30 @@ const CustomTimer = () => {
   }, [isRunning, updateTimer]);
 
   const handleStartPause = () => {
-    setIsRunning((prevIsRunning) => !prevIsRunning);
-    setIsPaused(isRunning);
+    if (isRunning) {
+      // First pause the timer display
+      setIsRunning(false);
+      setIsPaused(true);
+
+      // Then save the elapsed time
+      try {
+        addTime(secondsRef.current);
+      } catch (err) {
+        console.error("Error saving time:", err);
+      }
+    } else {
+      // Resume the timer
+      setIsRunning(true);
+      setIsPaused(false);
+    }
   };
 
-  const handleReset = async () => {
-    try {
-      await addTime(secondsRef.current);
-      // console.log(typeof secondsRef.current);
-      setIsRunning(false);
-      setIsPaused(false);
-      secondsRef.current = 0;
-      setDisplayTime("00:00:00");
-      cancelAnimationFrame(rafIdRef.current);
-    } catch (err) {
-      // console.log(err);
-    }
+  const handleReset = () => {
+    setIsRunning(false);
+    setIsPaused(false);
+    secondsRef.current = 0;
+    setDisplayTime("00:00:00");
+    cancelAnimationFrame(rafIdRef.current);
   };
 
   return (
