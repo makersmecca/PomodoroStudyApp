@@ -36,20 +36,27 @@ const DisplayTimer = ({
           },
           onComplete: () => {
             setBreatheState(true);
-            handleTimerComplete();
           },
         })
       : useTimerComp({
           initialMinutes: defaultTime,
           incrementMinutes: increment,
           minimumMinutes: decrement,
+          onComplete: async () => {
+            try {
+              setBreatheState(true);
+              await handleTimerComplete();
+            } catch (err) {
+              console.log(err);
+            }
+          },
         });
 
   const handleTimerComplete = async () => {
     console.log("timer completed");
     try {
-      componentName !== "Breathe" && (await addTime(defaultTime * 60));
-      setBreatheState(true);
+      await addTime(defaultTime * 60);
+      timer.handleCancel();
     } catch (err) {
       console.log(err);
     }
@@ -60,16 +67,20 @@ const DisplayTimer = ({
     setTimeout(() => {
       setIsRotating(false);
     }, 1000);
-    !timer.isRunning && setBreatheState(true);
+    if (!timer.isRunning) {
+      timer.handleCancel();
+      setBreatheState(true);
+    }
   };
 
   const handlePlayPause = async () => {
-    timer.isRunning ? timer.handlePause : timer.handleStart;
+    console.log("play pause");
     try {
-      if (!timer.isRunning) {
-        timer.handleCancel();
-        componentName !== "Breathe" &&
-          (await addTime(defaultTime * 60 - timer.timeLeft));
+      if (timer.isRunning) {
+        timer.handlePause();
+        await addTime(defaultTime * 60 - timer.timeLeft);
+      } else {
+        timer.handleStart();
       }
     } catch (err) {
       console.log(err);
