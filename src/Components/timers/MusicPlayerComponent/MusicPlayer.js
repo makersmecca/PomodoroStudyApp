@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const MusicPlayer = ({ selectedTrack, timerStatus }) => {
+const MusicPlayer = ({ selectedTrack = "", timerStatus = "" }) => {
   const [audioContext, setAudioContext] = useState(null);
   const [audioBuffer, setAudioBuffer] = useState(null);
   const [audioSource, setAudioSource] = useState(null);
