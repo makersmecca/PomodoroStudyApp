@@ -6,7 +6,6 @@ import { UserContext } from "../UserContext";
 const useStoreStat = (componentName = "Unknown") => {
   const [totalTime, setTotalTime] = useState("00:00:00");
   const { currentUser } = useContext(UserContext);
-  // const [dataArray, setDataArray] = useState([]);
 
   //object to provide collection names corresponding to location
   const components = useMemo(
@@ -42,19 +41,18 @@ const useStoreStat = (componentName = "Unknown") => {
             timeDuration,
           })
         );
-        // setDataArray(dataArray);
         // dataArray.forEach((x) => console.log(x));
         const componentField = components[componentName];
         const componentData = dataArray.find(
           (item) => item.component === componentField
         );
         return componentData ? componentData.timeDuration : "00:00:00";
-      } else {
-        setDataArray([]);
       }
+      // else {
+      //   // console.log("no existing data");
+      // }
     } catch (err) {
-      // console.error(err);
-      setDataArray([]);
+      console.error(err);
     }
   };
 
