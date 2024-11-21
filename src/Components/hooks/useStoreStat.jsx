@@ -7,14 +7,16 @@ const useStoreStat = (componentName = "Unknown") => {
   const [totalTime, setTotalTime] = useState("00:00:00");
   const { currentUser } = useContext(UserContext);
   const [dataArray, setDataArray] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   //object to provide collection names corresponding to location
-  const components = useMemo(()=>({
-    "/": "pomodoro",
-    "/rest": "rest",
-    "/customtimer": "custom",
-  }),[]);
+  const components = useMemo(
+    () => ({
+      "/": "pomodoro",
+      "/rest": "rest",
+      "/customtimer": "custom",
+    }),
+    []
+  );
 
   useEffect(() => {
     if (currentUser) {
@@ -63,8 +65,8 @@ const useStoreStat = (componentName = "Unknown") => {
     try {
       if (!currentUser?.email) return;
 
-      const fieldToUpdate = components[componentName]; //get corresponding field name from component name object
-      if (!fieldToUpdate) return;
+      const fieldToUpdate = components[componentName]; //get corresponding field name from "components" object defined above
+      if (!fieldToUpdate) return; //if the field name doesn't exist then return
 
       const userDocRef = doc(db, "userstats", currentUser.email);
       await setDoc(
@@ -93,10 +95,11 @@ const useStoreStat = (componentName = "Unknown") => {
       const currentTimeFromDB = await fetchData(currentUser?.email); //fetch user data
       let newTotalSeconds; //stores existing time data
 
-      //check for new user/ no existing data
+      //if user is new/ or has no previous data, then save the current seconds data
       if (!currentTimeFromDB || currentTimeFromDB === "00:00:00") {
         newTotalSeconds = timeSpent;
       } else {
+        //separating the time string from DB and converting it to seconds equivalent time
         const [existingHours, existingMinutes, existingSeconds] =
           currentTimeFromDB.split(":").map(Number);
         const existingTotalSeconds =
@@ -104,7 +107,7 @@ const useStoreStat = (componentName = "Unknown") => {
         newTotalSeconds = existingTotalSeconds + timeSpent;
       }
 
-      //fomratiing time
+      //fomratiing the total time in seconds to the correct HH:MM:SS string format
       const hours = Math.floor(newTotalSeconds / 3600);
       const minutes = Math.floor((newTotalSeconds % 3600) / 60);
       const seconds = newTotalSeconds % 60;
