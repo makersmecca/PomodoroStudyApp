@@ -224,6 +224,7 @@ const ToDo = () => {
                 </Link>
               </div>
               <div className="flex-1 text-center">Your Tasks</div>
+              {/* the following div is for maintaining the alignment */}
               <div className="invisible">{"<-"}</div>
             </div>
             {isLoading ? (
@@ -251,7 +252,7 @@ const ToDo = () => {
                 <span>Loading Tasks</span>
               </div>
             ) : todos.length > 0 ? (
-              <div className="max-h-[calc(100vh-16rem)] overflow-y-auto p-4">
+              <div className="max-h-[calc(100vh-16rem)] overflow-y-auto p-4 bg-pastelYellow">
                 {" "}
                 {/* Adjust max height as needed */}
                 <ul className="space-y-2">
