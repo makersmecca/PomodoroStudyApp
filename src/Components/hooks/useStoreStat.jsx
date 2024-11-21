@@ -6,15 +6,17 @@ import { UserContext } from "../UserContext";
 const useStoreStat = (componentName = "Unknown") => {
   const [totalTime, setTotalTime] = useState("00:00:00");
   const { currentUser } = useContext(UserContext);
-  const [dataArray, setDataArray] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [dataArray, setDataArray] = useState([]);
 
   //object to provide collection names corresponding to location
-  const components = useMemo(()=>({
-    "/": "pomodoro",
-    "/rest": "rest",
-    "/customtimer": "custom",
-  }),[]);
+  const components = useMemo(
+    () => ({
+      "/": "pomodoro",
+      "/rest": "rest",
+      "/customtimer": "custom",
+    }),
+    []
+  );
 
   useEffect(() => {
     if (currentUser) {
@@ -40,7 +42,7 @@ const useStoreStat = (componentName = "Unknown") => {
             timeDuration,
           })
         );
-        setDataArray(dataArray);
+        // setDataArray(dataArray);
         // dataArray.forEach((x) => console.log(x));
         const componentField = components[componentName];
         const componentData = dataArray.find(
