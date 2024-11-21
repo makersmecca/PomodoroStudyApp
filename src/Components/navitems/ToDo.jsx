@@ -256,25 +256,23 @@ const ToDo = () => {
                 {/* Adjust max height as needed */}
                 <ul className="space-y-2">
                   {todos.map((todo, index) => (
-                    <li
-                      key={index}
-                      className="flex items-center justify-between gap-2 mb-2"
-                    >
-                      <div className="flex items-center gap-2 p-2 flex-grow bg-gray-50 rounded-lg shadow-sm">
+                    <li key={index} className="flex gap-2 mb-2 w-full">
+                      <div className="flex items-start gap-2 p-2 bg-gray-50 rounded-lg shadow-sm w-[calc(100%-80px)]">
                         <input
                           type="checkbox"
                           checked={todo.completed}
                           onChange={() => handleToggleComplete(index)}
-                          className="h-4 w-4"
+                          className="h-4 w-4 flex-shrink-0"
+                          id={index}
                         />
                         {editingIndex === index ? (
                           // Edit mode
-                          <div className="flex items-centerflex-grow">
+                          <div className="min-w-0 flex-1">
                             <input
                               type="text"
                               value={editValue}
                               onChange={handleEditChange}
-                              className="border rounded flex-grow"
+                              className="border rounded w-full truncate"
                               autoFocus
                             />
                           </div>
@@ -283,13 +281,13 @@ const ToDo = () => {
                           <span
                             className={`${
                               todo.completed ? "line-through text-gray-500" : ""
-                            } flex-grow`}
+                            } break-words whitespace-normal inline-block w-[calc(100%-50px)]`}
                           >
                             {todo.task}
                           </span>
                         )}
                       </div>
-                      <div className="flex items-center gap-2 ml-2">
+                      <div className="flex items-center gap-2 flex-shrink-0">
                         {editingIndex === index ? (
                           <>
                             <button
