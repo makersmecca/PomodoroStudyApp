@@ -15,7 +15,7 @@ const NetworkStatus = () => {
       setPromptMsg(
         <div>
           <div className="flex items-center gap-2">
-            <span className="flex w-3 h-3 me-3 mt-1 bg-green-500 rounded-full"></span>
+            <span className="flex w-3 h-3 me-3 bg-green-500 rounded-full"></span>
             You're back online
           </div>
         </div>
