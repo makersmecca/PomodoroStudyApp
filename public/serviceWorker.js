@@ -1,8 +1,12 @@
 //Service Worker for Pomodoro Timer
-const OFFLINE_VERSION = "0.0.9";
+const OFFLINE_VERSION = "0.1.0";
 const CACHE_NAME = "hlfcs" + OFFLINE_VERSION;
 const OFFLINE_URL = "fallback.html";
 const assets = [
+  "/", // Root path
+  "/index.html",
+  "/static/js/main.bundle.js", // Your main React bundle
+  "/manifest.json",
   "fallback.html",
   "Icons/512x512.png",
   "Icons/256x256.png",
