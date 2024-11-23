@@ -64,6 +64,7 @@ const DisplayTimer = ({
     try {
       await addTime(defaultTime * 60);
       timer.handleCancel();
+      setLastPaused(defaultTime * 60);
     } catch (err) {
       console.log(err);
     }
@@ -76,6 +77,7 @@ const DisplayTimer = ({
     }, 1000);
     if (!timer.isRunning) {
       timer.handleCancel();
+      setLastPaused(defaultTime * 60);
       setBreatheState(true);
     }
   };
