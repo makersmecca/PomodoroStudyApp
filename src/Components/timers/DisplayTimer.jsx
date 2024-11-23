@@ -15,6 +15,7 @@ const DisplayTimer = ({
 }) => {
   const [breatheState, setBreatheState] = useState(true);
   const [isRotating, setIsRotating] = useState(false);
+  const [lastPaused, setLastPaused] = useState(defaultTime * 60);
 
   const location = useLocation().pathname;
   const { addTime } = useStoreStat(location);
@@ -84,9 +85,14 @@ const DisplayTimer = ({
     try {
       if (timer.isRunning) {
         timer.handlePause();
-        await addTime(defaultTime * 60 - timer.timeLeft);
+        // pauseTimer();
+        // await addTime(defaultTime * 60 - timer.timeLeft);
+        const elapsedSinceLastStart = lastPaused - timer.timeLeft;
+        await addTime(elapsedSinceLastStart);
       } else {
+        setLastPaused(timer.timeLeft);
         timer.handleStart();
+        // startTimer();
       }
     } catch (err) {
       console.log(err);
