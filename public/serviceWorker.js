@@ -1,5 +1,5 @@
 //Service Worker for Pomodoro Timer
-const OFFLINE_VERSION = "0.1.0";
+const OFFLINE_VERSION = "0.1.1";
 const CACHE_NAME = "hlfcs" + OFFLINE_VERSION;
 const OFFLINE_URL = "fallback.html";
 const assets = [
@@ -17,6 +17,11 @@ const assets = [
   "Icons/32x32.png",
   "Icons/24x24.png",
   "Icons/16x16.png",
+  "Sounds/Binaural.mp3",
+  "Sounds/Bonfire.mp3",
+  "Sounds/Library.mp3",
+  "Sounds/Rain.mp3",
+  "Sounds/River.mp3",
 ];
 
 self.addEventListener("install", (event) => {
