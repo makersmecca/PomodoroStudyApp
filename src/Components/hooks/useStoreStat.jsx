@@ -104,7 +104,7 @@ const useStoreStat = (componentName = "Unknown") => {
         newTotalSeconds = existingTotalSeconds + timeSpent;
       }
 
-      //fomratiing time
+      //formatting time
       const hours = Math.floor(newTotalSeconds / 3600);
       const minutes = Math.floor((newTotalSeconds % 3600) / 60);
       const seconds = newTotalSeconds % 60;

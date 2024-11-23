@@ -19,6 +19,8 @@ const DisplayTimer = ({
   const location = useLocation().pathname;
   const { addTime } = useStoreStat(location);
 
+  const chime = new Audio("/Sounds/notifications/OneEternityLater.mp3");
+
   const timer =
     componentName === "Breathe"
       ? useTimerComp({
@@ -44,6 +46,10 @@ const DisplayTimer = ({
           minimumMinutes: decrement,
           onComplete: async () => {
             try {
+              if (componentName === "Rest") {
+                chime.volume = 0.2;
+                chime.play();
+              }
               setBreatheState(true);
               await handleTimerComplete();
             } catch (err) {
