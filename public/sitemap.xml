@@ -2,26 +2,50 @@
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://halofocus.netlify.app/</loc>
+        <lastmod>2024-11-24</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
     </url>
-        <url>
+    <url>
         <loc>https://halofocus.netlify.app/rest</loc>
+        <lastmod>2024-11-24</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
     </url>
     <url>
         <loc>https://halofocus.netlify.app/breathe</loc>
+        <lastmod>2024-11-24</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
     </url>
     <url>
         <loc>https://halofocus.netlify.app/customtimer</loc>
+        <lastmod>2024-11-24</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
     </url>
     <url>
         <loc>https://halofocus.netlify.app/login</loc>
+        <lastmod>2024-11-24</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
     </url>
     <url>
         <loc>https://halofocus.netlify.app/signup</loc>
+        <lastmod>2024-11-24</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
     </url>
     <url>
         <loc>https://halofocus.netlify.app/todos</loc>
+        <lastmod>2024-11-24</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
     </url>
     <url>
         <loc>https://halofocus.netlify.app/stats</loc>
+        <lastmod>2024-11-24</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
     </url>
 </urlset>
