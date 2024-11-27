@@ -55,9 +55,9 @@ function App() {
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/TermsOfUse" element={<TermsOfUse />} />
       </Routes>
-      <GettingStartedPrompt />
       <InstallPrompt />
       <NetworkStatus />
+      <GettingStartedPrompt />
       {/* Fullscreen button */}
       <button
         onClick={handleFullScreen}
