@@ -13,6 +13,7 @@ import InstallPrompt from "./Components/InstallPrompt";
 import PrivacyPolicy from "./Components/OAuth consent screen requirements/PrivacyPolicy";
 import TermsOfUse from "./Components/OAuth consent screen requirements/TermsOfUse";
 import NetworkStatus from "./Components/NetworkStatus";
+import GettingStartedPrompt from "./Components/GettingStartedPrompt";
 import { useState } from "react";
 function App() {
   //register SW
@@ -54,6 +55,7 @@ function App() {
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/TermsOfUse" element={<TermsOfUse />} />
       </Routes>
+      <GettingStartedPrompt />
       <InstallPrompt />
       <NetworkStatus />
       {/* Fullscreen button */}
