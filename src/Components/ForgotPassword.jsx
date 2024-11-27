@@ -14,8 +14,8 @@ const ForgotPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(e);
-    console.log(email);
+    // console.log(e);
+    // console.log(email);
     setEmail("");
     await sendPasswordResetEmail(getAuth(), email)
       .then(() => {
