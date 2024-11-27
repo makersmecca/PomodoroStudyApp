@@ -1,7 +1,7 @@
 {
   "name": "Halo Focus",
   "short_name": "HaloFocus",
-  "description": "HaloFocus, A Pomodoro Timer application to help you focus for productive study sessions.",
+  "description": "Halo Focus, a Pomodoro-based study app designed to boost productivity with focus-oriented timers, a todo-list, and breathing exercises. Improve concentration, track study progress, and stay motivated with a minimal, distraction-free Interface. Ideal for students and professionals aiming to maximize productivity, study or work sessions.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#fff4ea",
