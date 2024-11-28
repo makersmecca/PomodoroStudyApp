@@ -221,6 +221,7 @@ const DisplayTimer = ({
 
             {/* Control buttons */}
             <button
+              aria-label="decrease time duration"
               disabled={timer.isRunning}
               onClick={timer.handleDecrease}
               className={`${
@@ -240,6 +241,7 @@ const DisplayTimer = ({
             </button>
 
             <button
+              aria-label="increase time duration"
               disabled={timer.isRunning}
               onClick={timer.handleIncrease}
               className={`${
@@ -263,6 +265,7 @@ const DisplayTimer = ({
           <div className="flex gap-4 w-full justify-center items-center h-[60px] md:h-14">
             {/*Start Pause Button */}
             <button
+              aria-label="start or pause the timer"
               onClick={handlePlayPause}
               className={`px-4 py-1 ${
                 timer.isRunning
