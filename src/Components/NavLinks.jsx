@@ -61,6 +61,7 @@ const NavLinks = ({ timerState = false }) => {
           } transition-all ease-in-out duration-300 flex cursor-pointer`}
         >
           <button
+            aria-label="open or close menu"
             ref={buttonRef}
             onClick={toggleMenu}
             className={` w-8 h-8 flex flex-col items-center justify-center focus:outline-none space-y-1`}
