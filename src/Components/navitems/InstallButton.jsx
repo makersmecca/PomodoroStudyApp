@@ -29,8 +29,10 @@ const InstallButton = () => {
 
   return (
     <button
+      aria-label="Add this app to homescreen"
       onClick={handleInstallClick}
       className="text-lg font-normal text-gray-800 hover:text-buttonColor hover:bg-opacity-95 bg-slate-300 w-full rounded-lg flex justify-center gap-x-2 items-center cursor-pointer px-2"
+      
     >
       <div className="ps-0.5">Install App</div>
       <svg
