@@ -112,7 +112,7 @@ const NavLinks = ({ timerState = false }) => {
 
             <div className={`relative inline-flex items-center`}>
               <div className="absolute translate-x-2.5 translate-y-1.5 w-full h-full bg-yellow-300 rounded-full blur-[10px]"></div>
-              <img src={logoImage} className="h-[35px] w-[35px] relative" />
+              <img src={logoImage} className="h-[35px] w-[35px] relative" alt="halofocus logo image"/>
             </div>
           ) : (
             <img
