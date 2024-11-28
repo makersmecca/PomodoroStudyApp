@@ -151,6 +151,7 @@ const DisplayTimer = ({
                   <img
                     src={logoImage}
                     className="h-[35px] md:h-[40px] w-[35px] md:w-[40px] relative transition-transform duration-300"
+                    alt="halofocus pomodoro logo"
                   />
                 </Link>
               </div>
