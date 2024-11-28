@@ -81,6 +81,7 @@ const MusicButton = ({ status }) => {
   return (
     <div className="relative cursor-default">
       <button
+        aria-label="choose music to play during your focus sessions"
         ref={buttonRef}
         onClick={() => handleMusic()}
         className="hover:scale-110 w-[40px] transition-all ease-in-out duration-200"
