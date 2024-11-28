@@ -73,7 +73,7 @@ const NetworkStatus = () => {
         <div className="prompt-content">
           <div className="flex justify-between items-center">
             {promptMsg}{" "}
-            <button onClick={handleClose}>
+            <button aria-label="close this popup" onClick={handleClose}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18"
