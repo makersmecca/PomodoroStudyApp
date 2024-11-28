@@ -66,7 +66,7 @@ const InstallPrompt = () => {
         <div className="prompt-content">
           <div className="flex justify-between items-center">
             <div className="text-xl font-semibold">Install Halo Focus!</div>
-            <button onClick={handleClose}>
+            <button aria-label="close this prompt" onClick={handleClose}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18"
@@ -115,12 +115,14 @@ const InstallPrompt = () => {
                 homescreen.
                 <div className="flex justify-around pt-3">
                   <button
+                    aria-label="add this app to your homescreen"
                     onClick={handleInstallClick}
                     className="bg-buttonColor text-white rounded-lg px-2 py-1 hover:scale-105 transition-all ease-in-out"
                   >
                     Install
                   </button>
                   <button
+                    aria-label="close this popup menu"
                     onClick={handleClose}
                     className="bg-buttonColor text-white rounded-lg px-2 py-1 hover:scale-105 transition-all ease-in-out"
                   >
