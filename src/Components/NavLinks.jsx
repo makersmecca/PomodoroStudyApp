@@ -112,7 +112,11 @@ const NavLinks = ({ timerState = false }) => {
 
             <div className={`relative inline-flex items-center`}>
               <div className="absolute translate-x-2.5 translate-y-1.5 w-full h-full bg-yellow-300 rounded-full blur-[10px]"></div>
-              <img src={logoImage} className="h-[35px] w-[35px] relative" alt="halofocus logo image"/>
+              <img
+                src={logoImage}
+                className="h-[35px] w-[35px] relative"
+                alt="halofocus logo image"
+              />
             </div>
           ) : (
             <img
@@ -126,7 +130,12 @@ const NavLinks = ({ timerState = false }) => {
           <Link to="/" className="text-lg text-gray-800 cursor-pointer px-2">
             {currentUser ? (
               <span className="font-semibold text-buttonColor text-lg">
-                Hello, {`${currentUser.displayName!== null? currentUser.displayName:""}`}
+                Hello,{" "}
+                {`${
+                  currentUser.displayName !== null
+                    ? currentUser.displayName
+                    : ""
+                }`}
               </span>
             ) : (
               <span className="font-semibold text-buttonColor text-xl">
@@ -185,7 +194,7 @@ const NavLinks = ({ timerState = false }) => {
             <CurrentUser />
           ) : (
             <>
-              {location === "/LogIn" || location === "SignUp" ? (
+              {location === "/LogIn" || location === "/SignUp" ? (
                 <></>
               ) : (
                 <>
