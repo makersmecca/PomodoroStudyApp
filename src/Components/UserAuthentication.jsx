@@ -55,7 +55,7 @@ const UserAuthentication = () => {
         setErrorMsg("Verification Email sent!");
         Navigate("/LogIn");
       })
-      .catch((err) => {
+      .catch((error) => {
         // console.log(err.message);
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -97,6 +97,7 @@ const UserAuthentication = () => {
         auth.currentUser.reload();                  //refresh the current user details
         //console.log(auth.currentUser.emailVerified);
         if (auth.currentUser.emailVerified) {
+          setErrorMsg("Logging you in..");
           Navigate("/");
         }
         else{
