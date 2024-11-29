@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "./UserContext";
 import NavLinks from "./NavLinks";
 import {
   createUserWithEmailAndPassword,
@@ -16,29 +15,27 @@ const provider = new GoogleAuthProvider();
 
 const UserAuthentication = () => {
   const Navigate = useNavigate();
-  const { currentUser } = useContext(UserContext);
-
   const [formInput, setFormInput] = useState({
     emailId: "",
     password: "",
   });
-
   const [ErrorMsg, setErrorMsg] = useState("");
-
   const location = useLocation().pathname;
   // console.log(location);
-
   const [showPw, setShowPw] = useState(false);
+  const [btnMsg, setBtnMsg] = useState("");
 
   useEffect(() => {
     setErrorMsg("");
   }, []);
 
   useEffect(() => {
-    if (currentUser) {
-      Navigate("/");
+    if (location === "/LogIn") {
+      setBtnMsg("Log In");
+    } else {
+      setBtnMsg("Sign Up");
     }
-  }, []);
+  }, [location]);
 
   const handleInput = (e) => {
     setErrorMsg("");
@@ -56,6 +53,33 @@ const UserAuthentication = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     console.log("signing up");
+    setBtnMsg(
+      <>
+        <div className="flex justify-center items-center">
+          <span className="me-5 animate-pulse">Signing Up</span>
+          <svg
+            className="animate-spin h-4 w-4"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            ></circle>
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+        </div>
+      </>
+    );
     await createUserWithEmailAndPassword(
       auth,
       formInput.emailId,
@@ -70,14 +94,18 @@ const UserAuthentication = () => {
       })
       .catch((error) => {
         // console.log(err.message);
+        setBtnMsg("Sign Up");
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode);
         console.log(errorMessage);
-        if (errorCode == "auth/email-already-in-use")
+        if (errorCode == "auth/email-already-in-use") {
           setErrorMsg("Email is already in use. Sign in to continue");
-        else if (errorCode == "auth/invalid-email")
+          setBtnMsg("Sign Up");
+        } else if (errorCode == "auth/invalid-email") {
+          setBtnMsg("Sign Up");
           setErrorMsg("Invalid Email Address!");
+        }
       });
   };
 
@@ -99,8 +127,35 @@ const UserAuthentication = () => {
     if (formInput.emailId === "" || formInput.password === "") {
       setErrorMsg("Please Enter Credentials");
       return;
+    } else {
+      setBtnMsg(
+        <>
+          <div className="flex justify-center items-center">
+            <span className="me-5 animate-pulse">Logging In</span>
+            <svg
+              className="animate-spin h-4 w-4"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+          </div>
+        </>
+      );
     }
-
     await signInWithEmailAndPassword(
       auth,
       formInput.emailId,
@@ -120,22 +175,28 @@ const UserAuthentication = () => {
         }
       })
       .catch((err) => {
+        setBtnMsg("Log In");
         console.log(err.message);
         switch (err.message) {
           case "Firebase: Error (auth/invalid-email).":
             setErrorMsg("Invalid Email");
+            setBtnMsg("Log In");
             break;
           case "Firebase: Error (auth/missing-password).":
             setErrorMsg("Invalid Password");
+            setBtnMsg("Log In");
             break;
           case "Firebase: Error (auth/invalid-credential).":
             setErrorMsg("Wrong Password");
+            setBtnMsg("Log In");
             break;
           case "Firebase: Error (auth/user-not-found).":
             setErrorMsg("User not found");
+            setBtnMsg("Log In");
             break;
           default:
             setErrorMsg("Something went wrong");
+            setBtnMsg("Log In");
             break;
         }
       });
@@ -267,7 +328,8 @@ const UserAuthentication = () => {
               className="w-full bg-buttonColor text-white rounded-lg p-2 font-semibold"
               onClick={handleSubmit}
             >
-              {location === "/LogIn" ? "Log In" : "Sign Up"}
+              {/* {location === "/LogIn" ? "Log In" : "Sign Up"} */}
+              {btnMsg}
             </button>
           </div>
         </form>
