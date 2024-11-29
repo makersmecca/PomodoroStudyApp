@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "./UserContext";
 import NavLinks from "./NavLinks";
 import {
   createUserWithEmailAndPassword,
+  sendEmailVerification,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
@@ -14,6 +16,7 @@ const provider = new GoogleAuthProvider();
 
 const UserAuthentication = () => {
   const Navigate = useNavigate();
+  const { currentUser } = useContext(UserContext);
 
   const [formInput, setFormInput] = useState({
     emailId: "",
@@ -26,6 +29,16 @@ const UserAuthentication = () => {
   // console.log(location);
 
   const [showPw, setShowPw] = useState(false);
+
+  useEffect(() => {
+    setErrorMsg("");
+  }, []);
+
+  useEffect(() => {
+    if (currentUser) {
+      Navigate("/");
+    }
+  }, []);
 
   const handleInput = (e) => {
     setErrorMsg("");
@@ -51,15 +64,32 @@ const UserAuthentication = () => {
       .then((usercredential) => {
         // const user = usercredential.user;
         // console.log(user);
+        emailverifcationsent();
+        setErrorMsg("Verification Email sent!");
         Navigate("/LogIn");
       })
-      .catch((err) => {
+      .catch((error) => {
         // console.log(err.message);
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+        if (errorCode == "auth/email-already-in-use")
+          setErrorMsg("Email is already in use. Sign in to continue");
+        else if (errorCode == "auth/invalid-email")
+          setErrorMsg("Invalid Email Address!");
       });
+  };
+
+  const emailverifcationsent = async () => {
+    await sendEmailVerification(auth.currentUser).then(() => {
+      // setErrorMsg("Verification Email sent!");
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault(e);
+    setErrorMsg("");
     location === "/LogIn" ? handleLogIn(e) : handleSignUp(e);
   };
   const handleLogIn = async (e) => {
@@ -79,7 +109,15 @@ const UserAuthentication = () => {
       .then((userCredential) => {
         // const user = userCredential.user;
         // console.log(user);
-        Navigate("/");
+        auth.currentUser.reload(); //refresh the current user details
+        //console.log(auth.currentUser.emailVerified);
+        if (auth.currentUser.emailVerified) {
+          setErrorMsg("Logging you in..");
+          Navigate("/");
+        } else {
+          setErrorMsg("Please Verify Your Email ID");
+          emailverifcationsent();
+        }
       })
       .catch((err) => {
         console.log(err.message);
@@ -261,14 +299,18 @@ const UserAuthentication = () => {
             <span>
               Don't have an account?{" "}
               <span className="font-semibold text-buttonColor">
-                <Link to="/SignUp">Sign Up.</Link>
+                <Link to="/SignUp" onClick={() => setErrorMsg("")}>
+                  Sign Up.
+                </Link>
               </span>
             </span>
           ) : (
             <span>
               Already have an account?{" "}
               <span className="font-semibold text-buttonColor">
-                <Link to="/LogIn">Log In.</Link>
+                <Link to="/LogIn" onClick={() => setErrorMsg("")}>
+                  Log In.
+                </Link>
               </span>
             </span>
           )}
