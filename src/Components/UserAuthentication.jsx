@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import NavLinks from "./NavLinks";
 import {
   createUserWithEmailAndPassword,
+  sendEmailVerification,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
@@ -66,8 +67,8 @@ const UserAuthentication = () => {
       });
   };
 
-  const emailverifcationsent = () => {
-    sendEmailVerification(auth.currentUser)
+  const emailverifcationsent = async () => {
+    await sendEmailVerification(auth.currentUser)
         .then(() => {
             // setErrorMsg("Verification Email sent!");
         });
