@@ -51,12 +51,27 @@ const UserAuthentication = () => {
       .then((usercredential) => {
         // const user = usercredential.user;
         // console.log(user);
+        emailverifcationsent();
+        setErrorMsg("Verification Email sent!");
         Navigate("/LogIn");
       })
       .catch((err) => {
         // console.log(err.message);
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+        if (errorCode == "auth/email-already-in-use") setErrorMsg("Email is already in use. Sign in to continue");
+        else if (errorCode == "auth/invalid-email") setErrorMsg("Invalid Email Address!");
       });
   };
+
+  const emailverifcationsent = () => {
+    sendEmailVerification(auth.currentUser)
+        .then(() => {
+            // setErrorMsg("Verification Email sent!");
+        });
+}
 
   const handleSubmit = (e) => {
     e.preventDefault(e);
@@ -79,7 +94,15 @@ const UserAuthentication = () => {
       .then((userCredential) => {
         // const user = userCredential.user;
         // console.log(user);
-        Navigate("/");
+        auth.currentUser.reload();                  //refresh the current user details
+        //console.log(auth.currentUser.emailVerified);
+        if (auth.currentUser.emailVerified) {
+          Navigate("/");
+        }
+        else{
+          setErrorMsg("Please Verify Your Email ID");
+          emailverifcationsent();
+        }
       })
       .catch((err) => {
         console.log(err.message);
