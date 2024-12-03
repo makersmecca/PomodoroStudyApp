@@ -89,6 +89,7 @@ const ToDo = () => {
         setTodos(updatedTodos);
         await updateFirestore(updatedTodos, userId);
         setInputValue("");
+        setToggleAdd(false);
       } catch (err) {
         // console.log("Error adding task:", err);
         alert(
@@ -161,37 +162,43 @@ const ToDo = () => {
   };
 
   // {
-  <form className="w-full max-w-md flex flex-row justify-center items-center p-4 mt-md-36 mt-20 mb-2">
-    {" "}
-    {/* Fixed position */}
-    <input
-      type="text"
-      placeholder="Add New Task"
-      onChange={handleInput}
-      value={inputValue}
-      className="border rounded-lg px-2 py-2 mr-2 flex-grow"
-    />
-    <button
-      onClick={handleAddTask}
-      className="bg-buttonColor text-white rounded-lg p-2"
-      type="submit"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        fill="currentColor"
-        className="bi bi-plus"
-        viewBox="0 0 16 16"
-      >
-        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-      </svg>
-    </button>
-  </form>;
+  // <form className="w-full max-w-md flex flex-row justify-center items-center p-4 mt-md-36 mt-20 mb-2">
+  //   {" "}
+  //   {/* Fixed position */}
+  //   <input
+  //     type="text"
+  //     placeholder="Add New Task"
+  //     onChange={handleInput}
+  //     value={inputValue}
+  //     className="border rounded-lg px-2 py-2 mr-2 flex-grow"
+  //   />
+  //   <button
+  //     onClick={handleAddTask}
+  //     className="bg-buttonColor text-white rounded-lg p-2"
+  //     type="submit"
+  //   >
+  //     <svg
+  //       xmlns="http://www.w3.org/2000/svg"
+  //       width="24"
+  //       height="24"
+  //       fill="currentColor"
+  //       className="bi bi-plus"
+  //       viewBox="0 0 16 16"
+  //     >
+  //       <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+  //     </svg>
+  //   </button>
+  // </form>;
   // }
 
   const toggleTaskAdd = () => {
     setToggleAdd((prevState) => !prevState);
+    // console.log(toggleAdd);
+  };
+
+  const handleClose = (e) => {
+    e.preventDefault();
+    setToggleAdd(false);
   };
   return (
     <div className="flex flex-col min-h-screen">
@@ -199,14 +206,19 @@ const ToDo = () => {
         <NavLinks />
       </div>
 
+      {/* wide screen add task button */}
       {currentUser && (
-        <div className="hidden md:block fixed bottom-20 right-8 md:right-[72px] md:bottom-[150px] p-2 cursor-pointer hover:scale-125">
+        <div
+          className={`${
+            toggleAdd ? "rotate-45" : "rotate-0"
+          } hidden md:block fixed bottom-20 right-8 md:right-[72px] md:bottom-[150px] p-2 cursor-pointer hover:scale-125 transition-all ease-in-out`}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="45"
             height="45"
             fill="currentColor"
-            class="bi bi-plus-circle-fill"
+            className="bi bi-plus-circle-fill"
             viewBox="0 0 16 16"
             onClick={toggleTaskAdd}
           >
@@ -225,10 +237,10 @@ const ToDo = () => {
           </Link>
         </div>
       ) : (
-        <div className="flex-grow flex flex-col items-center">
+        <div className="flex-grow flex flex-col items-center mb-4">
           {" "}
           {/*pt-20 for 80px top padding */}
-          <div className="md:mt-40 mt-32 w-80 sm:w-10/12 max-w-md rounded-lg shadow-md overflow-hidden">
+          <div className="md:mt-40 mt-[150px] w-80 sm:w-10/12 max-w-md rounded-lg shadow-md overflow-hidden">
             {" "}
             {/* Added mt-24 to account for fixed input */}
             <div className="text-xl md:text-3xl flex justify-between items-center p-4 bg-buttonColor text-white">
@@ -287,7 +299,7 @@ const ToDo = () => {
                             type="checkbox"
                             checked={todo.completed}
                             onChange={() => handleToggleComplete(index)}
-                            className="h-4 w-4 flex-shrink-0"
+                            className="h-4 w-4 flex-shrink-0 self-center"
                             id={index}
                           />
                           {editingIndex === index ? (
@@ -408,13 +420,85 @@ const ToDo = () => {
         </div>
       )}
 
+      {/* popup menu to add a new task */}
+      <div
+        className={`${
+          toggleAdd ? "block" : "hidden"
+        } absolute w-[330px] md:w-96 z-50 bottom-[200px] md:right-14 md:bottom-[225px] justify-center items-center self-center bg-pastelYellow border-2 border-buttonColor rounded-xl`}
+      >
+        <form
+          autoFocus={toggleAdd}
+          className="w-full max-w-md flex flex-row justify-center items-center p-4 me-2"
+        >
+          {" "}
+          {/* Fixed position */}
+          <textarea
+            type="text"
+            rows={5}
+            placeholder="Add New Task"
+            onChange={handleInput}
+            value={inputValue}
+            autoFocus={toggleAdd}
+            className="border rounded-lg px-2 py-2 mr-2 flex-grow max-h-[250px]"
+          />
+          <div className="flex flex-col gap-2 ms-2">
+            <button
+              onClick={handleAddTask}
+              className="bg-buttonColor text-white rounded-lg p-2"
+              type="submit"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="currentColor"
+                className="bi bi-check-circle-fill"
+                viewBox="0 0 16 16"
+              >
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+              </svg>
+            </button>
+            <button
+              onClick={handleClose}
+              className="bg-buttonColor text-white rounded-lg p-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="currentColor"
+                className="bi bi-x-circle-fill"
+                viewBox="0 0 16 16"
+              >
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+
       {currentUser && (
         <div
-          className="md:hidden fixed bottom-28 self-center bg-buttonColor rounded-xl w-80 md:w-10/12 h-10 flex items-center justify-center text-white"
+          className="md:hidden mb-20 self-center bg-buttonColor rounded-xl w-80 md:w-10/12 h-10 flex items-center justify-center text-white"
           onClick={toggleTaskAdd}
         >
-          <span className="text-3xl me-4">+</span>
-          <span className="text-xl">Add New Task</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            fill="currentColor"
+            className={`${
+              toggleAdd ? "rotate-45" : "rotate-0"
+            } transition-all ease-in-out bi bi-plus mt-0.5`}
+            viewBox="0 0 16 16"
+          >
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+          </svg>
+          {toggleAdd ? (
+            <span className="text-xl">Cancel Task</span>
+          ) : (
+            <span className="text-xl">Add New Task</span>
+          )}
         </div>
       )}
     </div>
