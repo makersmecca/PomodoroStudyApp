@@ -159,10 +159,52 @@ const ToDo = () => {
     setEditValue("");
   };
 
+  // {
+  <form className="w-full max-w-md flex flex-row justify-center items-center p-4 mt-md-36 mt-20 mb-2">
+    {" "}
+    {/* Fixed position */}
+    <input
+      type="text"
+      placeholder="Add New Task"
+      onChange={handleInput}
+      value={inputValue}
+      className="border rounded-lg px-2 py-2 mr-2 flex-grow"
+    />
+    <button
+      onClick={handleAddTask}
+      className="bg-buttonColor text-white rounded-lg p-2"
+      type="submit"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        fill="currentColor"
+        className="bi bi-plus"
+        viewBox="0 0 16 16"
+      >
+        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+      </svg>
+    </button>
+  </form>;
+  // }
   return (
     <div className="flex flex-col min-h-screen">
       <div className="flex justify-between w-full items-center p-4">
         <NavLinks />
+      </div>
+
+      <div className="block fixed bottom-20 right-8 md:right-[72px] md:bottom-[150px] p-2 cursor-pointer">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="45"
+          height="45"
+          fill="currentColor"
+          class="bi bi-plus-circle-fill"
+          viewBox="0 0 16 16"
+        >
+          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+        </svg>
       </div>
 
       {!currentUser ? (
@@ -178,37 +220,10 @@ const ToDo = () => {
         <div className="flex-grow flex flex-col items-center">
           {" "}
           {/*pt-20 for 80px top padding */}
-          <form className="w-full max-w-md flex flex-row justify-center items-center p-4 mt-md-36 mt-20 mb-2">
-            {" "}
-            {/* Fixed position */}
-            <input
-              type="text"
-              placeholder="Add New Task"
-              onChange={handleInput}
-              value={inputValue}
-              className="border rounded-lg px-2 py-2 mr-2 flex-grow"
-            />
-            <button
-              onClick={handleAddTask}
-              className="bg-buttonColor text-white rounded-lg p-2"
-              type="submit"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="currentColor"
-                className="bi bi-plus"
-                viewBox="0 0 16 16"
-              >
-                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-              </svg>
-            </button>
-          </form>
-          <div className="w-80 sm:w-10/12 max-w-md rounded-lg shadow-md overflow-hidden">
+          <div className="md:mt-40 mt-32 w-80 sm:w-10/12 max-w-md rounded-lg shadow-md overflow-hidden">
             {" "}
             {/* Added mt-24 to account for fixed input */}
-            <div className="text-xl md:text-2xl flex justify-between items-center p-4 bg-buttonColor text-white">
+            <div className="text-xl md:text-3xl flex justify-between items-center p-4 bg-buttonColor text-white">
               <div>
                 <Link to="/">
                   <svg
@@ -252,7 +267,7 @@ const ToDo = () => {
                 <span>Loading Tasks</span>
               </div>
             ) : todos.length > 0 ? (
-              <div className="max-h-[480px] max-h-md-[calc(100vh-50rem)] overflow-y-auto p-4 bg-pastelYellow">
+              <div className="max-h-[480px] md:max-h-[calc(100vh-20rem)] overflow-y-auto p-4 bg-pastelYellow">
                 {" "}
                 {/* Adjust max height as needed */}
                 <ul className="space-y-2">
