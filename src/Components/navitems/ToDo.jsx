@@ -17,6 +17,7 @@ const ToDo = () => {
   //editing existing task
   const [editingIndex, setEditingIndex] = useState(null);
   const [editValue, setEditValue] = useState("");
+  const [toggleAdd, setToggleAdd] = useState(false);
 
   const { currentUser } = useContext(UserContext);
 
@@ -188,24 +189,31 @@ const ToDo = () => {
     </button>
   </form>;
   // }
+
+  const toggleTaskAdd = () => {
+    setToggleAdd((prevState) => !prevState);
+  };
   return (
     <div className="flex flex-col min-h-screen">
       <div className="flex justify-between w-full items-center p-4">
         <NavLinks />
       </div>
 
-      <div className="block fixed bottom-20 right-8 md:right-[72px] md:bottom-[150px] p-2 cursor-pointer">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="45"
-          height="45"
-          fill="currentColor"
-          class="bi bi-plus-circle-fill"
-          viewBox="0 0 16 16"
-        >
-          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
-        </svg>
-      </div>
+      {currentUser && (
+        <div className="hidden md:block fixed bottom-20 right-8 md:right-[72px] md:bottom-[150px] p-2 cursor-pointer hover:scale-125">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="45"
+            height="45"
+            fill="currentColor"
+            class="bi bi-plus-circle-fill"
+            viewBox="0 0 16 16"
+            onClick={toggleTaskAdd}
+          >
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+          </svg>
+        </div>
+      )}
 
       {!currentUser ? (
         <div className="flex-grow flex flex-col items-center justify-center top-1/2">
@@ -267,124 +275,128 @@ const ToDo = () => {
                 <span>Loading Tasks</span>
               </div>
             ) : todos.length > 0 ? (
-              <div className="max-h-[480px] md:max-h-[calc(100vh-20rem)] overflow-y-auto p-4 bg-pastelYellow">
-                {" "}
-                {/* Adjust max height as needed */}
-                <ul className="space-y-2">
-                  {todos.map((todo, index) => (
-                    <li key={index} className="flex gap-2 mb-2 w-full">
-                      <div className="flex items-start gap-2 p-2 bg-gray-50 rounded-lg shadow-sm w-[calc(100%-80px)]">
-                        <input
-                          type="checkbox"
-                          checked={todo.completed}
-                          onChange={() => handleToggleComplete(index)}
-                          className="h-4 w-4 flex-shrink-0"
-                          id={index}
-                        />
-                        {editingIndex === index ? (
-                          // Edit mode
-                          <div className="min-w-0 flex-1">
-                            <input
-                              type="text"
-                              value={editValue}
-                              onChange={handleEditChange}
-                              className="border rounded w-full truncate"
-                              autoFocus
-                            />
-                          </div>
-                        ) : (
-                          // View mode
-                          <span
-                            className={`${
-                              todo.completed ? "line-through text-gray-500" : ""
-                            } break-words whitespace-normal inline-block w-[calc(100%-50px)]`}
-                          >
-                            {todo.task}
-                          </span>
-                        )}
-                      </div>
-                      <div className="flex items-center gap-2 flex-shrink-0">
-                        {editingIndex === index ? (
-                          <>
-                            <button
-                              onClick={() => handleEditSave(index)}
-                              className="bg-buttonColor px-1.5 py-0.5 text-white rounded hover:bg-pastelPink"
+              <>
+                <div className="max-h-[480px] md:max-h-[calc(100vh-20rem)] overflow-y-auto p-4 bg-pastelYellow">
+                  {" "}
+                  {/* Adjust max height as needed */}
+                  <ul className="space-y-2">
+                    {todos.map((todo, index) => (
+                      <li key={index} className="flex gap-2 mb-2 w-full">
+                        <div className="flex items-start gap-2 p-2 bg-gray-50 rounded-lg shadow-sm w-[calc(100%-80px)]">
+                          <input
+                            type="checkbox"
+                            checked={todo.completed}
+                            onChange={() => handleToggleComplete(index)}
+                            className="h-4 w-4 flex-shrink-0"
+                            id={index}
+                          />
+                          {editingIndex === index ? (
+                            // Edit mode
+                            <div className="min-w-0 flex-1">
+                              <input
+                                type="text"
+                                value={editValue}
+                                onChange={handleEditChange}
+                                className="border rounded w-full truncate"
+                                autoFocus
+                              />
+                            </div>
+                          ) : (
+                            // View mode
+                            <span
+                              className={`${
+                                todo.completed
+                                  ? "line-through text-gray-500"
+                                  : ""
+                              } break-words whitespace-normal inline-block w-[calc(100%-50px)]`}
                             >
-                              {/* Save Edit */}
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="25"
-                                height="25"
-                                fill="currentColor"
-                                className="bi bi-check-lg"
-                                viewBox="0 0 16 16"
+                              {todo.task}
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-2 flex-shrink-0">
+                          {editingIndex === index ? (
+                            <>
+                              <button
+                                onClick={() => handleEditSave(index)}
+                                className="bg-buttonColor px-1.5 py-0.5 text-white rounded hover:bg-pastelPink"
                               >
-                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z" />
-                              </svg>
-                            </button>
-                            <button
-                              onClick={handleEditCancel}
-                              className="bg-realRed text-white px-2 py-1 rounded hover:bg-gray-600 text-sm"
-                            >
-                              {/* Cancel Edit */}
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="20"
-                                height="20"
-                                fill="currentColor"
-                                className="bi bi-x-lg"
-                                viewBox="0 0 16 16"
+                                {/* Save Edit */}
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="25"
+                                  height="25"
+                                  fill="currentColor"
+                                  className="bi bi-check-lg"
+                                  viewBox="0 0 16 16"
+                                >
+                                  <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z" />
+                                </svg>
+                              </button>
+                              <button
+                                onClick={handleEditCancel}
+                                className="bg-realRed text-white px-2 py-1 rounded hover:bg-gray-600 text-sm"
                               >
-                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
-                              </svg>
-                            </button>
-                          </>
-                        ) : (
-                          <>
-                            <button
-                              onClick={() => handleEditStart(index)}
-                              className="bg-buttonColor text-white px-2 py-1 rounded hover:bg-opacity-90 text-sm"
-                            >
-                              {/* Edit Task */}
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="20"
-                                height="20"
-                                fill="currentColor"
-                                className="bi bi-pencil-square"
-                                viewBox="0 0 16 16"
+                                {/* Cancel Edit */}
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="20"
+                                  height="20"
+                                  fill="currentColor"
+                                  className="bi bi-x-lg"
+                                  viewBox="0 0 16 16"
+                                >
+                                  <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                                </svg>
+                              </button>
+                            </>
+                          ) : (
+                            <>
+                              <button
+                                onClick={() => handleEditStart(index)}
+                                className="bg-buttonColor text-white px-2 py-1 rounded hover:bg-opacity-90 text-sm"
                               >
-                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                <path
-                                  fillRule="evenodd"
-                                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"
-                                />
-                              </svg>
-                            </button>
-                            <button
-                              onClick={() => handleDeleteTask(index)}
-                              className="bg-realRed text-white px-2 py-1 rounded hover:bg-opacity-80 text-sm"
-                            >
-                              {/* Delete Task */}
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="20"
-                                height="20"
-                                fill="currentColor"
-                                className="bi bi-trash"
-                                viewBox="0 0 16 16"
+                                {/* Edit Task */}
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="20"
+                                  height="20"
+                                  fill="currentColor"
+                                  className="bi bi-pencil-square"
+                                  viewBox="0 0 16 16"
+                                >
+                                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"
+                                  />
+                                </svg>
+                              </button>
+                              <button
+                                onClick={() => handleDeleteTask(index)}
+                                className="bg-realRed text-white px-2 py-1 rounded hover:bg-opacity-80 text-sm"
                               >
-                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                              </svg>
-                            </button>
-                          </>
-                        )}
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                                {/* Delete Task */}
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="20"
+                                  height="20"
+                                  fill="currentColor"
+                                  className="bi bi-trash"
+                                  viewBox="0 0 16 16"
+                                >
+                                  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                                </svg>
+                              </button>
+                            </>
+                          )}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </>
             ) : (
               <div className="flex items-center justify-center p-4">
                 <p className="text-center">
@@ -393,6 +405,16 @@ const ToDo = () => {
               </div>
             )}
           </div>
+        </div>
+      )}
+
+      {currentUser && (
+        <div
+          className="md:hidden fixed bottom-28 self-center bg-buttonColor rounded-xl w-80 md:w-10/12 h-10 flex items-center justify-center text-white"
+          onClick={toggleTaskAdd}
+        >
+          <span className="text-3xl me-4">+</span>
+          <span className="text-xl">Add New Task</span>
         </div>
       )}
     </div>
