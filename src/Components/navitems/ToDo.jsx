@@ -178,7 +178,7 @@ const ToDo = () => {
         <div className="flex-grow flex flex-col items-center">
           {" "}
           {/*pt-20 for 80px top padding */}
-          <form className="w-full max-w-md flex flex-row justify-center items-center p-4 fixed top-28 md:top-40">
+          <form className="w-full max-w-md flex flex-row justify-center items-center p-4 mt-md-36 mt-20 mb-2">
             {" "}
             {/* Fixed position */}
             <input
@@ -205,7 +205,7 @@ const ToDo = () => {
               </svg>
             </button>
           </form>
-          <div className="w-80 sm:w-10/12 max-w-md mt-52 rounded-lg shadow-md overflow-hidden">
+          <div className="w-80 sm:w-10/12 max-w-md rounded-lg shadow-md overflow-hidden">
             {" "}
             {/* Added mt-24 to account for fixed input */}
             <div className="text-xl md:text-2xl flex justify-between items-center p-4 bg-buttonColor text-white">
@@ -252,7 +252,7 @@ const ToDo = () => {
                 <span>Loading Tasks</span>
               </div>
             ) : todos.length > 0 ? (
-              <div className="max-h-[calc(100vh-16rem)] overflow-y-auto p-4 bg-pastelYellow">
+              <div className="max-h-[480px] max-h-md-[calc(100vh-50rem)] overflow-y-auto p-4 bg-pastelYellow">
                 {" "}
                 {/* Adjust max height as needed */}
                 <ul className="space-y-2">
