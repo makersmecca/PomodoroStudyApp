@@ -208,7 +208,8 @@ const ToDo = () => {
 
       {/* wide screen add task button */}
       {currentUser && (
-        <div
+        <button
+          type="button"
           className={`${
             toggleAdd ? "rotate-45" : "rotate-0"
           } hidden md:block fixed bottom-20 right-8 md:right-[72px] md:bottom-[150px] p-2 cursor-pointer hover:scale-125 transition-all ease-in-out`}
@@ -224,7 +225,7 @@ const ToDo = () => {
           >
             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
           </svg>
-        </div>
+        </button>
       )}
 
       {!currentUser ? (
@@ -439,7 +440,7 @@ const ToDo = () => {
             onChange={handleInput}
             value={inputValue}
             autoFocus={toggleAdd}
-            className="border rounded-lg px-2 py-2 mr-2 flex-grow max-h-[250px]"
+            className="border rounded-lg px-2 py-2 mr-2 flex-grow max-h-[250px] min-h-[138px]"
           />
           <div className="flex flex-col gap-2 ms-2">
             <button
@@ -478,9 +479,10 @@ const ToDo = () => {
       </div>
 
       {currentUser && (
-        <div
+        <button
           className="md:hidden mb-20 self-center bg-buttonColor rounded-xl w-80 md:w-10/12 h-10 flex items-center justify-center text-white"
           onClick={toggleTaskAdd}
+          type="button"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -499,7 +501,7 @@ const ToDo = () => {
           ) : (
             <span className="text-xl">Add New Task</span>
           )}
-        </div>
+        </button>
       )}
     </div>
   );
