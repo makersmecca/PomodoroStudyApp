@@ -423,8 +423,8 @@ const ToDo = () => {
       {/* popup menu to add a new task */}
       <div
         className={`${
-          toggleAdd ? "block" : "hidden"
-        } absolute w-[330px] md:w-96 z-50 bottom-[200px] md:right-14 md:bottom-[225px] justify-center items-center self-center bg-pastelYellow border-2 border-buttonColor rounded-xl`}
+          toggleAdd ? "scale-100" : "scale-0"
+        } transition-all ease-in-out duration-100 absolute w-[330px] md:w-96 z-50 bottom-[200px] md:right-14 md:bottom-[225px] justify-center items-center self-center bg-pastelYellow border-2 border-buttonColor rounded-xl`}
       >
         <form
           autoFocus={toggleAdd}
