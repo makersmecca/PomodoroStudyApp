@@ -12,3 +12,6 @@
     font-style: normal;
   }
 }
+html, body {
+  @apply scrollbar-hidden overflow-y-auto;
+}
