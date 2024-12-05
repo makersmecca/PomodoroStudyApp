@@ -24,7 +24,21 @@ const UserAuthentication = () => {
   // console.log(location);
   const [showPw, setShowPw] = useState(false);
   const [btnMsg, setBtnMsg] = useState("");
-
+  const [googleBtnMsg, setGoogleBtnMsg] = useState(
+    <>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        className="bi bi-google me-2 mt-0.5"
+        viewBox="0 0 16 16"
+      >
+        <path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z" />
+      </svg>
+      Continue With Google
+    </>
+  );
   useEffect(() => {
     setErrorMsg("");
   }, []);
@@ -204,6 +218,33 @@ const UserAuthentication = () => {
   //google sign in popup authentication
   const handleGoogleSignIn = () => {
     // console.log("continuing with google");
+
+    setGoogleBtnMsg(
+      <div className="flex justify-center items-center">
+        <span className="me-5 animate-pulse">Working Google Magic</span>
+        <svg
+          className="animate-spin h-4 w-4"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            className="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            strokeWidth="4"
+          ></circle>
+          <path
+            className="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          ></path>
+        </svg>
+      </div>
+    );
+
     signInWithPopup(auth, provider)
       .then((result) => {
         // const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -213,6 +254,21 @@ const UserAuthentication = () => {
       })
       .catch((err) => {
         // console.log(err.message);
+        setGoogleBtnMsg(
+          <>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              className="bi bi-google me-2 mt-0.5"
+              viewBox="0 0 16 16"
+            >
+              <path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z" />
+            </svg>
+            Continue With Google
+          </>
+        );
       });
   };
 
@@ -343,17 +399,7 @@ const UserAuthentication = () => {
             className="w-full bg-softOrange text-white font-semibold rounded-lg p-2 flex justify-center items-center"
             onClick={handleGoogleSignIn}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              className="bi bi-google me-2 mt-0.5"
-              viewBox="0 0 16 16"
-            >
-              <path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z" />
-            </svg>
-            Continue With Google
+            {googleBtnMsg}
           </button>
         </div>
         <div className="mt-4">
