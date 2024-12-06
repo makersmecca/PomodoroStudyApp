@@ -62,11 +62,42 @@ const DisplayTimer = ({
   const handleTimerComplete = async () => {
     console.log("timer completed");
     try {
+      if (Notification.permission === "granted") {
+        const timerCompleteNotification = new Notification("Timer Complete!", {
+          body: `Your ${componentName} session of (${defaultTime} minutes) has ended.\n${
+            componentName === "Rest"
+              ? "Ready to start working?"
+              : "Time for a break!"
+          }`,
+          icon: "/Icons/pwa/128x128.png",
+          badge: "/Icons/pwa/128x128.png",
+          silent: false,
+          vibrate: [200, 100, 200],
+          tag: "timer-notification",
+          renotify: true,
+          requireInteraction: true,
+        });
+        timerCompleteNotification.onclick = (e) => {
+          e.preventDefault();
+          window.focus();
+          timerCompleteNotification.close();
+        };
+      }
       await addTime(defaultTime * 60);
       timer.handleCancel();
       setLastPaused(defaultTime * 60);
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const requestNotificationPermission = async () => {
+    if (!("Notification" in window)) {
+      console.log("notifications not supported");
+      return;
+    }
+    if (Notification.permission !== "granted") {
+      await Notification.requestPermission();
     }
   };
 
@@ -129,6 +160,24 @@ const DisplayTimer = ({
       setBreatheState(true);
     }
   }, [componentName, timer.isRunning, timer.isPaused]);
+
+  useEffect(() => {
+    requestNotificationPermission();
+  }, []);
+
+  useEffect(() => {
+    if (timer.isRunning) {
+      document.title = `${timer.formatTime(
+        timer.timeLeft
+      )} - ${componentName} | HaloFocus`;
+    } else {
+      document.title = "Halo Focus Pomodoro";
+    }
+
+    return () => {
+      document.title = "Halo Focus Pomodoro";
+    };
+  }, [timer.timeLeft, timer.isRunning, componentName, timer.isPaused]);
 
   return (
     <>
