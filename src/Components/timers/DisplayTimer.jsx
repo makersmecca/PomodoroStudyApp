@@ -82,27 +82,33 @@ const DisplayTimer = ({
       //     window.focus();
       //     timerCompleteNotification.close();
       //   };
-      if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+      if (
+        "serviceWorker" in navigator &&
+        navigator.serviceWorker.controller &&
+        Notification.permission === "granted"
+      ) {
         // Send message to service worker
         navigator.serviceWorker.controller.postMessage({
-          type: 'SHOW_NOTIFICATION',
+          type: "SHOW_NOTIFICATION",
           payload: {
-            title: 'Timer Complete!',
+            title: "Timer Complete!",
             options: {
-              body: `Your ${componentName} session of (${timer.defaultDuration/60} minutes) has ended.\n${
+              body: `Your ${componentName} session of (${
+                timer.defaultDuration / 60
+              } minutes) has ended.\n${
                 componentName === "Rest"
                   ? "Ready to start working?"
                   : "Time for a break!"
               }`,
-              icon: '/Icons/pwa/128x128.png',
-              badge: '/Icons/pwa/128x128.png',
+              icon: "/Icons/pwa/128x128.png",
+              badge: "/Icons/pwa/128x128.png",
               silent: false,
               vibrate: [200, 100, 200],
-              tag: 'timer-notification',
+              tag: "timer-notification",
               renotify: true,
               requireInteraction: true,
-            }
-          }
+            },
+          },
         });
       }
       await addTime(defaultTime * 60);
