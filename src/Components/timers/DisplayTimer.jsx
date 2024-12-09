@@ -89,7 +89,7 @@ const DisplayTimer = ({
           payload: {
             title: 'Timer Complete!',
             options: {
-              body: `Your ${componentName} session of (${defaultTime} minutes) has ended.\n${
+              body: `Your ${componentName} session of (${timer.defaultDuration/60} minutes) has ended.\n${
                 componentName === "Rest"
                   ? "Ready to start working?"
                   : "Time for a break!"

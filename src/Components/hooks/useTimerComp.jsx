@@ -118,6 +118,7 @@ const useTimerComp = ({
     handleCancel,
     handleIncrease,
     handleDecrease,
+    defaultDuration
   };
 };
 
