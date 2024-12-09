@@ -60,28 +60,50 @@ const DisplayTimer = ({
         });
 
   const handleTimerComplete = async () => {
-    console.log("timer completed");
+    // console.log("timer completed");
     try {
-      if (Notification.permission === "granted") {
-        const timerCompleteNotification = new Notification("Timer Complete!", {
-          body: `Your ${componentName} session of (${defaultTime} minutes) has ended.\n${
-            componentName === "Rest"
-              ? "Ready to start working?"
-              : "Time for a break!"
-          }`,
-          icon: "/Icons/pwa/128x128.png",
-          badge: "/Icons/pwa/128x128.png",
-          silent: false,
-          vibrate: [200, 100, 200],
-          tag: "timer-notification",
-          renotify: true,
-          requireInteraction: true,
+      // if (Notification.permission === "granted") {
+      //   const timerCompleteNotification = new Notification("Timer Complete!", {
+      //     body: `Your ${componentName} session of (${defaultTime} minutes) has ended.\n${
+      //       componentName === "Rest"
+      //         ? "Ready to start working?"
+      //         : "Time for a break!"
+      //     }`,
+      //     icon: "/Icons/pwa/128x128.png",
+      //     badge: "/Icons/pwa/128x128.png",
+      //     silent: false,
+      //     vibrate: [200, 100, 200],
+      //     tag: "timer-notification",
+      //     renotify: true,
+      //     requireInteraction: true,
+      //   });
+      //   timerCompleteNotification.onclick = (e) => {
+      //     e.preventDefault();
+      //     window.focus();
+      //     timerCompleteNotification.close();
+      //   };
+      if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        // Send message to service worker
+        navigator.serviceWorker.controller.postMessage({
+          type: 'SHOW_NOTIFICATION',
+          payload: {
+            title: 'Timer Complete!',
+            options: {
+              body: `Your ${componentName} session of (${defaultTime} minutes) has ended.\n${
+                componentName === "Rest"
+                  ? "Ready to start working?"
+                  : "Time for a break!"
+              }`,
+              icon: '/Icons/pwa/128x128.png',
+              badge: '/Icons/pwa/128x128.png',
+              silent: false,
+              vibrate: [200, 100, 200],
+              tag: 'timer-notification',
+              renotify: true,
+              requireInteraction: true,
+            }
+          }
         });
-        timerCompleteNotification.onclick = (e) => {
-          e.preventDefault();
-          window.focus();
-          timerCompleteNotification.close();
-        };
       }
       await addTime(defaultTime * 60);
       timer.handleCancel();
