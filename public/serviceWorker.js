@@ -1,5 +1,5 @@
 //Service Worker for Pomodoro Timer
-const OFFLINE_VERSION = "0.1.1";
+const OFFLINE_VERSION = "0.2.1";
 const CACHE_NAME = "hlfcs" + OFFLINE_VERSION;
 const OFFLINE_URL = "fallback.html";
 const assets = [
@@ -79,3 +79,36 @@ self.addEventListener("fetch", (event) => {
     );
   }
 });
+
+self.addEventListener('message', (event) => {
+  // console.log(event);
+  if (event.data.type === 'SHOW_NOTIFICATION') {
+    const { title, options } = event.data.payload;
+    self.registration.showNotification(title, options)
+      .catch(err => console.error('Error showing notification:', err));
+  }
+});
+
+// Handle notification clicks
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  
+  // Focus or open the window when notification is clicked
+  event.waitUntil(
+    clients.matchAll({ type: 'window' }).then(clientList => {
+      // If we have a client, focus it
+      if (clientList.length > 0) {
+        let client = clientList[0];
+        for (let i = 0; i < clientList.length; i++) {
+          if (clientList[i].focused) {
+            client = clientList[i];
+          }
+        }
+        return client.focus();
+      }
+      // If no client, open new window
+      return clients.openWindow('/');
+    })
+  );
+});
+
